@@ -1,0 +1,817 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="theme-color" content="#667eea">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>Celebration Point</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="assets/Logo.png" alt="Celebration Point Logo" class="logo">
+            </div>
+
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#home" class="nav-button">
+                        <i class="icon fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-button">
+                        <i class="icon fas fa-info-circle"></i>
+                        <span>About</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#gallery" class="nav-button">
+                        <i class="icon fas fa-images"></i>
+                        <span>Gallery</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#packages" class="nav-button">
+                        <i class="icon fas fa-box"></i>
+                        <span>Packages</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#reviews" class="nav-button">
+                        <i class="icon fas fa-plus-circle"></i>
+                        <span>Add-ons</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="#events" class="nav-button">
+                        <i class="icon fas fa-calendar-alt"></i>
+                        <span>Events</span>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="booking.html" class="nav-button book-event-btn">
+                        <i class="icon fas fa-calendar-check"></i>
+                        <span>Book Event</span>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Mobile Menu Hamburger -->
+            <div id="hamburgerBtn" class="hamburger">
+                <img src="assets/wood-texture.png" alt="Menu">
+            </div>
+
+
+            <!-- Mobile Navigation Menu -->
+            <div id="mobileMenu"
+                style="position: fixed; top: 0; left: -100%; width: 100%; height: 100vh; background: transparent; z-index: 9999; transition: left 0.3s ease-in-out; padding: 80px 0 20px 0;">
+                <div
+                    style="display: flex; flex-direction: column; align-items: center; gap: 0; height: 100%; overflow-y: auto;">
+
+                    <!-- Close Button -->
+                    <button onclick="closeMobileMenu()"
+                        style="position: absolute; top: 20px; right: 20px; background: transparent; border: none; font-size: 30px; color: #333; cursor: pointer; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: background 0.3s ease;">×</button>
+
+                    <!-- Navigation Items -->
+                    <a href="#home" onclick="closeMobileMenu()"
+                        style="background-image: url('assets/navcomponent.png'); background-size: 100% 100%; background-repeat: no-repeat; background-position: center; color: #333; text-decoration: none; font-weight: 700; font-size: 13px; padding: 15px 25px; border-radius: 8px; transition: all 0.3s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 140px; min-height: 80px; text-shadow: 0px 1px 2px rgba(255, 255, 255, 0.8); margin: 0;">
+                        <i class="fas fa-home"
+                            style="font-size: 24px; margin-bottom: 6px; color: #333; filter: drop-shadow(0px 1px 1px rgba(255, 255, 255, 0.8));"></i>
+                        <span
+                            style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #333;">Home</span>
+                    </a>
+
+                    <a href="#about" onclick="closeMobileMenu()"
+                        style="background-image: url('assets/navcomponent.png'); background-size: 100% 100%; background-repeat: no-repeat; background-position: center; color: #333; text-decoration: none; font-weight: 700; font-size: 13px; padding: 15px 25px; border-radius: 8px; transition: all 0.3s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 140px; min-height: 80px; text-shadow: 0px 1px 2px rgba(255, 255, 255, 0.8); margin: 0;">
+                        <i class="fas fa-info-circle"
+                            style="font-size: 24px; margin-bottom: 6px; color: #333; filter: drop-shadow(0px 1px 1px rgba(255, 255, 255, 0.8));"></i>
+                        <span
+                            style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #333;">About</span>
+                    </a>
+
+                    <a href="#gallery" onclick="closeMobileMenu()"
+                        style="background-image: url('assets/navcomponent.png'); background-size: 100% 100%; background-repeat: no-repeat; background-position: center; color: #333; text-decoration: none; font-weight: 700; font-size: 13px; padding: 15px 25px; border-radius: 8px; transition: all 0.3s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 140px; min-height: 80px; text-shadow: 0px 1px 2px rgba(255, 255, 255, 0.8); margin: 0;">
+                        <i class="fas fa-images"
+                            style="font-size: 24px; margin-bottom: 6px; color: #333; filter: drop-shadow(0px 1px 1px rgba(255, 255, 255, 0.8));"></i>
+                        <span
+                            style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #333;">Gallery</span>
+                    </a>
+
+                    <a href="#packages" onclick="closeMobileMenu()"
+                        style="background-image: url('assets/navcomponent.png'); background-size: 100% 100%; background-repeat: no-repeat; background-position: center; color: #333; text-decoration: none; font-weight: 700; font-size: 13px; padding: 15px 25px; border-radius: 8px; transition: all 0.3s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 140px; min-height: 80px; text-shadow: 0px 1px 2px rgba(255, 255, 255, 0.8); margin: 0;">
+                        <i class="fas fa-box"
+                            style="font-size: 24px; margin-bottom: 6px; color: #333; filter: drop-shadow(0px 1px 1px rgba(255, 255, 255, 0.8));"></i>
+                        <span
+                            style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #333;">Packages</span>
+                    </a>
+
+                    <a href="#addons" onclick="closeMobileMenu()"
+                        style="background-image: url('assets/navcomponent.png'); background-size: 100% 100%; background-repeat: no-repeat; background-position: center; color: #333; text-decoration: none; font-weight: 700; font-size: 13px; padding: 15px 25px; border-radius: 8px; transition: all 0.3s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 140px; min-height: 80px; text-shadow: 0px 1px 2px rgba(255, 255, 255, 0.8); margin: 0;">
+                        <i class="fas fa-plus-circle"
+                            style="font-size: 24px; margin-bottom: 6px; color: #333; filter: drop-shadow(0px 1px 1px rgba(255, 255, 255, 0.8));"></i>
+                        <span
+                            style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #333;">Add-ons</span>
+                    </a>
+
+                    <a href="#events" onclick="closeMobileMenu()"
+                        style="background-image: url('assets/navcomponent.png'); background-size: 100% 100%; background-repeat: no-repeat; background-position: center; color: #333; text-decoration: none; font-weight: 700; font-size: 13px; padding: 15px 25px; border-radius: 8px; transition: all 0.3s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 140px; min-height: 80px; text-shadow: 0px 1px 2px rgba(255, 255, 255, 0.8); margin: 0;">
+                        <i class="fas fa-calendar-alt"
+                            style="font-size: 24px; margin-bottom: 6px; color: #333; filter: drop-shadow(0px 1px 1px rgba(255, 255, 255, 0.8));"></i>
+                        <span
+                            style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #333;">Events</span>
+                    </a>
+
+
+
+                    <a href="booking.html" onclick="closeMobileMenu()"
+                        style="background-image: url('assets/navcomponent.png'); background-size: 100% 100%; background-repeat: no-repeat; background-position: center; color: #333; text-decoration: none; font-weight: 700; font-size: 13px; padding: 15px 25px; border-radius: 8px; transition: all 0.3s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 140px; min-height: 80px; text-shadow: 0px 1px 2px rgba(255, 255, 255, 0.8); margin: 0; border: 2px solid #f39c12;">
+                        <i class="fas fa-calendar-check"
+                            style="font-size: 24px; margin-bottom: 6px; color: #333; filter: drop-shadow(0px 1px 1px rgba(255, 255, 255, 0.8));"></i>
+                        <span
+                            style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #333;">Book
+                            Event</span>
+                    </a>
+                </div>
+            </div>
+
+            <script>
+                // Professional mobile menu toggle
+                let menuOpen = false;
+
+                function openMobileMenu() {
+                    const menu = document.getElementById('mobileMenu');
+                    const hamburger = document.getElementById('hamburgerBtn');
+
+                    if (menu) {
+                        menu.style.left = '0';
+                        menuOpen = true;
+                        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+
+                        // Animate hamburger to X
+                        if (hamburger) {
+                            const bars = hamburger.querySelectorAll('span');
+                            bars[0].style.transform = 'rotate(45deg) translate(6px, 6px)';
+                            bars[1].style.opacity = '0';
+                            bars[2].style.transform = 'rotate(-45deg) translate(6px, -6px)';
+                        }
+                    }
+                }
+
+                function closeMobileMenu() {
+                    const menu = document.getElementById('mobileMenu');
+                    const hamburger = document.getElementById('hamburgerBtn');
+
+                    if (menu) {
+                        menu.style.left = '-100%';
+                        menuOpen = false;
+                        document.body.style.overflow = ''; // Restore scrolling
+
+                        // Reset hamburger animation
+                        if (hamburger) {
+                            const bars = hamburger.querySelectorAll('span');
+                            bars[0].style.transform = '';
+                            bars[1].style.opacity = '1';
+                            bars[2].style.transform = '';
+                        }
+                    }
+                }
+
+                function toggleMenu() {
+                    if (menuOpen) {
+                        closeMobileMenu();
+                    } else {
+                        openMobileMenu();
+                    }
+                }
+
+                // Show/hide hamburger based on screen size
+                function checkScreenSize() {
+                    const hamburger = document.getElementById('hamburgerBtn');
+                    if (hamburger) {
+                        if (window.innerWidth <= 768) {
+                            hamburger.style.display = 'flex';
+                        } else {
+                            hamburger.style.display = 'none';
+                            closeMobileMenu(); // Close menu if screen becomes large
+                        }
+                    }
+                }
+
+                // Initialize when page loads
+                document.addEventListener('DOMContentLoaded', function () {
+                    const hamburger = document.getElementById('hamburgerBtn');
+
+                    if (hamburger) {
+                        hamburger.addEventListener('click', toggleMenu);
+
+                        // Add hover effects
+                        hamburger.addEventListener('mouseenter', function () {
+                            this.style.background = 'rgba(255, 255, 255, 1)';
+                            this.style.transform = 'scale(1.05)';
+                        });
+
+                        hamburger.addEventListener('mouseleave', function () {
+                            this.style.background = 'rgba(255, 255, 255, 0.9)';
+                            this.style.transform = 'scale(1)';
+                        });
+                    }
+
+                    // Check screen size on load and resize
+                    checkScreenSize();
+                    window.addEventListener('resize', checkScreenSize);
+
+                    // Close menu when clicking outside
+                    document.addEventListener('click', function (e) {
+                        const menu = document.getElementById('mobileMenu');
+                        const hamburger = document.getElementById('hamburgerBtn');
+
+                        if (menuOpen && menu && hamburger &&
+                            !menu.contains(e.target) &&
+                            !hamburger.contains(e.target)) {
+                            closeMobileMenu();
+                        }
+                    });
+                });
+            </script>
+        </div>
+    </nav>
+
+    <!-- Main content sections -->
+    <main>
+        <section id="home" class="section">
+            <a href="booking.html" class="book-now-btn">
+                <img src="assets/bookbutton.png" alt="Book Now" class="book-now-img">
+            </a>
+        </section>
+
+
+        <section id="events" class="section services-section">
+
+            <!-- Dark Wooden Background -->
+            <div class="services-container">
+                <!-- Header Title -->
+                <div class="services-header">
+                    <h1 class="services-title">Explore Our Services</h1>
+                </div>
+
+                <!-- Service Cards Container -->
+                <div class="service-cards-container">
+                    <!-- Birthday Bashes Card -->
+                    <div class="service-card" data-service="birthday">
+                        <div class="service-circle">
+                            <div class="service-icon">
+                                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                    <!-- Cake Base -->
+                                    <ellipse cx="50" cy="75" rx="25" ry="8" fill="white" />
+                                    <rect x="25" y="60" width="50" height="15" fill="white" />
+                                    <!-- Cake Layers -->
+                                    <ellipse cx="50" cy="60" rx="25" ry="8" fill="white" />
+                                    <rect x="30" y="45" width="40" height="15" fill="white" />
+                                    <ellipse cx="50" cy="45" rx="20" ry="6" fill="white" />
+                                    <!-- Candles -->
+                                    <rect x="40" y="35" width="2" height="10" fill="white" />
+                                    <rect x="48" y="35" width="2" height="10" fill="white" />
+                                    <rect x="56" y="35" width="2" height="10" fill="white" />
+                                    <!-- Flames -->
+                                    <ellipse cx="41" cy="33" rx="1" ry="2" fill="white" />
+                                    <ellipse cx="49" cy="33" rx="1" ry="2" fill="white" />
+                                    <ellipse cx="57" cy="33" rx="1" ry="2" fill="white" />
+                                </svg>
+                            </div>
+                            <h3 class="service-name">Birthday Bashes!</h3>
+                            <p class="service-description">Theme Decor, DJ,<br>Balloon Arches, Cake Zone<br>Meme, Music
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Anniversaries & Milestones Card -->
+                    <div class="service-card" data-service="anniversary">
+                        <div class="service-circle">
+                            <div class="service-icon">
+                                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                    <!-- Champagne Glasses -->
+                                    <path d="M35 45 L35 65 L40 70 L45 65 L45 45 Z" fill="white" />
+                                    <path d="M55 45 L55 65 L60 70 L65 65 L65 45 Z" fill="white" />
+                                    <!-- Glass Bowls -->
+                                    <ellipse cx="40" cy="45" rx="8" ry="5" fill="white" />
+                                    <ellipse cx="60" cy="45" rx="8" ry="5" fill="white" />
+                                    <!-- Hearts -->
+                                    <path
+                                        d="M45 35 C45 32, 48 30, 50 32 C52 30, 55 32, 55 35 C55 38, 50 42, 50 42 C50 42, 45 38, 45 35 Z"
+                                        fill="white" />
+                                </svg>
+                            </div>
+                            <h3 class="service-name">Anniversaries &<br>Milstones</h3>
+                            <p class="service-description">Romantic Lighting,<br>Floaties, Floaties, VIP<br>Seating,
+                                Music</p>
+                        </div>
+                    </div>
+
+                    <!-- Corporate Gatherings Card -->
+                    <div class="service-card" data-service="corporate">
+                        <div class="service-circle">
+                            <div class="service-icon">
+                                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                    <!-- Briefcase -->
+                                    <rect x="30" y="45" width="40" height="25" rx="3" fill="white" />
+                                    <rect x="35" y="40" width="30" height="5" rx="2" fill="white" />
+                                    <circle cx="45" cy="57" r="2" fill="none" stroke="black" stroke-width="1" />
+                                    <!-- Light bulb above -->
+                                    <circle cx="50" cy="30" r="8" fill="white" />
+                                    <rect x="47" y="38" width="6" height="4" fill="white" />
+                                </svg>
+                            </div>
+                            <h3 class="service-name">Corporate<br>Gatherings</h3>
+                            <p class="service-description">Business Wi-Fi,<br>Buffet Setup<br>Flexible Seating</p>
+                        </div>
+                    </div>
+
+                    <!-- Custom Celebrations Card -->
+                    <div class="service-card" data-service="custom">
+                        <div class="service-circle">
+                            <div class="service-icon">
+                                <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                                    <!-- Magic Wand -->
+                                    <line x1="30" y1="70" x2="65" y2="35" stroke="white" stroke-width="3" />
+                                    <circle cx="67" cy="33" r="4" fill="white" />
+                                    <!-- Stars -->
+                                    <path d="M40 25 L42 30 L47 30 L43 33 L45 38 L40 35 L35 38 L37 33 L33 30 L38 30 Z"
+                                        fill="white" />
+                                    <path d="M60 50 L61 53 L64 53 L62 55 L63 58 L60 56 L57 58 L58 55 L56 53 L59 53 Z"
+                                        fill="white" />
+                                    <path d="M25 45 L26 47 L28 47 L27 48 L27 50 L25 49 L23 50 L24 48 L22 47 L24 47 Z"
+                                        fill="white" />
+                                </svg>
+                            </div>
+                            <h3 class="service-name">Custom<br>Celebrations</h3>
+                            <p class="service-description">Customizable Decor, Fun<br>Photography, Mood Lights<br>Any
+                                Occasion</p>
+                        </div>
+                    </div>
+                </div>
+
+
+
+                <!-- Decorative Elements -->
+                <div class="services-decorations">
+                    <div class="sparkle sparkle-1">✦</div>
+                    <div class="sparkle sparkle-2">✧</div>
+                    <div class="sparkle sparkle-3">✦</div>
+                    <div class="sparkle sparkle-4">✧</div>
+                    <div class="sparkle sparkle-5">✦</div>
+                </div>
+            </div>
+        </section>
+
+        <section id="gallery" class="section event-gallery-section">
+            <!-- Event Gallery Background -->
+            <div class="event-gallery-container">
+                <!-- Gallery Header Image -->
+                <div class="gallery-header">
+                    <img src="assets/gallaryhone.png" alt="Our Event Gallery" class="gallery-header-image">
+                </div>
+
+                <!-- Decorative Elements -->
+                <div class="gallery-decorations">
+                    <div class="star star-1">✦</div>
+                    <div class="star star-2">✧</div>
+                    <div class="star star-3">✦</div>
+                    <div class="star star-4">✧</div>
+                    <div class="star star-5">✦</div>
+                    <div class="heart heart-1">♡</div>
+                    <div class="heart heart-2">♡</div>
+                    <div class="heart heart-3">♡</div>
+                    <div class="heart heart-4">♡</div>
+                    <div class="dot dot-1">•</div>
+                    <div class="dot dot-2">•</div>
+                    <div class="dot dot-3">•</div>
+                </div>
+
+                <!-- Polaroid Photos Container -->
+                <div class="polaroid-container">
+                    <div class="polaroid-photo active" data-slide="0">
+                        <div class="polaroid-frame">
+                            <img src="assets/gallary/gal_2.JPG" alt="Birthday Bash">
+                            <div class="polaroid-caption">Birthday Bash!</div>
+                        </div>
+                    </div>
+
+                    <div class="polaroid-photo" data-slide="1">
+                        <div class="polaroid-frame">
+                            <img src="assets/gallary/gal_3.jpeg" alt="Dance Floor Fun">
+                            <div class="polaroid-caption">Dance Floor Fun!</div>
+                        </div>
+                    </div>
+
+                    <div class="polaroid-photo" data-slide="2">
+                        <div class="polaroid-frame">
+                            <img src="assets/gallary/gal_4.jpeg" alt="Elegant Setup">
+                            <div class="polaroid-caption">Elegant Setup</div>
+                        </div>
+                    </div>
+
+                    <div class="polaroid-photo" data-slide="3">
+                        <div class="polaroid-frame">
+                            <img src="assets/gallary/gal_5.jpeg" alt="Perfect Moments">
+                            <div class="polaroid-caption">Perfect Moments</div>
+                        </div>
+                    </div>
+
+                    <div class="polaroid-photo" data-slide="4">
+                        <div class="polaroid-frame">
+                            <img src="assets/gallary/gal_6.jpeg" alt="Joyful Times">
+                            <div class="polaroid-caption">Joyful Times</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Navigation Controls -->
+                <div class="gallery-navigation">
+                    <!-- Left Arrow -->
+                    <button class="nav-arrow nav-prev" onclick="changeSlide(-1)">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 18L9 12L15 6" stroke="white" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </button>
+
+                    <!-- Dots Indicator -->
+                    <div class="dots-container">
+                        <div class="nav-dot active" onclick="currentSlide(0)"></div>
+                        <div class="nav-dot" onclick="currentSlide(1)"></div>
+                        <div class="nav-dot" onclick="currentSlide(2)"></div>
+                    </div>
+
+                    <!-- Right Arrow -->
+                    <button class="nav-arrow nav-next" onclick="changeSlide(1)">
+                        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 18L15 12L9 6" stroke="white" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <section id="packages" class="section">
+            <div class="section-walls">
+                <div class="section-wall"></div>
+                <div class="section-wall"></div>
+            </div>
+            
+            <div class="section-container">
+                <div class="section-content">
+                    <img src="assets/packagehead.png" alt="Packages" class="section-headline scroll-reveal">
+                    <div class="packages-container" id="packagesContainer">
+                        <!-- Packages will be loaded dynamically from database -->
+                        <div class="loading-packages">
+                            <div class="spinner"></div>
+                            <p>Loading our amazing packages...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="reviews" class="reviews-section">
+
+    <!-- Neon Headline -->
+    <h2 class="neon-reviews-title scroll-reveal">
+        What Our Guests Say
+    </h2>
+
+    <!-- Reviews Container -->
+    <div class="reviews-container">
+
+        <!-- Review Card -->
+        <div class="review-card">
+            <div class="review-content">
+                <p class="review-text">
+                    “Absolutely amazing experience! The decoration, service, and atmosphere were beyond expectations.”
+                </p>
+
+                <div class="review-author">
+                    <span class="author-name">— Priya Sharma</span>
+                    <span class="author-rating">★★★★★</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="review-card">
+            <div class="review-content">
+                <p class="review-text">
+                    “Everything was perfectly managed. From booking to execution, truly professional and memorable.”
+                </p>
+
+                <div class="review-author">
+                    <span class="author-name">— Rahul Verma</span>
+                    <span class="author-rating">★★★★★</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="review-card">
+            <div class="review-content">
+                <p class="review-text">
+                    “Highly recommended! The venue felt magical and the team handled everything flawlessly.”
+                </p>
+
+                <div class="review-author">
+                    <span class="author-name">— Ananya Patel</span>
+                    <span class="author-rating">★★★★☆</span>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+
+
+        <section class="contact-section">
+            <div class="form-parchment">
+                <h2 class="form-title">Get In Touch!</h2>
+                <form>
+                    <div class="field">
+                        <label>Your Name:</label>
+                        <input type="text" name="name">
+                    </div>
+                    <div class="field">
+                        <label>Your Email:</label>
+                        <input type="email" name="email">
+                    </div>
+                    <div class="field">
+                        <label>Phone Number:</label>
+                        <input type="text" name="phone">
+                    </div>
+                    <div class="field message-field">
+                        <label>Message:</label>
+                        <textarea name="message"></textarea>
+                    </div>
+                    <button type="submit" class="btn-send">Send Message</button>
+                </form>
+            </div>
+
+            <div class="details-sidebar">
+                <div class="wood-header">Our Details</div>
+                <div class="wood-details">
+                    <p>📞 123-456-7890</p>
+                    <p>✉️ info@eventsSolutions.com</p>
+                    <p>📍 123 Party Lane, Celebrations City</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="celebrate-section">
+            <div class="celebrate-container">
+                <div class="celebrate-info">
+                    <h2 class="neon-title">Ready to <br>Celebrate?</h2>
+                    <p class="celebrate-desc">Experience our new wooden vintage booking system with advanced features:
+                    </p>
+
+                    <ul class="booking-features">
+                        <li><img src="calendar-icon.png" alt=""> Interactive calendar with available dates</li>
+                        <li><img src="clock-icon.png" alt=""> Real-time slot booking based on working hours</li>
+                        <li><img src="secure-icon.png" alt=""> Secure 20% advance payment system</li>
+                        <li><img src="payment-icon.png" alt=""> Multiple payment options (UPI, Card, Net Banking)</li>
+                        <li><img src="check-icon.png" alt=""> Instant booking confirmation</li>
+                    </ul>
+                </div>
+
+                <div class="booking-card-parchment">
+                    <h3 class="card-header">Book Now</h3>
+                    <p class="month-year">December 2025</p>
+
+                    <div class="calendar-grid">
+                        <div class="grid-row"><span></span><span></span><span></span><span>1</span><span>3</span></div>
+                        <div class="grid-row">
+                            <span></span><span>1</span><span>2</span><span>5</span><span>3</span><span>4</span></div>
+                        <div class="grid-row">
+                            <span>4</span><span>6</span><span>7</span><span>8</span><span>10</span><span
+                                class="highlight">11</span><span class="highlight">11</span></div>
+                        <div class="grid-row">
+                            <span>12</span><span>13</span><span>14</span><span>16</span><span>17</span><span>18</span><span>19</span>
+                        </div>
+                        <div class="grid-row">
+                            <span>19</span><span>20</span><span>21</span><span>23</span><span>24</span><span>25</span><span>26</span>
+                        </div>
+                        <div class="grid-row"><span>26</span><span>27</span><span>39</span><span>30</span></div>
+                    </div>
+
+                    <button class="start-booking-btn">Start Booking</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Alert Container -->
+        <div class="alert-container" id="customerAlertContainer"></div>
+    </main>
+
+    <!-- Supabase -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="realtime-content.js"></script>
+    <script src="customer-booking.js"></script>
+    <script src="script.js"></script>
+
+    <!-- Cleanup any stray payment content -->
+    <script src="cleanup-payment.js"></script>
+
+    <!-- Event Gallery JavaScript -->
+    <script>
+        // Event Gallery Functionality
+        let currentSlideIndex = 0;
+        const totalSlides = 5; // Total number of photos
+
+        function showSlide(index) {
+            const photos = document.querySelectorAll('.polaroid-photo');
+            const dots = document.querySelectorAll('.nav-dot');
+
+            // Remove active class from all photos and dots
+            photos.forEach(photo => photo.classList.remove('active'));
+            dots.forEach(dot => dot.classList.remove('active'));
+
+            // Show 3 photos centered around the current index
+            const startIndex = Math.max(0, index - 1);
+            const endIndex = Math.min(photos.length, index + 2);
+
+            for (let i = startIndex; i < endIndex; i++) {
+                if (photos[i]) {
+                    photos[i].classList.add('active');
+                }
+            }
+
+            // Update active dot (we have 3 dots for 5 photos)
+            const dotIndex = Math.floor(index / 2);
+            if (dots[dotIndex]) {
+                dots[dotIndex].classList.add('active');
+            }
+        }
+
+        function changeSlide(direction) {
+            currentSlideIndex += direction;
+
+            if (currentSlideIndex >= totalSlides) {
+                currentSlideIndex = 0;
+            } else if (currentSlideIndex < 0) {
+                currentSlideIndex = totalSlides - 1;
+            }
+
+            showSlide(currentSlideIndex);
+        }
+
+        function currentSlide(index) {
+            currentSlideIndex = index * 2; // Each dot represents 2 slides
+            showSlide(currentSlideIndex);
+        }
+
+        // Auto-play functionality
+        let autoPlayInterval;
+
+        function startAutoPlay() {
+            autoPlayInterval = setInterval(() => {
+                changeSlide(1);
+            }, 4000); // Change slide every 4 seconds
+        }
+
+        function stopAutoPlay() {
+            clearInterval(autoPlayInterval);
+        }
+
+        // Initialize gallery when page loads
+        document.addEventListener('DOMContentLoaded', function () {
+            showSlide(0);
+            startAutoPlay();
+
+            // Pause auto-play on hover
+            const galleryContainer = document.querySelector('.event-gallery-container');
+            if (galleryContainer) {
+                galleryContainer.addEventListener('mouseenter', stopAutoPlay);
+                galleryContainer.addEventListener('mouseleave', startAutoPlay);
+            }
+        });
+
+        // Touch/swipe support for mobile
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        document.addEventListener('touchstart', function (e) {
+            if (e.target.closest('.event-gallery-section')) {
+                touchStartX = e.changedTouches[0].screenX;
+            }
+        });
+
+        document.addEventListener('touchend', function (e) {
+            if (e.target.closest('.event-gallery-section')) {
+                touchEndX = e.changedTouches[0].screenX;
+                handleSwipe();
+            }
+        });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    // Swipe left - next slide
+                    changeSlide(1);
+                } else {
+                    // Swipe right - previous slide
+                    changeSlide(-1);
+                }
+            }
+        }
+    </script>
+</body>
+
+</html>
+<!-- Services Section JavaScript -->
+<script>
+    // Services Section Functionality
+    document.addEventListener('DOMContentLoaded', function () {
+        const serviceCards = document.querySelectorAll('.service-card');
+        const navDots = document.querySelectorAll('.services-navigation .nav-dot');
+        let currentServiceIndex = 0;
+
+        // Initialize first card as active
+        if (serviceCards.length > 0) {
+            serviceCards[0].classList.add('active');
+        }
+
+        // Navigation dot functionality
+        navDots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                // Remove active class from all dots
+                navDots.forEach(d => d.classList.remove('active'));
+
+                // Add active class to clicked dot
+                dot.classList.add('active');
+
+                // Update current index
+                currentServiceIndex = index;
+
+                // Optional: Add any card highlighting logic here
+                serviceCards.forEach(card => card.classList.remove('highlighted'));
+                if (serviceCards[index]) {
+                    serviceCards[index].classList.add('highlighted');
+                }
+            });
+        });
+
+        // Auto-rotate through services (optional)
+        let autoRotateInterval;
+
+        function startAutoRotate() {
+            autoRotateInterval = setInterval(() => {
+                currentServiceIndex = (currentServiceIndex + 1) % navDots.length;
+
+                // Update active dot
+                navDots.forEach(d => d.classList.remove('active'));
+                navDots[currentServiceIndex].classList.add('active');
+
+                // Highlight current service
+                serviceCards.forEach(card => card.classList.remove('highlighted'));
+                if (serviceCards[currentServiceIndex]) {
+                    serviceCards[currentServiceIndex].classList.add('highlighted');
+                }
+            }, 4000); // Change every 4 seconds
+        }
+
+        function stopAutoRotate() {
+            clearInterval(autoRotateInterval);
+        }
+
+        // Start auto-rotation
+        startAutoRotate();
+
+        // Pause auto-rotation on hover
+        const servicesContainer = document.querySelector('.services-container');
+        if (servicesContainer) {
+            servicesContainer.addEventListener('mouseenter', stopAutoRotate);
+            servicesContainer.addEventListener('mouseleave', startAutoRotate);
+        }
+
+        // Add hover effects to service cards
+        serviceCards.forEach((card, index) => {
+            card.addEventListener('mouseenter', () => {
+                // Highlight corresponding dot
+                navDots.forEach(d => d.classList.remove('active'));
+                if (navDots[index]) {
+                    navDots[index].classList.add('active');
+                }
+                currentServiceIndex = index;
+            });
+        });
+    });
+</script>
