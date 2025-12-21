@@ -424,8 +424,8 @@ body {
     width: 160px;
 
     position: relative;
-    top: -250px;     /* move UP */
-    left: 150px;     /* move RIGHT */
+    top: -550px;     /* move UP */
+    left: 250px;     /* move RIGHT */
 }
 
 }
@@ -1461,5 +1461,40 @@ body {
         width: 140px;
         margin: 20px auto 0;
         display: block;
+    }
+}
+
+/* =====================================
+   BOOK NOW BUTTON – MOBILE FIX
+===================================== */
+@media (max-width: 768px) {
+
+    .book-now-btn {
+        position: relative;
+        bottom: auto;
+        right: auto;
+        left: auto;
+
+        margin: 40px auto 0;
+        width: fit-content;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+         left: 40px;
+    }
+
+    .book-now-img {
+        width: 150px;
+        position: static;
+      
+    }
+}
+
+@media (max-width: 768px) {
+    .book-now-btn {
+        position: relative;
+        margin: 336px auto 0;
+        transform: translateX(40px); /* 👈 shift right */
     }
 }
