@@ -92,6 +92,7 @@ body {
     display: flex;
     list-style: none;
     align-items: center;
+    
 }
 
 .nav-item {
@@ -165,177 +166,121 @@ body {
 }
 
 /* ================================
-   SERVICES SECTION (4 CARDS FIT)
+   SERVICES SECTION
 ================================ */
 .services-section {
     position: relative;
-    min-height: 100vh;
-    padding: 100px 20px;
+    padding: 90px 20px 80px;
 
     background:
-        linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.8)),
+        linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.75)),
         url('assets/events.png') center / cover no-repeat;
 
     overflow: hidden;
 }
 
 /* ================================
-   SPARKLES
-================================ */
-.services-decorations {
-    position: absolute;
-    inset: 0;
-    pointer-events: none;
-    z-index: 1;
-}
-
-.sparkle {
-    position: absolute;
-    color: rgba(255, 255, 255, 0.55);
-    font-size: 1.1rem;
-    animation: sparkleFloat 4s ease-in-out infinite;
-}
-
-.sparkle:nth-child(1) {
-    top: 25%;
-    left: 12%;
-}
-
-.sparkle:nth-child(2) {
-    top: 35%;
-    left: 70%;
-    animation-delay: 1s;
-}
-
-.sparkle:nth-child(3) {
-    top: 60%;
-    left: 28%;
-    animation-delay: 2s;
-}
-
-.sparkle:nth-child(4) {
-    top: 70%;
-    left: 82%;
-    animation-delay: 3s;
-}
-
-@keyframes sparkleFloat {
-
-    0%,
-    100% {
-        opacity: 0.3;
-        transform: scale(1);
-    }
-
-    50% {
-        opacity: 1;
-        transform: scale(1.25);
-    }
-}
-
-/* ================================
    CONTAINER
 ================================ */
 .services-container {
-    position: relative;
-    z-index: 2;
     max-width: 1200px;
     margin: 0 auto;
     text-align: center;
+    position: relative;
+    z-index: 2;
 }
 
 /* ================================
-   TITLE
+   HEADER / TITLE
 ================================ */
+.services-header {
+    margin-bottom: 60px;
+    position: relative;
+    z-index: 3;
+}
+
 .services-title {
     font-family: 'Caveat', cursive;
     font-size: 3rem;
     color: #fff;
-    margin-bottom: 50px;
 
     text-shadow:
-        0 0 5px #fff,
-        0 0 12px rgba(255, 165, 0, 0.6),
-        0 0 25px rgba(255, 165, 0, 0.4);
+        0 0 6px #fff,
+        0 0 14px rgba(255,200,120,0.7),
+        0 0 28px rgba(255,160,60,0.5);
 }
 
 /* ================================
-   CARD GRID (4 IN ROW)
+   SERVICE CARDS GRID (DESKTOP)
 ================================ */
 .service-cards-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    gap: 22px;
+    gap: 32px;
+    justify-items: center;
 }
 
 /* ================================
-   SERVICE CARD (SMALLER)
+   SERVICE CARD (PNG)
 ================================ */
 .service-card {
-    background: rgba(15, 15, 15, 0.9);
-    border-radius: 16px;
-    padding: 22px 18px;
+    position: relative;
+    cursor: pointer;
+}
 
-    border: 1.2px solid rgba(255, 165, 0, 0.35);
-    box-shadow:
-        0 6px 20px rgba(0, 0, 0, 0.6),
-        inset 0 0 18px rgba(255, 165, 0, 0.08);
+.service-card img {
+    width: 100%;
+    max-width: 260px;
+    height: auto;
 
+    border-radius: 8px;
+
+    box-shadow: 0 10px 26px rgba(0,0,0,0.7);
     transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
-.service-card:hover {
-    transform: translateY(-8px);
-    box-shadow:
-        0 12px 32px rgba(0, 0, 0, 0.8),
-        0 0 24px rgba(255, 165, 0, 0.5);
+/* Subtle handmade rotation */
+.card-1 img { transform: rotate(-2deg); }
+.card-2 img { transform: rotate(2deg); }
+.card-3 img { transform: rotate(-1.5deg); }
+.card-4 img { transform: rotate(1.5deg); }
+
+/* Hover */
+.service-card:hover img {
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 18px 40px rgba(0,0,0,0.85);
 }
 
 /* ================================
-   ICON
-================================ */
-.service-icon img {
-    width: 42px;
-    height: 42px;
-    margin-bottom: 12px;
-
-    filter:
-        drop-shadow(0 0 5px rgba(255, 255, 255, 0.5)) drop-shadow(0 0 10px rgba(255, 165, 0, 0.6));
-}
-
-/* ================================
-   TEXT
-================================ */
-.service-name {
-    font-family: 'Caveat', cursive;
-    font-size: 1.3rem;
-    color: #fff;
-    margin-bottom: 4px;
-}
-
-.service-description {
-    font-size: 0.8rem;
-    color: #ddd;
-    line-height: 1.35;
-}
-
-/* ================================
-   RESPONSIVE
+   TABLET
 ================================ */
 @media (max-width: 1024px) {
     .service-cards-container {
         grid-template-columns: repeat(2, 1fr);
-        gap: 24px;
+        gap: 40px;
     }
 }
 
+/* ================================
+   MOBILE (STACKED – CLEAN)
+================================ */
 @media (max-width: 600px) {
-    .service-cards-container {
-        grid-template-columns: 1fr;
+
+    .services-section {
+        padding: 70px 15px;
     }
 
     .services-title {
-        font-size: 2.5rem;
+        font-size: 2.4rem;
+    }
+
+    .service-cards-container {
+        grid-template-columns: 1fr;
+        gap: 40px;
+    }
+
+    .service-card img {
+        max-width: 280px;
     }
 }
 
@@ -380,12 +325,14 @@ body {
 }
 
 /* ================================
-   MOBILE STYLES
+   MOBILE STYLES (FINAL FIXED)
 ================================ */
 @media (max-width: 768px) {
 
+    /* ---------- NAV BAR ---------- */
     .nav-container {
         height: 70px;
+        padding: 0 16px;
     }
 
     .logo {
@@ -394,41 +341,121 @@ body {
 
     .hamburger {
         display: block;
+        z-index: 3000; /* always on top */
     }
 
+    /* ---------- MOBILE NAV MENU (GLASS) ---------- */
     .nav-menu {
         position: fixed;
-        top: 0;
+        inset: 0;
         left: -100%;
         width: 100%;
         height: 100vh;
 
+        display: flex;
         flex-direction: column;
         justify-content: center;
-        gap: 20px;
+        align-items: center;
+        gap: 22px;
 
-        background: url('assets/wood-texture.png') center / cover no-repeat;
-        transition: left 0.5s ease;
-        z-index: 999;
+        /* 🔥 GLASS + WOOD */
+        background:
+            linear-gradient(
+                rgba(0,0,0,0.55),
+                rgba(0,0,0,0.75)
+            ),
+            url('assets/wood-texture.png') center / cover no-repeat;
+
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+
+        transition: left 0.45s ease;
+        z-index: 1500;
     }
 
     .nav-menu.active {
         left: 0;
     }
 
+    /* ---------- NAV BUTTON (VISIBLE FIX) ---------- */
+    .nav-button {
+        background:
+            linear-gradient(
+                rgba(255,255,255,0.25),
+                rgba(255,255,255,0.25)
+            ),
+            url('assets/navcomponent.png') center / 100% 100% no-repeat;
+
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+
+        min-width: 150px;
+        min-height: 85px;
+
+        color: #2b160b;
+        font-weight: 700;
+
+        border: 1px solid rgba(255,255,255,0.4);
+        box-shadow:
+            0 10px 26px rgba(0,0,0,0.6),
+            inset 0 0 14px rgba(255,255,255,0.35);
+
+        text-shadow: 
+            0 1px 2px rgba(255,255,255,0.9);
+
+        opacity: 1;
+        z-index: 2000;
+    }
+
+    .nav-button i,
+    .nav-button span,
+    .nav-button svg {
+        color: #2b160b;
+        fill: #2b160b;
+    }
+
+    /* ---------- HOME BACKGROUND ---------- */
     #home {
         background: url('assets/mobilehomepage.png.png') center top / cover no-repeat;
     }
 
+    /* ---------- BOOK NOW BUTTON (SAFE MOBILE FIX) ---------- */
+    .book-now-btn {
+        position: relative;
+        margin: 40px auto 0;
+        display: flex;
+        justify-content: center;
+        z-index: 5;
+    }
+
     .book-now-img {
-    width: 160px;
+        width: 150px;
+        position: static;
+    }
+}
+@media (max-width: 768px) {
 
-    position: relative;
-    top: -550px;     /* move UP */
-    left: 250px;     /* move RIGHT */
+    .nav-button {
+        position: relative;
+        isolation: isolate; /* 🔑 VERY IMPORTANT */
+    }
+
+    /* Glass layer BEHIND the board */
+    .nav-button::before {
+        content: "";
+        position: absolute;
+        inset: 8px; /* creates inner glass margin */
+
+        background: rgba(255, 255, 255, 0.18);
+        backdrop-filter: blur(14px);
+        -webkit-backdrop-filter: blur(14px);
+
+        border-radius: 10px;
+
+        z-index: -1; /* 🔑 behind the PNG */
+    }
 }
 
-}
 
 /* ================================
    GALLERY SECTION
