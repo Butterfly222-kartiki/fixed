@@ -293,20 +293,7 @@
                     </div>
 
                     <!-- Decorative Elements -->
-                    <div class="gallery-decorations">
-                        <div class="star star-1">✦</div>
-                        <div class="star star-2">✧</div>
-                        <div class="star star-3">✦</div>
-                        <div class="star star-4">✧</div>
-                        <div class="star star-5">✦</div>
-                        <div class="heart heart-1">♡</div>
-                        <div class="heart heart-2">♡</div>
-                        <div class="heart heart-3">♡</div>
-                        <div class="heart heart-4">♡</div>
-                        <div class="dot dot-1">•</div>
-                        <div class="dot dot-2">•</div>
-                        <div class="dot dot-3">•</div>
-                    </div>
+                    
 
                     <!-- Polaroid Photos Container -->
                     <div class="polaroid-container">
@@ -535,6 +522,61 @@
             <div class="alert-container" id="customerAlertContainer"></div>
     </main>
     </div>
+    <div class="global-sparkles">
+    <div class="sparkle star">✦</div>
+    <div class="sparkle star">✧</div>
+    <div class="sparkle star">✦</div>
+    <div class="sparkle heart">♡</div>
+    <div class="sparkle heart">♡</div>
+    <div class="sparkle dot">•</div>
+    <div class="sparkle dot">•</div>
+    <div class="sparkle dot">•</div>
+    <div class="global-sparkles">
+    <div class="sparkle star">✦</div>
+    <div class="sparkle star">✧</div>
+    <div class="sparkle star">✦</div>
+    <div class="sparkle heart">♡</div>
+    <div class="sparkle heart">♡</div>
+    <div class="sparkle dot">•</div>
+    <div class="sparkle dot">•</div>
+    <div class="sparkle dot">•</div>
+</div>
+
+<script>
+document.querySelectorAll('.sparkle').forEach(sparkle => {
+
+    function moveSparkle() {
+        const duration = Math.random() * 8000 + 6000; // 6–14s
+        const x = Math.random() * window.innerWidth;
+        const y = Math.random() * window.innerHeight;
+        const scale = Math.random() * 0.8 + 0.6;
+
+        sparkle.animate([
+            { transform: `translate(${sparkle.x || 0}px, ${sparkle.y || 0}px) scale(${sparkle.scale || 1})` },
+            { transform: `translate(${x}px, ${y}px) scale(${scale})` }
+        ], {
+            duration: duration,
+            easing: 'ease-in-out',
+            fill: 'forwards'
+        });
+
+        sparkle.x = x;
+        sparkle.y = y;
+        sparkle.scale = scale;
+
+        setTimeout(moveSparkle, duration);
+    }
+
+    // Initial random position
+    sparkle.x = Math.random() * window.innerWidth;
+    sparkle.y = Math.random() * window.innerHeight;
+    sparkle.style.left = '0';
+    sparkle.style.top = '0';
+
+    moveSparkle();
+});
+</script>
+
 
     <!-- Supabase -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
