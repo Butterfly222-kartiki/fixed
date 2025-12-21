@@ -660,8 +660,7 @@ body {
    CELEBRATE SECTION (DESKTOP)
 ================================ */
 .celebrate-section {
-    background: url('assets/bck.jpeg') no-repeat center center;
-    background-size: cover;
+    
     padding: 100px 5%;
     display: flex;
     justify-content: center;
@@ -855,8 +854,7 @@ body {
     gap: 40px;
     padding: 60px;
 
-    background: url('assets/bck.jpeg') no-repeat center center;
-    background-size: cover;
+
 
     font-family: 'Arial', sans-serif;
 }
@@ -1061,7 +1059,7 @@ body {
     width: 100%;
     padding: 100px 20px;
 
-    background: url('assets/bck.jpeg') no-repeat center center;
+   
     background-size: cover;
 
     overflow: hidden;
@@ -1278,13 +1276,7 @@ body {
     position: relative;
     padding: 100px 20px;
 
-    /* Lighter overlay so neon shows */
-    background:
-        linear-gradient(
-            rgba(0, 0, 0, 0.35),
-            rgba(0, 0, 0, 0.45)
-        ),
-        url('assets/bck.jpeg') center / cover no-repeat;
+
 
     text-align: center;
     overflow: hidden;
@@ -1420,3 +1412,54 @@ body {
 }
 
 
+/* =====================================
+   GLOBAL EVENTS BACKGROUND
+===================================== */
+.events-bg-wrapper {
+    background:
+        linear-gradient(
+            rgba(0,0,0,0.55),
+            rgba(0,0,0,0.75)
+        ),
+        url('assets/backgroundgallary.png') center / cover no-repeat;
+
+    background-attachment: fixed; /* optional: cinematic feel */
+}
+
+
+/* =====================================
+   MOBILE EMPTY SPACE FIX (CRITICAL)
+===================================== */
+@media (max-width: 768px) {
+
+    /* Remove forced full height */
+    .services-section,
+    .event-gallery-section,
+    .reviews-section {
+        min-height: auto !important;
+    }
+
+    /* Reduce vertical padding everywhere */
+    .services-section,
+    .event-gallery-section,
+    .reviews-section,
+    #packages.section,
+    .contact-section,
+    .celebrate-section {
+        padding-top: 50px !important;
+        padding-bottom: 50px !important;
+    }
+
+    /* Prevent hidden vh bugs */
+    body {
+        overflow-x: hidden;
+    }
+
+    /* Fix home button layout shift */
+    .book-now-img {
+        position: static;
+        width: 140px;
+        margin: 20px auto 0;
+        display: block;
+    }
+}
