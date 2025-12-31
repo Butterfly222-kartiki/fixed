@@ -1150,174 +1150,247 @@ body {
     margin-bottom: 60px;
 }
 
-/* ================================
-   PACKAGES GRID
-================================ */
-.packages-container {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 40px;
-    justify-content: center;
-    align-items: stretch;
+/* ==============================
+   PACKAGE SECTION
+============================== */
+
+.package-section {
+  padding: 60px 20px;
 }
 
-/* ================================
-   PACKAGE CARD
-================================ */
-.package-card {
-    background: url('assets/bookpackagecard.png') no-repeat center center;
-    background-size: 100% 100%;
 
-    padding: 35px 30px 40px;
-    min-height: 380px;
 
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-
-    color: #3b2415;
-    font-family: 'Georgia', serif;
-
-    border-radius: 12px;
-
-    box-shadow:
-        0 12px 30px rgba(0,0,0,0.45),
-        inset 0 0 15px rgba(0,0,0,0.1);
-
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+.section-title {
+  text-align: center;
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem;
+  margin-bottom: 30px;
+  color: #fff;
 }
 
-.package-card:hover {
-    transform: translateY(-10px);
-    box-shadow:
-        0 18px 40px rgba(0,0,0,0.55),
-        inset 0 0 18px rgba(0,0,0,0.15);
+/* ==============================
+   TABS
+============================== */
+
+.tabs {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 40px;
 }
 
-/* Package title */
-.package-title {
-    font-family: 'Caveat', cursive;
-    font-size: 2rem;
-    margin-bottom: 10px;
-    color: #4a2a14;
+.tab {
+  padding: 8px 16px;
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.4);
+  color: #fff;
+  cursor: pointer;
+  border-radius: 20px;
+  font-size: 0.75rem;
 }
 
-/* Price */
-.package-price {
-    font-size: 1.3rem;
-    font-weight: bold;
-    margin-bottom: 15px;
-    color: #5a2f12;
+.tab.active {
+  background: rgba(255,255,255,0.15);
 }
 
-/* Description */
-.package-description {
-    font-size: 0.95rem;
-    line-height: 1.6;
-    margin-bottom: 20px;
+/* ==============================
+   TAB CONTENT
+============================== */
+
+.tab-content {
+  display: none;
 }
 
-/* Features list */
-.package-features {
-    list-style: none;
-    padding: 0;
-    margin-bottom: 20px;
+.tab-content.active {
+  display: block;
 }
 
-.package-features li {
-    font-size: 0.9rem;
-    margin-bottom: 8px;
-    padding-left: 20px;
-    position: relative;
+/* ==============================
+   GRID
+============================== */
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
 }
 
-.package-features li::before {
-    content: "✓";
-    position: absolute;
-    left: 0;
-    color: #8b4513;
-    font-weight: bold;
+/* ==============================
+   THEME COLORS
+============================== */
+
+.silver   { --accent: 192, 192, 192; }
+.gold     { --accent: 201, 161, 74; }
+.diamond  { --accent: 0, 229, 255; }
+.platinum { --accent: 229, 228, 226; }
+
+/* ==============================
+   PREMIUM CARD
+============================== */
+
+.premium-card {
+  background:
+    radial-gradient(
+      120% 120% at 50% 0%,
+      rgba(var(--accent), 0.08),
+      transparent 60%
+    ),
+    #050505;
+
+  border: 1px solid rgba(var(--accent), 0.38);
+  border-radius: 22px;
+  padding: 30px 26px 28px;
+  text-align: center;
+  position: relative;
+  max-width: 340px;
+  margin: auto;
+
+  box-shadow:
+    0 20px 40px rgba(0,0,0,0.7),
+    inset 0 0 25px rgba(var(--accent), 0.05);
+
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
 }
 
-/* Book button */
-.package-btn {
-    margin-top: auto;
-
-    background: #5d4037;
-    color: #fff;
-
-    border: none;
-    padding: 12px 20px;
-    border-radius: 8px;
-
-    font-weight: bold;
-    cursor: pointer;
-
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+.premium-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60%;
+  height: 1px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(var(--accent), 0.8),
+    transparent
+  );
 }
 
-.package-btn:hover {
-    background: #8d6e63;
+.premium-card:hover {
+  transform: translateY(-8px);
+  box-shadow:
+    0 28px 60px rgba(0,0,0,0.85),
+    inset 0 0 30px rgba(var(--accent), 0.08);
 }
 
-/* ================================
-   LOADING STATE
-================================ */
-.loading-packages {
-    grid-column: 1 / -1;
-    text-align: center;
-    color: #fff;
+/* ==============================
+   BADGE
+============================== */
+
+.premium-badge {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  font-size: 0.6rem;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: rgb(var(--accent));
+  border: 1px solid rgba(var(--accent), 0.55);
+  padding: 5px 12px;
+  border-radius: 30px;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(6px);
 }
 
-.spinner {
-    width: 50px;
-    height: 50px;
-    border: 4px solid rgba(255,255,255,0.3);
-    border-top: 4px solid #fff;
-    border-radius: 50%;
-    margin: 0 auto 15px;
-    animation: spin 1s linear infinite;
+/* ==============================
+   TEXT
+============================== */
+
+.package-type {
+  font-size: 0.68rem;
+  letter-spacing: 2.6px;
+  color: #b3b3b3;
+  margin-bottom: 8px;
+  text-transform: uppercase;
 }
 
-@keyframes spin {
-    to { transform: rotate(360deg); }
+.premium-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.85rem;
+  font-weight: 600;
+  color: rgb(var(--accent));
+  margin: 6px 0;
+  text-shadow: 0 0 6px rgba(var(--accent), 0.25);
 }
 
-/* ================================
-   MOBILE RESPONSIVE
-================================ */
-@media (max-width: 768px) {
-
-    #packages.section {
-        padding: 70px 15px;
-    }
-
-    .section-headline {
-        margin-bottom: 40px;
-    }
-
-    .packages-container {
-        gap: 25px;
-    }
-
-    .package-card {
-        min-height: auto;
-        padding: 30px 24px;
-    }
-
-    .package-title {
-        font-size: 1.7rem;
-    }
-
-    .package-price {
-        font-size: 1.1rem;
-    }
-
-    .package-description {
-        font-size: 0.9rem;
-    }
+.price {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  color: #fff;
+  margin: 8px 0 6px;
 }
 
+.divider {
+  width: 75%;
+  height: 1px;
+  margin: 18px auto;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(var(--accent), 0.55),
+    transparent
+  );
+}
+
+.premium-features {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 16px;
+}
+
+.premium-features li {
+  font-size: 0.82rem;
+  color: #d4d4d4;
+  margin: 9px 0;
+  letter-spacing: 0.3px;
+}
+
+.addon-note {
+  font-size: 0.7rem;
+  color: #a7a7a7;
+  margin-bottom: 18px;
+  font-style: italic;
+}
+
+/* ==============================
+   BUTTON
+============================== */
+
+.premium-btn {
+  padding: 11px 30px;
+  border-radius: 30px;
+  background: transparent;
+  border: 1px solid rgba(var(--accent), 0.6);
+  color: rgb(var(--accent));
+  font-size: 0.72rem;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.premium-btn:hover {
+  background: rgba(var(--accent), 0.12);
+  box-shadow: 0 0 16px rgba(var(--accent), 0.25);
+}
+
+/* ==============================
+   RESPONSIVE
+============================== */
+
+@media (max-width: 1100px) {
+  .cards-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  .cards-grid {
+    grid-template-columns: 1fr;
+  }
+}
 
 
 /* ================================
@@ -1927,4 +2000,160 @@ body {
     .newsletter-form {
         justify-content: center;
     }
+}
+
+
+/* ================================
+   SERVICES GRID
+================================ */
+.services {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 22px;
+
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;           /* CENTER GRID */
+  padding: 0 16px;          /* FIX LEFT GAP */
+}
+
+/* ================================
+   GLASS CARD (SQUARE)
+================================ */
+.glass-card {
+  aspect-ratio: 1 / 1;      /* 🔥 FORCE SQUARE */
+  width: 100%;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.69);
+  border-radius: 16px;
+ -webkit-backdrop-filter: blur(12px);
+  padding: 14px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* 🔥 balanced layout */
+
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.glass-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 0 18px rgba(255,255,255,0.15);
+}
+
+/* ================================
+   CARD IMAGE
+================================ */
+.card-image {
+  width: 100%;
+  height: 53%;              /* proportional inside square */
+  object-fit: contain;
+}
+
+/* ================================
+   TITLE (CURSIVE)
+================================ */
+.neon {
+  margin: 4px 0 2px;
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-shadow: 0 0 3px currentColor;
+}
+
+/* Neon Colors */
+.pink { color: #ff2fd0; }
+.rose { color: #ff5c8d; }
+.gold { color: #ffd700; }
+.cyan { color: #4dfff3; }
+.lavender { color: #c77dff; }
+.blue { color: #00bfff; }
+.yellow { color: #ffe600; }
+.red { color: #ff3b3b; }
+.mint { color: #00ffb2; }
+.white { color: #ffffff; }
+
+/* ================================
+   SUBLINE (DIFFERENT FONT)
+================================ */
+.glass-card p {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #cfcfcf;
+  line-height: 1.35;
+  font-family: 'Poppins', sans-serif;
+}
+
+/* ================================
+   EXPLORE BUTTON
+================================ */
+.explore-btn {
+  margin-top: auto;         /* 🔥 push to bottom */
+  padding: 7px 18px;
+
+  font-size: 0.75rem;
+  border-radius: 18px;
+
+  background: transparent;
+  border: 1px solid rgba(255,255,255,0.4);
+  color: #fff;
+
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+.explore-btn:hover {
+  background: rgba(255,255,255,0.12);
+}
+
+/* ================================
+   TABLETS (2x2)
+================================ */
+@media (max-width: 1024px) {
+
+  .services {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px;
+    padding: 0 20px;
+  }
+
+  .neon {
+    font-size: 1.4rem;
+  }
+}
+
+/* ================================
+   MOBILE (CLEAN & CENTERED)
+================================ */
+@media (max-width: 600px) {
+
+  .services {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;              /* tighter spacing */
+    padding: 0 10px;        /* no side overflow */
+  }
+
+  .glass-card {
+    padding: 3px;          /* smaller card */
+    border-radius: 14px;
+  }
+
+  .card-image {
+    height: 43%;            /* scale image with card */
+  }
+
+  .neon {
+    font-size: 1.15rem;     /* smaller title */
+  }
+
+  .glass-card p {
+    font-size: 0.7rem;      /* compact subline */
+  }
+
+  .explore-btn {
+    font-size: 0.68rem;
+    padding: 5px 12px;
+  }
 }

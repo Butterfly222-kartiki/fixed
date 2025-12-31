@@ -258,33 +258,78 @@
         </section>
 
         <div class="events-bg-wrapper">
-            <section id="events" class="section services-section">
-                <div class="services-header">
+            <div class="services-header">
                     <h1 class="services-title">Explore Our Services</h1>
                 </div>
-                <!-- Dark Wooden Background -->
-                <div class="service-cards-container">
+           <section class="services">
+            
 
-                    <div class="service-card card-1">
-                        <img src="assets/birth.png" alt="Birthday Bashes">
-                    </div>
-                    <div class="service-card card-2">
-                        <img src="assets/ann.png" alt="Anniversaries">
-                    </div>
-                    <div class="service-card card-3">
-                        <img src="assets/cor.png" alt="Corporate">
-                    </div>
-                    <div class="service-card card-4">
-                        <img src="assets/custom.png" alt="Custom Celebrations">
-                    </div>
+                <div class="glass-card">
+                    <img src="services/birthday.png" alt="Birthday" class="card-image">
+                    <h3 class="neon pink">Birthday</h3>
+                    <p>Fun, colorful & memorable birthday celebrations.</p>
+                    <button class="explore-btn">Explore</button>
                 </div>
-                <div class="services-decorations">
-                    <div class="sparkle sparkle-1">✦</div>
-                    <div class="sparkle sparkle-2">✧</div>
-                    <div class="sparkle sparkle-3">✦</div>
-                    <div class="sparkle sparkle-4">✧</div>
-                    <div class="sparkle sparkle-5">✦</div>
+
+                <div class="glass-card">
+                    <img src="services/couple.jpeg" alt="Couple" class="card-image">
+                    <h3 class="neon rose">Couple Celebrations</h3>
+                    <p>Romantic setups for dates & private moments.</p>
+                    <button class="explore-btn">Explore</button>
                 </div>
+
+                <div class="glass-card">
+                    <img src="services/anniversary.png" alt="Anniversary" class="card-image">
+                    <h3 class="neon gold">Anniversary</h3>
+                    <p>Elegant candlelight & premium décor.</p>
+                    <button class="explore-btn">Explore</button>
+                </div>
+
+                <div class="glass-card">
+                    <img src="services/baby.png" alt="Baby Shower" class="card-image">
+                    <h3 class="neon cyan">Baby Shower</h3>
+                    <p>Warm, joyful & beautifully styled setups.</p>
+                    <button class="explore-btn">Explore</button>
+                </div>
+                <!-- Bride To Be -->
+                <div class="glass-card">
+                    <img src="services/image.png" alt="Bride To Be" class="card-image">
+                    <h3 class="neon lavender">Bride To Be</h3>
+                    <p>Aesthetic, fun & Instagram-worthy pre-wedding celebrations.</p>
+                    <button class="explore-btn">Explore</button>
+                </div>
+
+                <!-- Mini Theatre -->
+                <div class="glass-card">
+                    <img src="services/theature.png" alt="Mini Theatre" class="card-image">
+                    <h3 class="neon blue">Mini Theatre</h3>
+                    <p>Private movie celebrations with friends, couples & family.</p>
+                    <button class="explore-btn">Explore</button>
+                </div>
+
+                <!-- Surprise Party -->
+
+
+                <!-- Proposal & Love Surprise -->
+                <div class="glass-card">
+                    <img src="services/surprise.png" alt="Surprise Party" class="card-image">
+                    <h3 class="neon yellow">Surprise Party</h3>
+                    <p>Perfectly planned surprises for birthdays & special moments.</p>
+                    <button class="explore-btn">Explore</button>
+                </div>
+
+
+                <!-- Photoshoot & Reels -->
+                <div class="glass-card">
+                    <img src="services/addons.png" alt="Personalized Add-Ons" class="card-image">
+                    <h3 class="neon mint">Add-Ons</h3>
+                    <p>Photoshoot, name displays, slideshows & special effects.</p>
+                    <button class="explore-btn">Explore</button>
+                </div>
+
+
+            </section>
+
             </section>
 
             <section id="gallery" class="section event-gallery-section">
@@ -364,25 +409,126 @@
                 </div>
             </section>
 
-            <section id="packages" class="section">
-                <div class="section-walls">
-                    <div class="section-wall"></div>
-                    <div class="section-wall"></div>
+              <section class="package-section">
+
+                <h2 class="section-title">Our Celebration Packages</h2>
+
+                <!-- TABS -->
+                <div class="tabs">
+                    <button class="tab active" onclick="openTab('birthday')">🎂 Birthday Packages</button>
+                    <button class="tab" onclick="openTab('romantic')">💑 Romantic Dates</button>
+                    <button class="tab" onclick="openTab('theatre')">🎬 Mini Theatre</button>
                 </div>
 
-                <div class="section-container">
-                    <div class="section-content">
-                        <img src="assets/packagehead.png" alt="Packages" class="section-headline scroll-reveal">
-                        <div class="packages-container" id="packagesContainer">
-                            <!-- Packages will be loaded dynamically from database -->
-                            <div class="loading-packages">
-                                <div class="spinner"></div>
-                                <p>Loading our amazing packages...</p>
+                <!-- TAB CONTENT -->
+
+                <!-- BIRTHDAY -->
+                <div class="tab-content active" id="birthday">
+                    <section class="package-section">
+
+                        
+
+                        <!-- TAB CONTENT -->
+                        <div class="tab-content active" id="birthday">
+
+                            <div class="cards-grid">
+
+                                <!-- SILVER -->
+                                <div class="premium-card silver">
+                                    <span class="premium-badge">Silver</span>
+                                    <p class="package-type">Birthday Celebration</p>
+                                    <h3 class="premium-title">Silver Spark</h3>
+                                    <p class="price">₹ 999</p>
+                                    <div class="divider"></div>
+                                    <ul class="premium-features">
+                                        <li>Elegant balloon décor</li>
+                                        <li>Soft ambient lighting</li>
+                                        <li>Music setup</li>
+                                        <li>Private space</li>
+                                    </ul>
+                                    <p class="addon-note">Personalized add-ons available</p>
+                                    <button class="premium-btn">Reserve Experience</button>
+                                </div>
+
+                                <!-- GOLD -->
+                                <div class="premium-card gold">
+                                    <span class="premium-badge">Most Loved</span>
+                                    <p class="package-type">Birthday Celebration</p>
+                                    <h3 class="premium-title">Golden Glow</h3>
+                                    <p class="price">₹ 1,399</p>
+                                    <div class="divider"></div>
+                                    <ul class="premium-features">
+                                        <li>Premium themed décor</li>
+                                        <li>Candlelight ambiance</li>
+                                        <li>LED lighting</li>
+                                        <li>Photography assistance</li>
+                                    </ul>
+                                    <p class="addon-note">Personalized add-ons available</p>
+                                    <button class="premium-btn">Reserve Experience</button>
+                                </div>
+
+                                <!-- DIAMOND -->
+                                <div class="premium-card diamond">
+                                    <span class="premium-badge">Luxury</span>
+                                    <p class="package-type">Birthday Celebration</p>
+                                    <h3 class="premium-title">Diamond </h3>
+                                    <p class="price">₹ 1,899</p>
+                                    <div class="divider"></div>
+                                    <ul class="premium-features">
+                                        <li>Luxury décor theme</li>
+                                        <li>Smoke & LED effects</li>
+                                        <li>Customized name display</li>
+                                        <li>Professional photos</li>
+                                    </ul>
+                                    <p class="addon-note">Premium add-ons included</p>
+                                    <button class="premium-btn">Reserve Experience</button>
+                                </div>
+
+                                <!-- PLATINUM -->
+                                <div class="premium-card platinum">
+                                    <span class="premium-badge">Elite</span>
+                                    <p class="package-type">Birthday Celebration</p>
+                                    <h3 class="premium-title">Platinum </h3>
+                                    <p class="price">₹ 2,499</p>
+                                    <div class="divider"></div>
+                                    <ul class="premium-features">
+                                        <li>Exclusive luxury theme</li>
+                                        <li>Flower & candle décor</li>
+                                        <li>Private celebration room</li>
+                                        <li>Photos + reels</li>
+                                    </ul>
+                                    <p class="addon-note">All add-ons included</p>
+                                    <button class="premium-btn">Reserve Experience</button>
+                                </div>
+
                             </div>
                         </div>
+
+                    </section>
+
+
+                    <!-- ROMANTIC -->
+                    <div class="tab-content" id="romantic">
+                        <p class="coming">Romantic Date Packages Coming Soon 💖</p>
                     </div>
-                </div>
+
+                    <!-- THEATRE -->
+                    <div class="tab-content" id="theatre">
+                        <p class="coming">Mini Theatre Exclusive Packages 🎬</p>
+                    </div>
+
             </section>
+
+            <script>
+                function openTab(tabId) {
+                    document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
+                    document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+                    document.querySelector(`[onclick="openTab('${tabId}')"]`).classList.add('active');
+                    document.getElementById(tabId).classList.add('active');
+                }
+
+            </script>
 
             <section id="reviews" class="reviews-section">
 

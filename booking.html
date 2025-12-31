@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Celebration - Celebration Point</title>
+    <link rel="stylesheet" href="booking-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Crimson+Text:wght@400;600&display=swap"
+        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+    <!-- Vintage Header -->
+    <header class="vintage-header">
+        <div class="header-container">
+            <div class="vintage-logo">
+                <img src="assets/Logo.png" alt="Celebration Point" class="logo-img"
+                    onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div class="logo-fallback" style="display: none;">
+                    <i class="fas fa-crown"></i>
+                    <span>Celebration Point</span>
+                </div>
+            </div>
+            <nav class="vintage-nav">
+                <a href="index.html" class="nav-link">
+                    <i class="fas fa-home"></i>
+                    Back to Home
+                </a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Main Booking Container -->
+    <main class="booking-main">
+        <div class="wooden-frame">
+            <div class="vintage-title-section">
+                <h1 class="vintage-title">Reserve Your Special Day</h1>
+                <p class="vintage-subtitle">Create unforgettable memories with our premium celebration packages</p>
+                <div class="decorative-line">
+                    <div class="line-ornament"></div>
+                </div>
+            </div>
+
+            <!-- Progress Steps -->
+            <div class="vintage-steps">
+                <div class="step-item active" data-step="1">
+                    <div class="step-circle">
+                        <i class="fas fa-gift"></i>
+                    </div>
+                    <span class="step-label">Select Package</span>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step-item" data-step="2">
+                    <div class="step-circle">
+                        <i class="fas fa-plus"></i>
+                    </div>
+                    <span class="step-label">Add Extras</span>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step-item" data-step="3">
+                    <div class="step-circle">
+                        <i class="fas fa-calendar"></i>
+                    </div>
+                    <span class="step-label">Date & Time</span>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step-item" data-step="4">
+                    <div class="step-circle">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <span class="step-label">Your Details</span>
+                </div>
+                <div class="step-connector"></div>
+                <div class="step-item" data-step="5">
+                    <div class="step-circle">
+                        <i class="fas fa-credit-card"></i>
+                    </div>
+                    <span class="step-label">Payment</span>
+                </div>
+            </div>
+
+            <!-- Step 1: Package Selection -->
+            <div class="booking-step active" id="step-1">
+                <div class="step-header">
+                    <h2 class="step-title">Choose Your Celebration Package</h2>
+                    <p class="step-description">Select the perfect package for your special occasion</p>
+                </div>
+                <div class="packages-showcase" id="packagesShowcase">
+                    <div class="loading-vintage">
+                        <div class="vintage-spinner"></div>
+                        <p>Loading our exquisite packages...</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 2: Add-ons Selection -->
+            <div class="booking-step" id="step-2">
+                <div class="step-header">
+                    <h2 class="step-title">Enhance Your Experience</h2>
+                    <p class="step-description">Add special touches to make your celebration extraordinary</p>
+                </div>
+                <div class="addons-categories">
+                    <div class="vintage-tabs">
+                        <button class="vintage-tab active" data-category="all">All Extras</button>
+                        <button class="vintage-tab" data-category="entertainment">Entertainment</button>
+                        <button class="vintage-tab" data-category="decoration">Decoration</button>
+                        <button class="vintage-tab" data-category="catering">Catering</button>
+                        <button class="vintage-tab" data-category="technology">Technology</button>
+                    </div>
+                    <div class="addons-showcase" id="addonsShowcase">
+                        <div class="loading-vintage">
+                            <div class="vintage-spinner"></div>
+                            <p>Loading enhancement options...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 3: Date & Time Selection -->
+            <div class="booking-step" id="step-3">
+                <div class="step-header">
+                    <h2 class="step-title">When Shall We Celebrate?</h2>
+                    <p class="step-description">Choose your preferred date and time slot</p>
+                </div>
+                <div class="datetime-container">
+                    <div class="calendar-section">
+                        <div class="vintage-calendar" id="vintageCalendar">
+                            <div class="calendar-header">
+                                <button class="calendar-nav" id="prevMonth">
+                                    <i class="fas fa-chevron-left"></i>
+                                </button>
+                                <h3 class="calendar-title" id="calendarTitle">Loading...</h3>
+                                <button class="calendar-nav" id="nextMonth">
+                                    <i class="fas fa-chevron-right"></i>
+                                </button>
+                            </div>
+                            <div class="calendar-grid" id="calendarGrid">
+                                <!-- Calendar will be generated here -->
+                            </div>
+                        </div>
+                    </div>
+                    <div class="timeslots-section">
+                        <h4 class="timeslots-title">Available Time Slots</h4>
+                        <div class="timeslots-container" id="timeslotsContainer">
+                            <p class="select-date-first">Please select a date first</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Step 4: Customer Details -->
+            <div class="booking-step" id="step-4">
+                <div class="step-header">
+                    <h2 class="step-title">Tell Us About Yourself</h2>
+                    <p class="step-description">We need some details to make your celebration perfect</p>
+                </div>
+                <div class="customer-form">
+                    <form class="vintage-form" id="customerDetailsForm">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="vintage-label">Full Name</label>
+                                <input type="text" class="vintage-input" id="customerName" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="vintage-label">Phone Number</label>
+                                <input type="tel" class="vintage-input" id="customerPhone" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="vintage-label">Email Address</label>
+                                <input type="email" class="vintage-input" id="customerEmail" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="vintage-label">Number of Guests</label>
+                                <input type="number" class="vintage-input" id="guestCount" min="1" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="vintage-label">Venue Address</label>
+                            <textarea class="vintage-textarea" id="venueAddress" rows="3" required></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label class="vintage-label">Special Requests (Optional)</label>
+                            <textarea class="vintage-textarea" id="specialRequests" rows="4"></textarea>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Step 5: Payment -->
+            <div class="booking-step" id="step-5">
+                <div class="step-header">
+                    <h2 class="step-title">Secure Your Booking</h2>
+                    <p class="step-description">Complete your reservation with a 20% advance payment</p>
+                </div>
+                <div class="payment-container">
+                    <div class="booking-summary">
+                        <div class="summary-card">
+                            <h3>Booking Summary</h3>
+                            <div class="summary-content" id="finalSummary">
+                                <!-- Summary will be populated here -->
+                            </div>
+                            <div class="payment-breakdown">
+                                <div class="amount-line">
+                                    <span>Total Amount:</span>
+                                    <span class="amount">₹<span id="totalAmount">0</span></span>
+                                </div>
+                                <div class="amount-line advance">
+                                    <span>Advance Payment (20%):</span>
+                                    <span class="amount">₹<span id="advanceAmount">0</span></span>
+                                </div>
+                                <div class="amount-line remaining">
+                                    <span>Remaining Amount:</span>
+                                    <span class="amount">₹<span id="remainingAmount">0</span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="payment-methods">
+                        <h3>Choose Payment Method</h3>
+                        <div class="payment-options">
+                            <button class="payment-option" data-method="upi">
+                                <i class="fas fa-mobile-alt"></i>
+                                <span>UPI Payment</span>
+                            </button>
+                            <button class="payment-option" data-method="card">
+                                <i class="fas fa-credit-card"></i>
+                                <span>Card Payment</span>
+                            </button>
+                            <button class="payment-option" data-method="netbanking">
+                                <i class="fas fa-university"></i>
+                                <span>Net Banking</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Navigation Buttons -->
+            <div class="vintage-navigation">
+                <button class="vintage-btn secondary" id="prevStepBtn" style="display: none;">
+                    <i class="fas fa-arrow-left"></i>
+                    Previous Step
+                </button>
+                <button class="vintage-btn primary" id="nextStepBtn">
+                    Next Step
+                    <i class="fas fa-arrow-right"></i>
+                </button>
+                <button class="vintage-btn primary" id="confirmPaymentBtn" style="display: none;">
+                    Complete Booking
+                    <i class="fas fa-check"></i>
+                </button>
+
+                <!-- Debug Button -->
+               
+            </div>
+
+            <!-- Vintage Cart -->
+            <div class="vintage-cart" id="vintageCart">
+                <div class="cart-header">
+                    <h4>Your Selection</h4>
+                    <button class="cart-toggle" id="cartToggle">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="cart-badge" id="cartBadge">0</span>
+                    </button>
+                </div>
+                <div class="cart-content" id="cartContent">
+                    <div class="cart-items" id="cartItems">
+                        <p class="empty-cart">No items selected yet</p>
+                    </div>
+                    <div class="cart-summary">
+                        <div class="cart-total">
+                            <span>Total: ₹<span id="cartTotalAmount">0</span></span>
+                        </div>
+                        <div class="cart-advance">
+                            <span>Advance: ₹<span id="cartAdvanceAmount">0</span></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Alert Container -->
+    <div class="alert-container" id="alertContainer"></div>
+
+ 
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="booking-system.js"></script>
+    <script src="customer-booking.js"></script>
+
+    <!-- Initialize Booking System -->
+    <script>
+    // Clean up any existing payment modals immediately
+    document.addEventListener('DOMContentLoaded', function () {
+
+        // Remove any existing payment modals or content
+        const existingModals = document.querySelectorAll(
+            '#paymentModal, #successModal, .modal-overlay, .payment-modal'
+        );
+        existingModals.forEach(modal => modal.remove());
+
+        // Remove any stray payment text content
+        const walker = document.createTreeWalker(
+            document.body,
+            NodeFilter.SHOW_TEXT,
+            null,
+            false
+        );
+
+        const textNodes = [];
+        let node;
+
+        while ((node = walker.nextNode())) {
+            if (
+                node.textContent.includes('Secure Payment') ||
+                node.textContent.includes('Amount to Pay') ||
+                node.textContent.includes('Transaction ID') ||
+                node.textContent.includes('Payment Successful')
+            ) {
+                textNodes.push(node);
+            }
+        }
+
+        textNodes.forEach(textNode => {
+            const parent = textNode.parentNode;
+            if (parent && !parent.closest('.booking-step')) {
+                parent.remove();
+            }
+        });
+
+        console.log('Initializing vintage booking system...');
+        window.bookingSystem = new VintageBookingSystem();
+
+        // Next button handler
+        const nextBtn = document.getElementById('nextStepBtn');
+
+        if (nextBtn) {
+            nextBtn.addEventListener('click', function () {
+                if (window.bookingSystem) {
+                    window.bookingSystem.nextStep();
+                }
+            });
+        } else {
+            console.error('Next button not found!');
+        }
+
+    });
+</script>
+
+</body>
+
+</html>

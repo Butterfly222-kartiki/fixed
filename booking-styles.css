@@ -1,0 +1,487 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Crimson Text', serif;
+      background:
+        linear-gradient(
+            rgba(0,0,0,0.55),
+            rgba(0,0,0,0.75)
+        ),
+        url('assets/backgroundgallary.png') center / cover no-repeat;
+
+    background-attachment: fixed; /* optional: cinematic feel */
+    min-height: 100vh;
+    color: #2c1810;
+    overflow-x: hidden;
+    background-repeat: no-repeat;
+    size: cover;
+}
+
+/* Vintage Header */
+.vintage-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    padding: 0px;
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.3);
+}
+
+.header-container {
+    max-width: 1200px;
+    margin: 0px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px;
+}
+
+.vintage-logo {
+    display: flex;
+    align-items: center;
+    gap: 0px;
+    margin: 0%;
+    padding-left: 0px;
+}
+
+.logo-img {
+    height: 70px;
+    width: auto;
+}
+
+.logo-fallback {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #F5DEB3;
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.vintage-nav .nav-link {
+    color: #F5DEB3;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0px;
+    border: 0px solid transparent;
+    border-radius: 25px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.vintage-nav .nav-link:hover {
+    border-color: #F5DEB3;
+    background: rgba(245, 222, 179, 0.1);
+    transform: translateY(-2px);
+}
+
+/* Main Booking Container */
+.booking-main {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px 40px;
+}
+
+
+/* Container */
+.vintage-steps {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+   
+    padding: 20px 30px;
+    font-family: "Georgia", serif;
+}
+
+/* Step item */
+.step-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #9c9c9c;
+    position: relative;
+}
+
+/* Step circle */
+.step-circle {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    border: 2px solid #777;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 16px;
+    background: transparent;
+    color: #777;
+}
+
+/* Icons inside circle */
+.step-circle i {
+    font-size: 16px;
+}
+
+/* Label text */
+.step-label {
+    font-size: 16px;
+    color: #b5b5b5;
+    white-space: nowrap;
+}
+
+/* Connector line */
+.step-connector {
+    width: 70px;
+    height: 2px;
+    background: #777;
+    margin: 0 10px;
+}
+
+/* ACTIVE STEP */
+.step-item.active .step-circle {
+    border-color: #ff9c2a;
+    color: #ff9c2a;
+    box-shadow: 0 0 10px rgba(255, 156, 42, 0.6);
+}
+
+.step-item.active .step-label {
+    color: #ff9c2a;
+}
+
+/* COMPLETED STEPS (optional) */
+.step-item.completed .step-circle {
+    border-color: #ff9c2a;
+    background: #ff9c2a;
+    color: #2b2b2b;
+}
+
+.step-item.completed + .step-connector {
+    background: #ff9c2a;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .step-label {
+        display: none;
+    }
+    .step-connector {
+        width: 40px;
+    }
+}
+
+
+/* Section Wrapper */
+.vintage-title-section {
+    text-align: center;
+    padding: 8px 20px 40px;
+    background: transparent;
+}
+
+/* Neon Cursive Headline */
+.vintage-title {
+    font-family: 'Pacifico', 'Brush Script MT', cursive;
+    font-size: 58px;
+    font-weight: 400;
+    color: #ffffff;
+    letter-spacing: 2px;
+
+    /* Neon glow */
+    
+      
+        
+     text-shadow:
+        0 0 6px rgba(255, 255, 255, 0.8),
+        0 0 14px rgba(255, 255, 255, 0.6),
+        0 0 30px rgba(255, 255, 255, 0.4);
+
+    animation: neonGlow 2s ease-in-out infinite;
+}
+
+/* Subtitle */
+.vintage-subtitle {
+    margin-top: 15px;
+    font-size: 18px;
+    color: #cfcfcf;
+    font-family: "Georgia", serif;
+    letter-spacing: 1px;
+}
+
+/* Neon blinking animation */
+@keyframes neonBlink {
+    0%, 18%, 22%, 25%, 53%, 57%, 100% {
+        opacity: 1;
+        text-shadow:
+            0 0 5px #ffffff,
+            0 0 10px #ffffff,
+            0 0 20px rgba(255, 255, 255, 0.9),
+            0 0 40px rgba(255, 255, 255, 0.7);
+    }
+
+    20%, 24%, 55% {
+        opacity: 0.6;
+        text-shadow:
+            0 0 2px #ffffff,
+            0 0 6px rgba(255, 255, 255, 0.5);
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .vintage-title {
+        font-size: 40px;
+    }
+
+    .vintage-subtitle {
+        font-size: 16px;
+    }
+}
+
+
+/* =====================================
+   STEP 1 VISIBILITY
+===================================== */
+.booking-step {
+    display: none;
+}
+
+.booking-step.active {
+    display: block;
+    animation: fadeInStep 0.6s ease;
+}
+
+@keyframes fadeInStep {
+    from {
+        opacity: 0;
+        transform: translateY(15px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* =====================================
+   STEP HEADER
+===================================== */
+.step-header {
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.step-title {
+    font-family: "Georgia", serif;
+    font-size: 30px;
+    color: #ffffff;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.step-description {
+    font-size: 16px;
+    color: #cfcfcf;
+    letter-spacing: 0.5px;
+}
+
+/* =====================================
+   PACKAGES GRID – FORCE 4 CARDS
+===================================== */
+.packages-showcase {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 28px;
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* =====================================
+   PACKAGE CARD – VINTAGE FOOTER STYLE
+===================================== */
+.package-card {
+    min-height: 460px;
+    padding: 24px;
+    position: relative;
+    cursor: pointer;
+
+    background:
+      
+        url("assets/bookpackagecard.png") center / contain no-repeat;
+
+    border-radius: 18px;
+
+    /* footer-like depth */
+   
+
+    display: flex;
+    flex-direction: column;
+    transition: all 0.4s ease;
+}
+
+/* Hover – elegant lift */
+.package-card:hover {
+    transform: translateY(-8px);
+  
+}
+
+/* =====================================
+   SELECTED STATE – NO BORDER
+   (SOFT VINTAGE GLOW)
+===================================== */
+.package-card.selected {
+    box-shadow:
+        inset 0 0 25px rgba(255, 180, 90, 0.25),
+        inset 0 0 0 1px rgba(255, 180, 90, 0.35),
+        0 30px 70px rgba(255, 160, 60, 0.35);
+}
+
+/* =====================================
+   PACKAGE HEADER
+===================================== */
+.package-header {
+    text-align: center;
+    margin-bottom: 14px;
+}
+
+.package-name {
+    font-size: 22px;
+    color: #f5b25c; /* warm vintage orange */
+    letter-spacing: 1px;
+}
+
+.package-duration {
+    font-size: 14px;
+    color: #d4c6b8;
+}
+
+/* =====================================
+   PRICE
+===================================== */
+.package-price {
+    font-size: 30px;
+    font-weight: bold;
+    color: #fff3e0;
+    text-align: center;
+    margin: 12px 0 18px;
+}
+
+/* =====================================
+   FEATURES
+===================================== */
+.package-features {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    flex: 1;
+}
+
+.package-features li {
+    font-size: 14px;
+    color: #e6dccf;
+    margin-bottom: 8px;
+    line-height: 1.5;
+}
+
+.package-features i {
+    color: #f5b25c;
+    margin-right: 6px;
+}
+
+/* =====================================
+   SELECT BUTTON – FOOTER STYLE
+===================================== */
+.select-package-btn {
+    margin-top: auto;
+    padding: 12px 18px;
+    border-radius: 28px;
+
+    background: linear-gradient(
+        to bottom,
+        rgba(255, 190, 120, 0.15),
+        rgba(120, 70, 20, 0.25)
+    );
+
+    border: 1px solid rgba(245, 178, 92, 0.6);
+    color: #f5b25c;
+
+    font-size: 14px;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+/* Hover */
+
+
+/* =====================================
+   LOADING STATE
+===================================== */
+.loading-vintage {
+    grid-column: 1 / -1;
+    justify-self: center;
+
+    background: rgba(30, 18, 10, 0.85);
+    padding: 25px 30px;
+    border-radius: 16px;
+    text-align: center;
+    color: #f5b25c;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7);
+}
+
+/* Spinner */
+.vintage-spinner {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 3px solid rgba(245, 178, 92, 0.3);
+    border-top-color: #f5b25c;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* =====================================
+   EMPTY STATE
+===================================== */
+.no-packages {
+    grid-column: 1 / -1;
+    text-align: center;
+    color: #d4c6b8;
+    font-size: 16px;
+}
+
+/* =====================================
+   RESPONSIVE
+===================================== */
+@media (max-width: 1200px) {
+    .packages-showcase {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .packages-showcase {
+        grid-template-columns: 1fr;
+    }
+
+    .package-card {
+        min-height: 420px;
+    }
+}
