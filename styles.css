@@ -3,6 +3,32 @@
 ================================ */
 :root {
     --vh: 1vh;
+    
+    /* Dark Mode Colors (Default) */
+    --bg-primary: #000;
+    --bg-secondary: rgba(0, 0, 0, 0.8);
+    --bg-card: rgba(0, 0, 0, 0.9);
+    --text-primary: #fff;
+    --text-secondary: #f5e6b8;
+    --text-muted: #b3b3b3;
+    --accent-gold: #d4af37;
+    --border-color: rgba(255, 255, 255, 0.2);
+    --navbar-bg: rgba(0, 0, 0, 0);
+    --shadow-color: rgba(0, 0, 0, 0.8);
+}
+
+/* Light Mode Colors */
+[data-theme="light"] {
+    --bg-primary: #f8fafc;
+    --bg-secondary: rgba(255, 255, 255, 0.95);
+    --bg-card: rgba(255, 255, 255, 0.98);
+    --text-primary: #1a202c;
+    --text-secondary: #2d3748;
+    --text-muted: #718096;
+    --accent-gold: #b8860b;
+    --border-color: rgba(0, 0, 0, 0.1);
+    --navbar-bg: rgba(255, 255, 255, 0.9);
+    --shadow-color: rgba(0, 0, 0, 0.1);
 }
 
 * {
@@ -737,65 +763,138 @@ body {
     font-size: 1rem;
 }
 
-/* ================================
-   RIGHT SIDE: PARCHMENT CARD
-================================ */
+/* ================= BOOKING CARD ================= */
+
 .booking-card-parchment {
-    background: url('assets/calen.jpeg');
-    background-size: 100% 100%;
-    width: 380px;
-    padding: 40px;
-    color: #4e342e;
-    text-align: center;
-    box-shadow: 10px 10px 30px rgba(0, 0, 0, 0.5);
-    border-radius: 5px;
+  max-width: 520px; /* IMPORTANT: stops squeezing */
+  width: 100%;
+  margin-left: auto;
+
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.04),
+    rgba(255,255,255,0.01)
+  );
+
+  border-radius: 28px;
+  padding: 2.2rem 2.2rem 2.6rem;
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.08),
+    0 40px 90px rgba(0,0,0,0.9);
+
+  position: relative;
 }
 
+/* glow edge */
+.booking-card-parchment::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  box-shadow:
+    0 0 0 1px rgba(212,175,55,0.25),
+    0 0 60px rgba(212,175,55,0.15);
+  pointer-events: none;
+}
+
+/* ================= HEADER ================= */
+
 .card-header {
-    font-size: 2rem;
-    margin-bottom: 10px;
+  text-align: center;
+  font-size: 2.3rem;
+  letter-spacing: 0.14em;
+  margin-bottom: 0.4rem;
 }
 
 .month-year {
-    font-weight: bold;
-    margin-bottom: 15px;
+  text-align: center;
+  letter-spacing: 0.3em;
+  margin-bottom: 1.5rem;
+  color: rgba(255,255,255,0.6);
 }
 
-/* Calendar grid */
+/* ================= CALENDAR GRID ================= */
+
 .calendar-grid {
-    border: 1px solid #999;
-    display: flex;
-    flex-direction: column;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 1rem;              /* CRITICAL */
+  justify-items: center;   /* CRITICAL */
+  margin-bottom: 1.2rem;
 }
 
-.grid-row {
-    display: flex;
-    border-bottom: 1px solid #999;
+/* ================= DATE CELL ================= */
+
+.calendar-grid span {
+  width: 30px;              /* LOCK SIZE */
+  height: 30px;             /* LOCK SIZE */
+  border-radius: 50%;       /* FIX SHAPE */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+
+  background: linear-gradient(
+    180deg,
+    rgba(255,255,255,0.08),
+    rgba(255,255,255,0.02)
+  );
+
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.12),
+    0 10px 25px rgba(0,0,0,0.7);
+
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
-.grid-row span {
-    flex: 1;
-    padding: 5px;
-    border-right: 1px solid #999;
-    font-size: 0.8rem;
+/* hover */
+.calendar-grid span:hover {
+  transform: translateY(-3px);
+  box-shadow:
+    inset 0 0 0 1px rgba(212,175,55,0.45),
+    0 18px 45px rgba(0,0,0,0.9);
 }
 
-.highlight {
-    background: rgba(255, 138, 0, 0.2);
-    border: 2px solid #ff8a00 !important;
-    border-radius: 50%;
+/* today */
+.calendar-grid span.today {
+  background: linear-gradient(
+    180deg,
+    rgba(212,175,55,0.45),
+    rgba(212,175,55,0.18)
+  );
+
+  box-shadow:
+    inset 0 0 0 1px rgba(212,175,55,0.7),
+    0 18px 45px rgba(0,0,0,0.9);
 }
+
+/* selected */
+.calendar-grid span.selected {
+  background: linear-gradient(
+    180deg,
+    rgba(0,212,255,0.45),
+    rgba(0,212,255,0.18)
+  );
+
+  box-shadow:
+    inset 0 0 0 1px rgba(0,212,255,0.7),
+    0 18px 45px rgba(0,0,0,0.9);
+}
+
+/* ================= CTA ================= */
 
 .start-booking-btn {
-    background: #3e2723;
-    color: white;
-    border: none;
-    padding: 12px 30px;
-    margin-top: 25px;
-    font-weight: bold;
-    cursor: pointer;
-    border-radius: 4px;
+  width: 100%;
+  padding: 1rem;
+  border-radius: 999px;
+  letter-spacing: 0.3em;
+  margin-top: 1rem;
 }
+
 
 /* ================================
    MOBILE ADJUSTMENTS
@@ -871,236 +970,232 @@ body {
 }
 
 
-/* ================================
-   CONTACT SECTION
-================================ */
+/* ================= ROOT GOLD VARIABLES ================= */
+:root {
+  --gold: #d4af37;
+  --gold-soft: rgba(212, 175, 55, 0.4);
+  --gold-light: #f5e6b8;
+  --bg-black: #000;
+}
+
+/* ================= BASE ================= */
+
 .contact-section {
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    gap: 40px;
-    padding: 60px;
-
-
-
-    font-family: 'Arial', sans-serif;
+  height: 100vh;
+  padding: 3.5rem 3rem;
+  background: radial-gradient(circle at center, #111, #000);
+  display: grid;
+  grid-template-columns: 1fr 1.1fr;
+  gap: 4rem;
+  overflow: hidden;
+  align-items: center;
+  box-sizing: border-box;
 }
+
+/* ================= LEFT ================= */
+
 .form-parchment {
-    /* 🔹 TWO-LAYER BACKGROUND 🔹
-       Bottom layer blocks bleed
-       Top layer is your parchment image */
-    background-image:
-       
-        url('assets/personaldettailbacak.png');
-
-    background-repeat: no-repeat, no-repeat;
-    background-position: center, center;
-    background-size: 100% 100%, 100% 100%;
-
-    width: 600px;
-    min-height: 500px;
-    padding: 60px 50px;
-
-    border: none;
-    border-radius: 6px;
-
-    position: relative;
-  
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-right: 3rem;
+  border-right: 1px solid rgba(255,255,255,0.12);
 }
+
+/* ================= GET IN TOUCH ================= */
 
 .form-title {
-    font-family: 'Comic Sans MS', cursive;
-    font-size: 2.5rem;
-    text-align: center;
-    margin-bottom: 30px;
+  font-family: "Poppins", "Montserrat", sans-serif;
+  font-size: 2rem;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-align: center;
+  color: #fffaf2;
+
+  padding: -3.6rem 2rem;
+  margin-bottom: 2.4rem;
+
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.18);
+  background: rgba(255,255,255,0.03);
+
+  box-shadow:
+    0 0 30px rgba(255,255,255,0.08),
+    0 25px 80px rgba(0,0,0,0.8);
 }
 
-.field {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
+/* ================= FORM ================= */
+
+.form-parchment form {
+  display: grid;
+  gap: 0.4rem;
 }
 
 .field label {
-    font-weight: bold;
-    width: 150px;
-    font-size: 1.1rem;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.08em;
+  color: rgba(255,255,255,0.8);
 }
 
 .field input,
 .field textarea {
-    flex: 1;
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid #333;
-    font-family: inherit;
-    outline: none;
-    padding: 4px 6px;
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255,255,255,0.25);
+  padding: 0.5rem 0;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
 }
+
+.field textarea {
+  resize: none;
+  min-height: 70px;
+}
+
+.field input:focus,
+.field textarea:focus {
+  outline: none;
+  border-bottom-color: #fff;
+}
+
+/* ================= BUTTON ================= */
 
 .btn-send {
-    display: block;
-    margin: 30px auto 0;
-
-    background: #5d4037;
-    color: white;
-
-    padding: 10px 30px;
-    border-radius: 10px;
-    border: 2px solid #8d6e63;
-
-    font-weight: bold;
-    cursor: pointer;
-
-    box-shadow: 0 4px 10px rgba(0,0,0,0.4);
+  margin-top: 1.6rem;
+  align-self: center;
+  padding: 0.7rem 2.6rem;
+  border: 1px solid rgba(255,255,255,0.4);
+  background: transparent;
+  color: #fff;
+  font-family: "Poppins", sans-serif;
+  letter-spacing: 0.25em;
+  cursor: pointer;
+  transition: background 0.3s ease;
 }
+
 .btn-send:hover {
-    background: #8d6e63;
-}
-.wood-header {
-    background: transparent;        /* ❌ no wood */
-    border: none;                   /* ❌ no frame */
-    box-shadow: none;               /* ❌ no plank depth */
-
-    padding: 0;
-    margin-bottom: 10px;
-
-    text-align: center;
-
-    /* Handwritten / cursive look */
-    font-family: 'Caveat', 'Pacifico', cursive;
-    font-size: 3.2rem;
-    font-weight: 600;
-
-    /* Glow ink color */
-    color: #ffddb0;
-
-    /* Soft glowing effect */
-    text-shadow:
-        0 0 6px rgba(255, 200, 120, 0.8),
-        0 0 12px rgba(255, 160, 60, 0.6),
-        0 0 22px rgba(255, 120, 20, 0.4);
+  background: rgba(255,255,255,0.08);
 }
 
+/* ================= SOCIAL ================= */
 
-.wood-details {
-    /* Updated background: 'contain' prevents the wood image from stretching/cropping */
-    background: url('assets/webdetail.png') center / contain no-repeat;
-
-    /* Reduced container size */
-    max-width: 500px; /* Adjust this value to make the card narrower */
-    margin: 0 auto;   /* Centers the card on the page */
-    
-    /* Adjusted padding for a smaller card */
-    padding: 49px 69px; 
-    padding-left: 85px; /* Reduced from 70px to keep it proportional */
-    
-    border-radius: 107px;
-    color: #2b160b; 
-    font-family: 'Georgia', 'Times New Roman', serif;
-    font-size: 1.1rem; /* Slightly smaller font to match smaller card */
-    line-height: 1.6;
-    align-items: center; /* Centers the text blocks horizontally */
-    text-align: center;
-}
-
-.wood-details p {
-    padding: 8px 10px; /* Tighter spacing for a smaller UI */
-    margin-bottom: 0px;
-}
 .social-links {
-    display: flex;
-    gap: 15px;
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 1.4rem;
 }
 
 .social-links a {
-    width: 45px;
-    height: 45px;
-    background: var(--secondary-color);
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--dark-color);
-    font-size: 18px;
-    transition: var(--transition);
+  color: rgba(255,255,255,0.7);
+  font-size: 1.1rem;
 }
 
-.social-links a:hover {
-    background: var(--primary-color);
-    color: var(--light-color);
-    transform: translateY(-3px);
+/* ================= RIGHT ================= */
+
+.details-sidebar {
+  padding-left: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
-/* ================================
-   MOBILE VIEW FIX
-================================ */
-@media (max-width: 768px) {
+/* ================= OUR DETAILS (NEON STYLE) ================= */
 
-    .contact-section {
-        flex-direction: column;
-        align-items: center;
-        padding: 30px 15px;
-        gap: 25px;
-    }
+.wood-header {
+  font-family: "Poppins", "Montserrat", sans-serif;
+  font-size: 2.4rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-align: center;
+  color: #fffaf2;
 
-    /* Glowing title */
-    .wood-header {
-        font-size: 2.2rem;
-        margin-bottom: 8px;
-    }
+  text-shadow:
+    0 0 6px rgba(255,255,255,0.6),
+    0 0 14px rgba(255,240,220,0.45),
+    0 0 32px rgba(255,220,180,0.35);
 
-    /* Parchment form */
-    .form-parchment {
-        width: 100%;
-        max-width: 360px;
-        min-height: auto;
-        padding: 35px 22px;
-    }
-
-    .form-title {
-        font-size: 1.8rem;
-        margin-bottom: 20px;
-    }
-
-    /* Stack form fields */
-    .field {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .field label {
-        width: auto;
-        font-size: 0.95rem;
-        margin-bottom: 6px;
-    }
-
-    .field input,
-    .field textarea {
-        width: 100%;
-    }
-
-    .btn-send {
-        width: 100%;
-        padding: 12px;
-        font-size: 0.95rem;
-    }
-
-    /* Wood details card */
-    .wood-details {
-        width: 100%;
-        max-width: 360px;
-
-        padding: 26px 22px 26px 38px;
-        font-size: 1.05rem;
-        line-height: 1.6;
-    }
-
-    .wood-details p {
-        margin-bottom: 8px;
-    }
+  margin-bottom: 1.6rem;
 }
 
+.wood-header::after {
+  content: "";
+  display: block;
+  width: 64px;
+  height: 2px;
+  margin: 0.8rem auto 0;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255,255,255,0.7),
+    transparent
+  );
+  box-shadow: 0 0 10px rgba(255,255,255,0.6);
+}
+
+/* ================= DETAILS ================= */
+
+.wood-details {
+  display: grid;
+  gap: 1.2rem;
+  margin-bottom: 1.4rem;
+}
+
+.detail-item {
+  display: flex;
+  gap: 0.8rem;
+  font-family: "Poppins", sans-serif;
+  font-size: 0.95rem;
+  color: rgba(255,255,255,0.85);
+}
+
+.detail-item i {
+  color: rgba(255,255,255,0.7);
+}
+
+/* ================= MAP ================= */
+
+.map-container {
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+.map-container iframe {
+  width: 100%;
+  height: 200px;
+  border: none;
+}
+
+/* ================= DESKTOP RULES ================= */
+
+@media (min-width: 901px) {
+  .social-links {
+    display: none;
+  }
+}
+
+/* ================= MOBILE ================= */
+
+@media (max-width: 900px) {
+  .contact-section {
+    height: auto;
+    grid-template-columns: 1fr;
+    padding: 4rem 1.5rem;
+  }
+
+  .form-parchment,
+  .details-sidebar {
+    padding: 0;
+    border: none;
+  }
+
+  .map-container iframe {
+    height: 260px;
+  }
+}
 
 /* ================================
    PACKAGES SECTION
@@ -1244,6 +1339,10 @@ body {
   position: relative;
   max-width: 340px;
   margin: auto;
+  min-height: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 
   box-shadow:
     0 20px 40px rgba(0,0,0,0.7),
@@ -1393,18 +1492,157 @@ body {
 }
 
 
-/* ================================
-   REVIEWS SECTION (FIXED)
-================================ */
+/* ================= REVIEWS SECTION ================= */
+
 .reviews-section {
-    position: relative;
-    padding: 100px 20px;
-
-
-
-    text-align: center;
-    overflow: hidden;
+  min-height: 100vh;
+  background: #000;
+  padding: 4rem 2rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  box-sizing: border-box;
 }
+
+/* ================= CONTAINER ================= */
+
+.reviews-container {
+  max-width: 1100px;
+  margin: 3rem auto 0;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+}
+
+/* ================= LUXURY COLORED REVIEW CARD ================= */
+
+.review-card {
+  position: relative;
+  padding: 2.8rem 2.6rem;
+
+  background:
+    linear-gradient(
+      160deg,
+      #000000 0%,
+      #141b18 100%
+    );
+
+  border-radius: 18px;
+
+  /* elegant depth */
+  box-shadow:
+    0 12px 30px rgba(0,0,0,0.45),
+    0 40px 120px rgba(0,0,0,0.85);
+
+  /* gold edge */
+  border: 1px solid rgba(255, 255, 255, 0.22);
+
+  transition:
+    transform 0.6s cubic-bezier(.22,1,.36,1),
+    box-shadow 0.6s ease;
+}
+
+/* refined stagger */
+.review-card:nth-child(2) {
+  transform: translateY(18px);
+}
+.review-card:nth-child(3) {
+  transform: translateY(36px);
+}
+
+/* confident hover */
+.review-card:hover {
+  transform: translateY(-12px);
+  box-shadow:
+    0 18px 45px rgba(0,0,0,0.55),
+    0 55px 160px rgba(0,0,0,0.95);
+}
+
+/* ================= GOLD FOIL CORNER ================= */
+
+.review-card::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 46px;
+  height: 46px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #252525 0%,
+      #a5a5a5 60%,
+      #ffffff 100%
+    );
+
+  clip-path: polygon(100% 0, 0 100%, 100% 100%);
+  opacity: 0.35;
+}
+
+/* ================= QUOTE MARK ================= */
+
+.review-card::before {
+  content: "“";
+  position: absolute;
+  top: -36px;
+  left: 20px;
+  font-family: "Playfair Display", serif;
+  font-size: 5.2rem;
+  color: rgba(255, 255, 255, 0.25);
+}
+
+/* ================= TEXT ================= */
+
+.review-text {
+  font-family: "Inter", sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.9;
+  color: #f5f1e8;
+  margin-bottom: 2.6rem;
+}
+
+/* ================= AUTHOR ================= */
+
+.review-author {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.author-name {
+  font-family: "Inter", sans-serif;
+  font-size: 0.9rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(161, 161, 161, 0.9);
+}
+
+/* ================= STARS ================= */
+
+.author-rating {
+  font-size: 1rem;
+  letter-spacing: 0.3em;
+  color: #ffffff;
+  text-shadow:
+    0 0 8px rgba(230,198,107,0.35);
+}
+
+/* ================= SCROLL REVEAL ================= */
+
+.scroll-reveal {
+  opacity: 0;
+  transform: translateY(40px);
+  animation: revealFadeUp 1s cubic-bezier(.22,1,.36,1) forwards;
+}
+
+@keyframes revealFadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
 
 /* ================================
    NEON HEADLINE (VISIBLE FIX)
@@ -1432,108 +1670,25 @@ body {
     opacity: 1;
     transform: none;
 }
+/* ================= MOBILE ================= */
 
-/* ================================
-   REVIEWS GRID
-================================ */
-.reviews-container {
-    position: relative;
-    z-index: 5;
+@media (max-width: 900px) {
+  .reviews-section {
+    min-height: auto;
+    padding: 4.5rem 1.5rem;
+  }
 
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-    gap: 40px;
+  .reviews-container {
+    grid-template-columns: 1fr;
+  }
 
-    max-width: 1200px;
-    margin: 0 auto;
+  .review-card,
+  .review-card:nth-child(2),
+  .review-card:nth-child(3) {
+    transform: none;
+  }
 }
 
-/* ================================
-   REVIEW CARD
-================================ */
-.review-card {
-    background: url('assets/reviewscard.png') center / 100% 100% no-repeat;
-
-    padding: 40px 30px 45px;
-    min-height: 300px;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    box-shadow:
-        0 12px 30px rgba(0,0,0,0.45),
-        inset 0 0 15px rgba(0,0,0,0.15);
-
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.review-card:hover {
-    transform: translateY(-10px);
-    box-shadow:
-        0 18px 40px rgba(0,0,0,0.6),
-        inset 0 0 20px rgba(0,0,0,0.2);
-}
-
-/* ================================
-   REVIEW CONTENT
-================================ */
-.review-content {
-    font-family: 'Georgia', 'Times New Roman', serif;
-    color: #3b2415;
-    max-width: 90%;
-}
-
-.review-text {
-    font-size: 1.05rem;
-    line-height: 1.7;
-    margin-bottom: 18px;
-}
-
-.review-author {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-}
-
-.author-name {
-    font-weight: bold;
-    font-size: 0.95rem;
-}
-
-.author-rating {
-    color: #ffb400;
-    font-size: 1.1rem;
-}
-
-/* ================================
-   MOBILE OPTIMIZATION
-================================ */
-@media (max-width: 768px) {
-
-    .reviews-section {
-        padding: 70px 15px;
-    }
-
-    .neon-reviews-title {
-        font-size: 2.6rem;
-        margin-bottom: 40px;
-
-        text-shadow:
-            0 0 6px rgba(255, 220, 160, 1),
-            0 0 16px rgba(255, 160, 80, 0.9),
-            0 0 30px rgba(255, 100, 30, 0.8);
-    }
-
-    .review-card {
-        min-height: auto;
-        padding: 30px 24px 36px;
-    }
-
-    .review-text {
-        font-size: 0.95rem;
-    }
-}
 
 
 /* =====================================

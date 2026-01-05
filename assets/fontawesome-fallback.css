@@ -1,0 +1,39 @@
+/* FontAwesome Fallback - Essential Icons Only */
+.fas, .fa {
+    font-family: Arial, sans-serif;
+    font-style: normal;
+    font-weight: bold;
+    display: inline-block;
+    text-rendering: auto;
+}
+
+/* Icon replacements using Unicode symbols */
+.fa-home::before { content: "🏠"; }
+.fa-info-circle::before { content: "ℹ️"; }
+.fa-images::before { content: "🖼️"; }
+.fa-box::before { content: "📦"; }
+.fa-plus-circle::before { content: "➕"; }
+.fa-calendar-alt::before { content: "📅"; }
+.fa-calendar-check::before { content: "✅"; }
+.fa-birthday-cake::before { content: "🎂"; }
+.fa-heart::before { content: "❤️"; }
+.fa-ring::before { content: "💍"; }
+.fa-film::before { content: "🎬"; }
+.fa-arrow-right::before { content: "→"; }
+.fa-arrow-left::before { content: "←"; }
+.fa-chevron-left::before { content: "‹"; }
+.fa-chevron-right::before { content: "›"; }
+.fa-phone::before { content: "📞"; }
+.fa-map-marker-alt::before { content: "📍"; }
+.fa-instagram::before { content: "📷"; }
+.fa-mobile-alt::before { content: "📱"; }
+.fa-credit-card::before { content: "💳"; }
+.fa-university::before { content: "🏦"; }
+.fa-shield-alt::before { content: "🛡️"; }
+.fa-clock::before { content: "⏰"; }
+
+/* Ensure icons are properly sized */
+.fas, .fa {
+    font-size: 1em;
+    line-height: 1;
+}

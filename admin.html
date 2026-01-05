@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Celebration Point</title>
+    <link rel="stylesheet" href="admin-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" onerror="this.onerror=null;this.href='assets/fontawesome-fallback.css';">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <!-- Admin Header -->
+    <header class="admin-header">
+        <div class="admin-header-content">
+            <div class="admin-logo">
+                <img src="assets/Logo.png" alt="Celebration Point" class="admin-logo-img">
+                <h1>Admin Panel</h1>
+            </div>
+            <div class="admin-user">
+                <span class="admin-username">Admin User</span>
+                <button class="btn-logout" onclick="logout()">
+                    <i class="fas fa-sign-out-alt"></i> Logout
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Admin Sidebar -->
+    <aside class="admin-sidebar">
+        <nav class="admin-nav">
+            <ul class="admin-nav-list">
+                <li class="admin-nav-item">
+                    <a href="#dashboard" class="admin-nav-link active" data-section="dashboard">
+                        <i class="fas fa-tachometer-alt"></i>
+                        <span>Dashboard</span>
+                    </a>
+                </li>
+                <li class="admin-nav-item">
+                    <a href="#bookings" class="admin-nav-link" data-section="bookings">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Bookings</span>
+                    </a>
+                </li>
+                <li class="admin-nav-item">
+                    <a href="#packages" class="admin-nav-link" data-section="packages">
+                        <i class="fas fa-box"></i>
+                        <span>Packages</span>
+                    </a>
+                </li>
+                <li class="admin-nav-item">
+                    <a href="#addons" class="admin-nav-link" data-section="addons">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>Add-ons</span>
+                    </a>
+                </li>
+                <li class="admin-nav-item">
+                    <a href="#availability" class="admin-nav-link" data-section="availability">
+                        <i class="fas fa-calendar-times"></i>
+                        <span>Availability</span>
+                    </a>
+                </li>
+                <li class="admin-nav-item">
+                    <a href="#customers" class="admin-nav-link" data-section="customers">
+                        <i class="fas fa-users"></i>
+                        <span>Customers</span>
+                    </a>
+                </li>
+                <li class="admin-nav-item">
+                    <a href="#settings" class="admin-nav-link" data-section="settings">
+                        <i class="fas fa-cog"></i>
+                        <span>Settings</span>
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="admin-main">
+        
+        <!-- Dashboard Section -->
+        <section class="admin-section active" id="dashboard">
+            <div class="section-header">
+                <h2>Dashboard</h2>
+                <p>Overview of your celebration business</p>
+            </div>
+
+            <!-- Stats Cards -->
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="totalBookings">0</h3>
+                        <p>Total Bookings</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="pendingBookings">0</h3>
+                        <p>Pending Bookings</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-rupee-sign"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="totalRevenue">₹0</h3>
+                        <p>Total Revenue</p>
+                    </div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-content">
+                        <h3 id="totalCustomers">0</h3>
+                        <p>Total Customers</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Recent Bookings -->
+            <div class="dashboard-section">
+                <h3>Recent Bookings</h3>
+                <div class="table-container">
+                    <table class="admin-table">
+                        <thead>
+                            <tr>
+                                <th>Booking ID</th>
+                                <th>Customer</th>
+                                <th>Package</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                <th>Amount</th>
+                            </tr>
+                        </thead>
+                        <tbody id="recentBookingsTable">
+                            <tr>
+                                <td colspan="6" class="loading">Loading recent bookings...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Bookings Section -->
+        <section class="admin-section" id="bookings">
+            <div class="section-header">
+                <h2>Bookings Management</h2>
+                <div class="section-actions">
+                    <button class="btn-primary" onclick="refreshBookings()">
+                        <i class="fas fa-sync-alt"></i> Refresh
+                    </button>
+                    <button class="btn-primary" onclick="exportBookings()">
+                        <i class="fas fa-download"></i> Export
+                    </button>
+                </div>
+            </div>
+
+            <!-- Filters -->
+            <div class="filters-section">
+                <div class="filter-group">
+                    <label>Status:</label>
+                    <select id="statusFilter" onchange="filterBookings()">
+                        <option value="">All Status</option>
+                        <option value="pending">Pending</option>
+                        <option value="confirmed">Confirmed</option>
+                        <option value="completed">Completed</option>
+                        <option value="cancelled">Cancelled</option>
+                    </select>
+                </div>
+                <div class="filter-group">
+                    <label>Date Range:</label>
+                    <input type="date" id="dateFrom" onchange="filterBookings()">
+                    <input type="date" id="dateTo" onchange="filterBookings()">
+                </div>
+                <div class="filter-group">
+                    <label>Search:</label>
+                    <input type="text" id="searchBookings" placeholder="Search by name, phone..." onkeyup="filterBookings()">
+                </div>
+            </div>
+
+            <!-- Bookings Table -->
+            <div class="table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Booking ID</th>
+                            <th>Customer Details</th>
+                            <th>Event Details</th>
+                            <th>Package & Add-ons</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="bookingsTable">
+                        <tr>
+                            <td colspan="7" class="loading">Loading bookings...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Packages Section -->
+        <section class="admin-section" id="packages">
+            <div class="section-header">
+                <h2>Packages Management</h2>
+                <button class="btn-primary" onclick="openPackageModal()">
+                    <i class="fas fa-plus"></i> Add Package
+                </button>
+            </div>
+
+            <!-- Packages Grid -->
+            <div class="packages-grid" id="packagesGrid">
+                <div class="loading-card">Loading packages...</div>
+            </div>
+        </section>
+
+        <!-- Add-ons Section -->
+        <section class="admin-section" id="addons">
+            <div class="section-header">
+                <h2>Add-ons Management</h2>
+                <button class="btn-primary" onclick="openAddonModal()">
+                    <i class="fas fa-plus"></i> Add Add-on
+                </button>
+            </div>
+
+            <!-- Add-ons Table -->
+            <div class="table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Status</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="addonsTable">
+                        <tr>
+                            <td colspan="5" class="loading">Loading add-ons...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Availability Section -->
+        <section class="admin-section" id="availability">
+            <div class="section-header">
+                <h2>Availability Management</h2>
+                <p>Disable specific dates and time slots</p>
+            </div>
+
+            <div class="availability-content">
+                <!-- Calendar for Date Management -->
+                <div class="availability-calendar">
+                    <h3>Disable Dates</h3>
+                    <div class="calendar-controls">
+                        <button class="btn-secondary" onclick="changeAvailabilityMonth(-1)">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <span id="availabilityMonthYear">December 2024</span>
+                        <button class="btn-secondary" onclick="changeAvailabilityMonth(1)">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    <div class="calendar-grid">
+                        <div class="calendar-weekdays">
+                            <div>Sun</div><div>Mon</div><div>Tue</div><div>Wed</div><div>Thu</div><div>Fri</div><div>Sat</div>
+                        </div>
+                        <div class="calendar-days" id="availabilityCalendarDays">
+                            <!-- Calendar days will be generated -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Time Slots Management -->
+                <div class="timeslots-management">
+                    <h3>Disable Time Slots</h3>
+                    <div class="selected-date-display" id="selectedDateDisplay">
+                        Select a date to manage time slots
+                    </div>
+                    <div class="timeslots-grid" id="timeslotsGrid">
+                        <!-- Time slots will be generated when date is selected -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Customers Section -->
+        <section class="admin-section" id="customers">
+            <div class="section-header">
+                <h2>Customers Management</h2>
+                <button class="btn-primary" onclick="openCustomerModal()">
+                    <i class="fas fa-plus"></i> Add Customer
+                </button>
+            </div>
+
+            <!-- Customers Table -->
+            <div class="table-container">
+                <table class="admin-table">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Total Bookings</th>
+                            <th>Total Spent</th>
+                            <th>Last Booking</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="customersTable">
+                        <tr>
+                            <td colspan="7" class="loading">Loading customers...</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <!-- Settings Section -->
+        <section class="admin-section" id="settings">
+            <div class="section-header">
+                <h2>Settings</h2>
+                <p>Configure your celebration point settings</p>
+            </div>
+
+            <div class="settings-grid">
+                <div class="settings-card">
+                    <h3>Business Hours</h3>
+                    <div class="form-group">
+                        <label>Opening Time:</label>
+                        <input type="time" id="openingTime" value="10:00">
+                    </div>
+                    <div class="form-group">
+                        <label>Closing Time:</label>
+                        <input type="time" id="closingTime" value="20:00">
+                    </div>
+                    <button class="btn-primary" onclick="saveBusinessHours()">Save Hours</button>
+                </div>
+
+                <div class="settings-card">
+                    <h3>Booking Settings</h3>
+                    <div class="form-group">
+                        <label>Advance Payment Percentage:</label>
+                        <input type="number" id="advancePercentage" value="20" min="0" max="100">
+                        <span>%</span>
+                    </div>
+                    <div class="form-group">
+                        <label>Maximum Guests per Booking:</label>
+                        <input type="number" id="maxGuests" value="50" min="1">
+                    </div>
+                    <button class="btn-primary" onclick="saveBookingSettings()">Save Settings</button>
+                </div>
+
+                <div class="settings-card">
+                    <h3>Contact Information</h3>
+                    <div class="form-group">
+                        <label>Phone Number:</label>
+                        <input type="tel" id="businessPhone" value="8805158674">
+                    </div>
+                    <div class="form-group">
+                        <label>Email:</label>
+                        <input type="email" id="businessEmail" value="info@celebrationpoint.com">
+                    </div>
+                    <div class="form-group">
+                        <label>Address:</label>
+                        <textarea id="businessAddress" rows="3">Papaya Nursery, Near Mole Hall, Savarkar Nagar, Satpur, Nashik</textarea>
+                    </div>
+                    <button class="btn-primary" onclick="saveContactInfo()">Save Contact</button>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Modals -->
+    
+    <!-- Package Modal -->
+    <div class="modal" id="packageModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="packageModalTitle">Add Package</h3>
+                <button class="modal-close" onclick="closePackageModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="packageForm">
+                    <input type="hidden" id="packageId">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Package Name *</label>
+                            <input type="text" id="packageName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Price (₹) *</label>
+                            <input type="number" id="packagePrice" required min="0">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Duration *</label>
+                            <input type="text" id="packageDuration" placeholder="e.g., 1 Hour Slot" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Service Type *</label>
+                            <select id="packageServiceType" required>
+                                <option value="">Select Service</option>
+                                <option value="birthday">Birthday</option>
+                                <option value="romantic">Romantic</option>
+                                <option value="anniversary">Anniversary</option>
+                                <option value="theatre">Theatre</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Badge</label>
+                        <input type="text" id="packageBadge" placeholder="e.g., Popular, Premium">
+                    </div>
+                    <div class="form-group">
+                        <label>Features (one per line)</label>
+                        <textarea id="packageFeatures" rows="5" placeholder="Enter each feature on a new line"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="packageDescription" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="packageActive" checked>
+                            Active
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closePackageModal()">Cancel</button>
+                <button class="btn-primary" onclick="savePackage()">Save Package</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add-on Modal -->
+    <div class="modal" id="addonModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="addonModalTitle">Add Add-on</h3>
+                <button class="modal-close" onclick="closeAddonModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="addonForm">
+                    <input type="hidden" id="addonId">
+                    <div class="form-group">
+                        <label>Add-on Name *</label>
+                        <input type="text" id="addonName" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Price (₹) *</label>
+                        <input type="number" id="addonPrice" required min="0">
+                    </div>
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea id="addonDescription" rows="3"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label>
+                            <input type="checkbox" id="addonActive" checked>
+                            Active
+                        </label>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeAddonModal()">Cancel</button>
+                <button class="btn-primary" onclick="saveAddon()">Save Add-on</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Customer Modal -->
+    <div class="modal" id="customerModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="customerModalTitle">Add Customer</h3>
+                <button class="modal-close" onclick="closeCustomerModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form id="customerForm">
+                    <input type="hidden" id="customerId">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label>Name *</label>
+                            <input type="text" id="customerName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Phone *</label>
+                            <input type="tel" id="customerPhone" required>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="customerEmail">
+                    </div>
+                    <div class="form-group">
+                        <label>Notes</label>
+                        <textarea id="customerNotes" rows="3"></textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeCustomerModal()">Cancel</button>
+                <button class="btn-primary" onclick="saveCustomer()">Save Customer</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Booking Details Modal -->
+    <div class="modal" id="bookingModal">
+        <div class="modal-content large">
+            <div class="modal-header">
+                <h3>Booking Details</h3>
+                <button class="modal-close" onclick="closeBookingModal()">&times;</button>
+            </div>
+            <div class="modal-body" id="bookingModalBody">
+                <!-- Booking details will be loaded here -->
+            </div>
+            <div class="modal-footer">
+                <button class="btn-secondary" onclick="closeBookingModal()">Close</button>
+                <button class="btn-success" onclick="confirmBooking()">Confirm Booking</button>
+                <button class="btn-danger" onclick="cancelBooking()">Cancel Booking</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <p>Processing...</p>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script>
+        // Check authentication before loading admin panel
+        document.addEventListener('DOMContentLoaded', function() {
+            const isLoggedIn = localStorage.getItem('adminLoggedIn');
+            const loginTime = localStorage.getItem('adminLoginTime');
+            
+            if (isLoggedIn !== 'true' || !loginTime) {
+                window.location.href = 'admin-login.html';
+                return;
+            }
+            
+            // Check if login is still valid (24 hours)
+            const now = Date.now();
+            const loginTimestamp = parseInt(loginTime);
+            const twentyFourHours = 24 * 60 * 60 * 1000;
+            
+            if (now - loginTimestamp >= twentyFourHours) {
+                localStorage.removeItem('adminLoggedIn');
+                localStorage.removeItem('adminLoginTime');
+                window.location.href = 'admin-login.html';
+                return;
+            }
+        });
+        
+        // Logout function
+        function logout() {
+            if (confirm('Are you sure you want to logout?')) {
+                localStorage.removeItem('adminLoggedIn');
+                localStorage.removeItem('adminLoginTime');
+                window.location.href = 'admin-login.html';
+            }
+        }
+        
+        // Fallback for Supabase if CDN is blocked
+        window.supabaseLoaded = false;
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" onload="window.supabaseLoaded = true;" onerror="console.log('Supabase CDN blocked, using fallback');"></script>
+    <script>
+        // Check if Supabase loaded, if not provide a minimal fallback
+        setTimeout(() => {
+            if (!window.supabaseLoaded && !window.supabase) {
+                console.log('Providing Supabase fallback...');
+                window.supabase = {
+                    createClient: () => ({
+                        from: () => ({
+                            select: () => ({ data: [], error: null }),
+                            insert: () => ({ data: [], error: null }),
+                            update: () => ({ data: [], error: null }),
+                            delete: () => ({ data: [], error: null })
+                        })
+                    })
+                };
+            }
+        }, 1000);
+    </script>
+    <script src="config.js"></script>
+    <script src="admin-script.js"></script>
+</body>
+
+</html>

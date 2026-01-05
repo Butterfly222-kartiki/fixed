@@ -3,360 +3,806 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="theme-color" content="#667eea">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <title>Book Your Celebration - Celebration Point</title>
-    <link rel="stylesheet" href="booking-styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Crimson+Text:wght@400;600&display=swap"
-        rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="styles.css?v=20260105162101">
+    <link rel="stylesheet" href="booking-styles.css?v=20260105162101">>
+    <!-- Try CDN first, fallback to local if blocked -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" onerror="this.onerror=null;this.href='assets/fontawesome-fallback.css';">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Cinzel:wght@600&family=Cormorant+Garamond:wght@400;500&display=swap" rel="stylesheet">
+    
+    <!-- Inline CSS to ensure premium cards load immediately -->
+    <style>
+        /* Force premium card styles with direct colors */
+        .premium-card {
+            border-radius: 22px !important;
+            padding: 30px 26px 28px !important;
+            text-align: center !important;
+            position: relative !important;
+            max-width: 340px !important;
+            margin: auto !important;
+            transition: transform 0.35s ease, box-shadow 0.35s ease !important;
+            cursor: pointer !important;
+            min-height: 450px !important;
+            display: flex !important;
+            flex-direction: column !important;
+            justify-content: space-between !important;
+        }
+        
+        /* Silver Card */
+        .premium-card.silver {
+            background: radial-gradient(120% 120% at 50% 0%, rgba(192, 192, 192, 0.08), transparent 60%), #050505 !important;
+            border: 1px solid rgba(192, 192, 192, 0.38) !important;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.7), inset 0 0 25px rgba(192, 192, 192, 0.05) !important;
+        }
+        
+        .premium-card.silver::before {
+            content: "" !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            width: 60% !important;
+            height: 1px !important;
+            background: linear-gradient(to right, transparent, rgba(192, 192, 192, 0.8), transparent) !important;
+        }
+        
+        .premium-card.silver:hover {
+            transform: translateY(-8px) !important;
+            box-shadow: 0 28px 60px rgba(0,0,0,0.85), inset 0 0 30px rgba(192, 192, 192, 0.08) !important;
+        }
+        
+        .premium-card.silver .premium-badge {
+            color: rgb(192, 192, 192) !important;
+            border: 1px solid rgba(192, 192, 192, 0.55) !important;
+        }
+        
+        .premium-card.silver .premium-title {
+            color: rgb(192, 192, 192) !important;
+            text-shadow: 0 0 6px rgba(192, 192, 192, 0.25) !important;
+        }
+        
+        .premium-card.silver .divider {
+            background: linear-gradient(to right, transparent, rgba(192, 192, 192, 0.55), transparent) !important;
+        }
+        
+        .premium-card.silver .premium-btn {
+            border: 1px solid rgba(192, 192, 192, 0.6) !important;
+            color: rgb(192, 192, 192) !important;
+        }
+        
+        .premium-card.silver .premium-btn:hover {
+            background: rgba(192, 192, 192, 0.12) !important;
+            box-shadow: 0 0 16px rgba(192, 192, 192, 0.25) !important;
+        }
+        
+        /* Gold Card */
+        .premium-card.gold {
+            background: radial-gradient(120% 120% at 50% 0%, rgba(201, 161, 74, 0.08), transparent 60%), #050505 !important;
+            border: 1px solid rgba(201, 161, 74, 0.38) !important;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.7), inset 0 0 25px rgba(201, 161, 74, 0.05) !important;
+        }
+        
+        .premium-card.gold::before {
+            content: "" !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            width: 60% !important;
+            height: 1px !important;
+            background: linear-gradient(to right, transparent, rgba(201, 161, 74, 0.8), transparent) !important;
+        }
+        
+        .premium-card.gold:hover {
+            transform: translateY(-8px) !important;
+            box-shadow: 0 28px 60px rgba(0,0,0,0.85), inset 0 0 30px rgba(201, 161, 74, 0.08) !important;
+        }
+        
+        .premium-card.gold .premium-badge {
+            color: rgb(201, 161, 74) !important;
+            border: 1px solid rgba(201, 161, 74, 0.55) !important;
+        }
+        
+        .premium-card.gold .premium-title {
+            color: rgb(201, 161, 74) !important;
+            text-shadow: 0 0 6px rgba(201, 161, 74, 0.25) !important;
+        }
+        
+        .premium-card.gold .divider {
+            background: linear-gradient(to right, transparent, rgba(201, 161, 74, 0.55), transparent) !important;
+        }
+        
+        .premium-card.gold .premium-btn {
+            border: 1px solid rgba(201, 161, 74, 0.6) !important;
+            color: rgb(201, 161, 74) !important;
+        }
+        
+        .premium-card.gold .premium-btn:hover {
+            background: rgba(201, 161, 74, 0.12) !important;
+            box-shadow: 0 0 16px rgba(201, 161, 74, 0.25) !important;
+        }
+        
+        /* Diamond Card */
+        .premium-card.diamond {
+            background: radial-gradient(120% 120% at 50% 0%, rgba(0, 229, 255, 0.08), transparent 60%), #050505 !important;
+            border: 1px solid rgba(0, 229, 255, 0.38) !important;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.7), inset 0 0 25px rgba(0, 229, 255, 0.05) !important;
+        }
+        
+        .premium-card.diamond::before {
+            content: "" !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            width: 60% !important;
+            height: 1px !important;
+            background: linear-gradient(to right, transparent, rgba(0, 229, 255, 0.8), transparent) !important;
+        }
+        
+        .premium-card.diamond:hover {
+            transform: translateY(-8px) !important;
+            box-shadow: 0 28px 60px rgba(0,0,0,0.85), inset 0 0 30px rgba(0, 229, 255, 0.08) !important;
+        }
+        
+        .premium-card.diamond .premium-badge {
+            color: rgb(0, 229, 255) !important;
+            border: 1px solid rgba(0, 229, 255, 0.55) !important;
+        }
+        
+        .premium-card.diamond .premium-title {
+            color: rgb(0, 229, 255) !important;
+            text-shadow: 0 0 6px rgba(0, 229, 255, 0.25) !important;
+        }
+        
+        .premium-card.diamond .divider {
+            background: linear-gradient(to right, transparent, rgba(0, 229, 255, 0.55), transparent) !important;
+        }
+        
+        .premium-card.diamond .premium-btn {
+            border: 1px solid rgba(0, 229, 255, 0.6) !important;
+            color: rgb(0, 229, 255) !important;
+        }
+        
+        .premium-card.diamond .premium-btn:hover {
+            background: rgba(0, 229, 255, 0.12) !important;
+            box-shadow: 0 0 16px rgba(0, 229, 255, 0.25) !important;
+        }
+        
+        /* Platinum Card */
+        .premium-card.platinum {
+            background: radial-gradient(120% 120% at 50% 0%, rgba(229, 228, 226, 0.08), transparent 60%), #050505 !important;
+            border: 1px solid rgba(229, 228, 226, 0.38) !important;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.7), inset 0 0 25px rgba(229, 228, 226, 0.05) !important;
+        }
+        
+        .premium-card.platinum::before {
+            content: "" !important;
+            position: absolute !important;
+            top: 0 !important;
+            left: 50% !important;
+            transform: translateX(-50%) !important;
+            width: 60% !important;
+            height: 1px !important;
+            background: linear-gradient(to right, transparent, rgba(229, 228, 226, 0.8), transparent) !important;
+        }
+        
+        .premium-card.platinum:hover {
+            transform: translateY(-8px) !important;
+            box-shadow: 0 28px 60px rgba(0,0,0,0.85), inset 0 0 30px rgba(229, 228, 226, 0.08) !important;
+        }
+        
+        .premium-card.platinum .premium-badge {
+            color: rgb(229, 228, 226) !important;
+            border: 1px solid rgba(229, 228, 226, 0.55) !important;
+        }
+        
+        .premium-card.platinum .premium-title {
+            color: rgb(229, 228, 226) !important;
+            text-shadow: 0 0 6px rgba(229, 228, 226, 0.25) !important;
+        }
+        
+        .premium-card.platinum .divider {
+            background: linear-gradient(to right, transparent, rgba(229, 228, 226, 0.55), transparent) !important;
+        }
+        
+        .premium-card.platinum .premium-btn {
+            border: 1px solid rgba(229, 228, 226, 0.6) !important;
+            color: rgb(229, 228, 226) !important;
+        }
+        
+        .premium-card.platinum .premium-btn:hover {
+            background: rgba(229, 228, 226, 0.12) !important;
+            box-shadow: 0 0 16px rgba(229, 228, 226, 0.25) !important;
+        }
+        
+        /* Common styles */
+        .premium-badge {
+            position: absolute !important;
+            top: 16px !important;
+            right: 16px !important;
+            font-size: 0.6rem !important;
+            letter-spacing: 1.6px !important;
+            text-transform: uppercase !important;
+            padding: 5px 12px !important;
+            border-radius: 30px !important;
+            background: rgba(0,0,0,0.6) !important;
+            backdrop-filter: blur(6px) !important;
+        }
+        
+        .package-type {
+            font-size: 0.68rem !important;
+            letter-spacing: 2.6px !important;
+            color: #b3b3b3 !important;
+            margin-bottom: 8px !important;
+            text-transform: uppercase !important;
+        }
+        
+        .premium-title {
+            font-family: 'Playfair Display', serif !important;
+            font-size: 1.85rem !important;
+            font-weight: 600 !important;
+            margin: 6px 0 !important;
+        }
+        
+        .price {
+            font-family: 'Playfair Display', serif !important;
+            font-size: 1.35rem !important;
+            color: #fff !important;
+            margin: 8px 0 6px !important;
+        }
+        
+        .divider {
+            width: 75% !important;
+            height: 1px !important;
+            margin: 18px auto !important;
+        }
+        
+        .premium-features {
+            list-style: none !important;
+            padding: 0 !important;
+            margin: 0 0 16px !important;
+        }
+        
+        .premium-features li {
+            font-size: 0.82rem !important;
+            color: #d4d4d4 !important;
+            margin: 9px 0 !important;
+            letter-spacing: 0.3px !important;
+        }
+        
+        .addon-note {
+            font-size: 0.7rem !important;
+            color: #a7a7a7 !important;
+            margin-bottom: 18px !important;
+            font-style: italic !important;
+        }
+        
+        .premium-btn {
+            padding: 11px 30px !important;
+            border-radius: 30px !important;
+            background: transparent !important;
+            font-size: 0.72rem !important;
+            letter-spacing: 1.6px !important;
+            text-transform: uppercase !important;
+            cursor: pointer !important;
+            transition: all 0.3s ease !important;
+        }
+        
+        .packages-container {
+            display: grid !important;
+            grid-template-columns: repeat(4, 1fr) !important;
+            gap: 22px !important;
+            margin-top: 40px !important;
+        }
+        
+        @media (max-width: 1100px) {
+            .packages-container {
+                grid-template-columns: repeat(2, 1fr) !important;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .packages-container {
+                grid-template-columns: 1fr !important;
+            }
+        }
+    </style>
 </head>
 
 <body>
-    <!-- Vintage Header -->
-    <header class="vintage-header">
-        <div class="header-container">
-            <div class="vintage-logo">
-                <img src="assets/Logo.png" alt="Celebration Point" class="logo-img"
-                    onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
-                <div class="logo-fallback" style="display: none;">
-                    <i class="fas fa-crown"></i>
-                    <span>Celebration Point</span>
-                </div>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="assets/Logo.png" alt="Celebration Point Logo" class="logo">
             </div>
-            <nav class="vintage-nav">
-                <a href="index.html" class="nav-link">
-                    <i class="fas fa-home"></i>
-                    Back to Home
-                </a>
-            </nav>
-        </div>
-    </header>
 
-    <!-- Main Booking Container -->
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html#home" class="nav-button">
+                        <i class="icon fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#about" class="nav-button">
+                        <i class="icon fas fa-info-circle"></i>
+                        <span>About</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#gallery" class="nav-button">
+                        <i class="icon fas fa-images"></i>
+                        <span>Gallery</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#packages" class="nav-button">
+                        <i class="icon fas fa-box"></i>
+                        <span>Packages</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="booking.html" class="nav-button book-event-btn active">
+                        <i class="icon fas fa-calendar-check"></i>
+                        <span>Book Event</span>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Mobile Menu Hamburger -->
+            <div id="hamburgerBtn" class="hamburger">
+                <img src="assets/wood-texture.png" alt="Menu">
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Booking Content -->
     <main class="booking-main">
-        <div class="wooden-frame">
-            <div class="vintage-title-section">
-                <h1 class="vintage-title">Reserve Your Special Day</h1>
-                <p class="vintage-subtitle">Create unforgettable memories with our premium celebration packages</p>
-                <div class="decorative-line">
-                    <div class="line-ornament"></div>
-                </div>
+        <!-- Hero Section -->
+        <section class="booking-hero">
+            <div class="booking-hero-content">
+                <h1 class="booking-title">🎉 Celebrate in Style at Celebration Point!</h1>
+                <p class="booking-subtitle">Birthday ho, surprise ho ya koi special moment — 🎈 Aap vibe choose karo, mood hum set karenge!</p>
             </div>
+        </section>
 
-            <!-- Progress Steps -->
-            <div class="vintage-steps">
-                <div class="step-item active" data-step="1">
-                    <div class="step-circle">
-                        <i class="fas fa-gift"></i>
+        <!-- Booking Wizard -->
+        <section class="booking-wizard">
+            <div class="container">
+                <!-- Progress Steps -->
+                <div class="wizard-progress">
+                    <div class="progress-step active" data-step="1">
+                        <div class="step-number">1</div>
+                        <div class="step-label">Choose Package</div>
                     </div>
-                    <span class="step-label">Select Package</span>
-                </div>
-                <div class="step-connector"></div>
-                <div class="step-item" data-step="2">
-                    <div class="step-circle">
-                        <i class="fas fa-plus"></i>
+                    <div class="progress-step" data-step="2">
+                        <div class="step-number">2</div>
+                        <div class="step-label">Add-ons</div>
                     </div>
-                    <span class="step-label">Add Extras</span>
-                </div>
-                <div class="step-connector"></div>
-                <div class="step-item" data-step="3">
-                    <div class="step-circle">
-                        <i class="fas fa-calendar"></i>
+                    <div class="progress-step" data-step="3">
+                        <div class="step-number">3</div>
+                        <div class="step-label">Date & Time</div>
                     </div>
-                    <span class="step-label">Date & Time</span>
-                </div>
-                <div class="step-connector"></div>
-                <div class="step-item" data-step="4">
-                    <div class="step-circle">
-                        <i class="fas fa-user"></i>
+                    <div class="progress-step" data-step="4">
+                        <div class="step-number">4</div>
+                        <div class="step-label">Personal Details</div>
                     </div>
-                    <span class="step-label">Your Details</span>
-                </div>
-                <div class="step-connector"></div>
-                <div class="step-item" data-step="5">
-                    <div class="step-circle">
-                        <i class="fas fa-credit-card"></i>
+                    <div class="progress-step" data-step="5">
+                        <div class="step-number">5</div>
+                        <div class="step-label">Payment</div>
                     </div>
-                    <span class="step-label">Payment</span>
                 </div>
-            </div>
 
-            <!-- Step 1: Package Selection -->
-            <div class="booking-step active" id="step-1">
-                <div class="step-header">
-                    <h2 class="step-title">Choose Your Celebration Package</h2>
-                    <p class="step-description">Select the perfect package for your special occasion</p>
-                </div>
-                <div class="packages-showcase" id="packagesShowcase">
-                    <div class="loading-vintage">
-                        <div class="vintage-spinner"></div>
-                        <p>Loading our exquisite packages...</p>
-                    </div>
-                </div>
-            </div>
+                <!-- Wizard Content -->
+                <div class="wizard-content">
+                    
+                    <!-- Step 1: Package Selection -->
+                    <div class="wizard-step active" id="step1">
+                        <div class="step-header">
+                            <h2 class="step-title">Choose Your Celebration Type & Package</h2>
+                            <p class="step-subtitle">💫 PACKAGE DETAILS / पॅकेजची माहिती</p>
+                        </div>
 
-            <!-- Step 2: Add-ons Selection -->
-            <div class="booking-step" id="step-2">
-                <div class="step-header">
-                    <h2 class="step-title">Enhance Your Experience</h2>
-                    <p class="step-description">Add special touches to make your celebration extraordinary</p>
-                </div>
-                <div class="addons-categories">
-                    <div class="vintage-tabs">
-                        <button class="vintage-tab active" data-category="all">All Extras</button>
-                        <button class="vintage-tab" data-category="entertainment">Entertainment</button>
-                        <button class="vintage-tab" data-category="decoration">Decoration</button>
-                        <button class="vintage-tab" data-category="catering">Catering</button>
-                        <button class="vintage-tab" data-category="technology">Technology</button>
-                    </div>
-                    <div class="addons-showcase" id="addonsShowcase">
-                        <div class="loading-vintage">
-                            <div class="vintage-spinner"></div>
-                            <p>Loading enhancement options...</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Step 3: Date & Time Selection -->
-            <div class="booking-step" id="step-3">
-                <div class="step-header">
-                    <h2 class="step-title">When Shall We Celebrate?</h2>
-                    <p class="step-description">Choose your preferred date and time slot</p>
-                </div>
-                <div class="datetime-container">
-                    <div class="calendar-section">
-                        <div class="vintage-calendar" id="vintageCalendar">
-                            <div class="calendar-header">
-                                <button class="calendar-nav" id="prevMonth">
-                                    <i class="fas fa-chevron-left"></i>
-                                </button>
-                                <h3 class="calendar-title" id="calendarTitle">Loading...</h3>
-                                <button class="calendar-nav" id="nextMonth">
-                                    <i class="fas fa-chevron-right"></i>
-                                </button>
-                            </div>
-                            <div class="calendar-grid" id="calendarGrid">
-                                <!-- Calendar will be generated here -->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="timeslots-section">
-                        <h4 class="timeslots-title">Available Time Slots</h4>
-                        <div class="timeslots-container" id="timeslotsContainer">
-                            <p class="select-date-first">Please select a date first</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Step 4: Customer Details -->
-            <div class="booking-step" id="step-4">
-                <div class="step-header">
-                    <h2 class="step-title">Tell Us About Yourself</h2>
-                    <p class="step-description">We need some details to make your celebration perfect</p>
-                </div>
-                <div class="customer-form">
-                    <form class="vintage-form" id="customerDetailsForm">
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="vintage-label">Full Name</label>
-                                <input type="text" class="vintage-input" id="customerName" required>
-                            </div>
-                            <div class="form-group">
-                                <label class="vintage-label">Phone Number</label>
-                                <input type="tel" class="vintage-input" id="customerPhone" required>
-                            </div>
-                        </div>
-                        <div class="form-row">
-                            <div class="form-group">
-                                <label class="vintage-label">Email Address</label>
-                                <input type="email" class="vintage-input" id="customerEmail" required>
-                            </div>
-                            <div class="form-group">
-                                <label class="vintage-label">Number of Guests</label>
-                                <input type="number" class="vintage-input" id="guestCount" min="1" required>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="vintage-label">Venue Address</label>
-                            <textarea class="vintage-textarea" id="venueAddress" rows="3" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label class="vintage-label">Special Requests (Optional)</label>
-                            <textarea class="vintage-textarea" id="specialRequests" rows="4"></textarea>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Step 5: Payment -->
-            <div class="booking-step" id="step-5">
-                <div class="step-header">
-                    <h2 class="step-title">Secure Your Booking</h2>
-                    <p class="step-description">Complete your reservation with a 20% advance payment</p>
-                </div>
-                <div class="payment-container">
-                    <div class="booking-summary">
-                        <div class="summary-card">
-                            <h3>Booking Summary</h3>
-                            <div class="summary-content" id="finalSummary">
-                                <!-- Summary will be populated here -->
-                            </div>
-                            <div class="payment-breakdown">
-                                <div class="amount-line">
-                                    <span>Total Amount:</span>
-                                    <span class="amount">₹<span id="totalAmount">0</span></span>
-                                </div>
-                                <div class="amount-line advance">
-                                    <span>Advance Payment (20%):</span>
-                                    <span class="amount">₹<span id="advanceAmount">0</span></span>
-                                </div>
-                                <div class="amount-line remaining">
-                                    <span>Remaining Amount:</span>
-                                    <span class="amount">₹<span id="remainingAmount">0</span></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="payment-methods">
-                        <h3>Choose Payment Method</h3>
-                        <div class="payment-options">
-                            <button class="payment-option" data-method="upi">
-                                <i class="fas fa-mobile-alt"></i>
-                                <span>UPI Payment</span>
+                        <!-- Service Tabs -->
+                        <div class="service-tabs">
+                            <button class="service-tab active" data-service="birthday">
+                                <i class="fas fa-birthday-cake"></i>
+                                <span>Birthday Packages</span>
                             </button>
-                            <button class="payment-option" data-method="card">
-                                <i class="fas fa-credit-card"></i>
-                                <span>Card Payment</span>
+                            <button class="service-tab" data-service="romantic">
+                                <i class="fas fa-heart"></i>
+                                <span>Romantic Dates</span>
                             </button>
-                            <button class="payment-option" data-method="netbanking">
-                                <i class="fas fa-university"></i>
-                                <span>Net Banking</span>
+                            <button class="service-tab" data-service="anniversary">
+                                <i class="fas fa-ring"></i>
+                                <span>Anniversary</span>
+                            </button>
+                            <button class="service-tab" data-service="theatre">
+                                <i class="fas fa-film"></i>
+                                <span>Mini Theatre</span>
+                            </button>
+                        </div>
+
+                        <!-- Loading State -->
+                        <div class="loading-state" id="packagesLoading">
+                            <div class="loading-spinner"></div>
+                            <p>Loading packages...</p>
+                        </div>
+
+                        <!-- Packages Container -->
+                        <div class="packages-container" id="packagesContainer">
+                            <!-- Packages will be loaded dynamically -->
+                        </div>
+
+                        <div class="step-actions">
+                            <button class="btn-next" id="step1Next" disabled>
+                                Continue to Add-ons <i class="fas fa-arrow-right"></i>
                             </button>
                         </div>
                     </div>
-                </div>
-            </div>
 
-            <!-- Navigation Buttons -->
-            <div class="vintage-navigation">
-                <button class="vintage-btn secondary" id="prevStepBtn" style="display: none;">
-                    <i class="fas fa-arrow-left"></i>
-                    Previous Step
-                </button>
-                <button class="vintage-btn primary" id="nextStepBtn">
-                    Next Step
-                    <i class="fas fa-arrow-right"></i>
-                </button>
-                <button class="vintage-btn primary" id="confirmPaymentBtn" style="display: none;">
-                    Complete Booking
-                    <i class="fas fa-check"></i>
-                </button>
-
-                <!-- Debug Button -->
-               
-            </div>
-
-            <!-- Vintage Cart -->
-            <div class="vintage-cart" id="vintageCart">
-                <div class="cart-header">
-                    <h4>Your Selection</h4>
-                    <button class="cart-toggle" id="cartToggle">
-                        <i class="fas fa-shopping-cart"></i>
-                        <span class="cart-badge" id="cartBadge">0</span>
-                    </button>
-                </div>
-                <div class="cart-content" id="cartContent">
-                    <div class="cart-items" id="cartItems">
-                        <p class="empty-cart">No items selected yet</p>
-                    </div>
-                    <div class="cart-summary">
-                        <div class="cart-total">
-                            <span>Total: ₹<span id="cartTotalAmount">0</span></span>
+                    <!-- Step 2: Add-ons Selection -->
+                    <div class="wizard-step" id="step2">
+                        <div class="step-header">
+                            <h2 class="step-title">🎁 Extra Add-ons (Optional)</h2>
+                            <p class="step-subtitle">Enhance your celebration with these amazing add-ons</p>
                         </div>
-                        <div class="cart-advance">
-                            <span>Advance: ₹<span id="cartAdvanceAmount">0</span></span>
+
+                        <!-- Loading State -->
+                        <div class="loading-state" id="addonsLoading">
+                            <div class="loading-spinner"></div>
+                            <p>Loading add-ons...</p>
+                        </div>
+
+                        <!-- Add-ons Container -->
+                        <div class="addons-container" id="addonsContainer">
+                            <!-- Add-ons will be loaded dynamically -->
+                        </div>
+
+                        <div class="step-actions">
+                            <button class="btn-prev" id="step2Prev">
+                                <i class="fas fa-arrow-left"></i> Back to Packages
+                            </button>
+                            <button class="btn-next" id="step2Next">
+                                Continue to Date & Time <i class="fas fa-arrow-right"></i>
+                            </button>
                         </div>
                     </div>
+
+                    <!-- Step 3: Date & Time Selection -->
+                    <div class="wizard-step" id="step3">
+                        <div class="step-header">
+                            <h2 class="step-title">📅 Select Date & Time</h2>
+                            <p class="step-subtitle">Choose your preferred date and time slot</p>
+                        </div>
+
+                        <div class="datetime-selection">
+                            <div class="calendar-section">
+                                <h3>Select Date</h3>
+                                <div class="calendar-container">
+                                    <div class="calendar-header">
+                                        <button class="calendar-nav" id="prevMonth">
+                                            <i class="fas fa-chevron-left"></i>
+                                        </button>
+                                        <div class="calendar-month-year" id="calendarMonthYear">
+                                            December 2024
+                                        </div>
+                                        <button class="calendar-nav" id="nextMonth">
+                                            <i class="fas fa-chevron-right"></i>
+                                        </button>
+                                    </div>
+                                    <div class="calendar-weekdays">
+                                        <div>Sun</div>
+                                        <div>Mon</div>
+                                        <div>Tue</div>
+                                        <div>Wed</div>
+                                        <div>Thu</div>
+                                        <div>Fri</div>
+                                        <div>Sat</div>
+                                    </div>
+                                    <div class="calendar-days" id="calendarDays">
+                                        <!-- Calendar days will be generated dynamically -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="timeslots-section">
+                                <h3>Available Time Slots</h3>
+                                <div class="selected-date-info" id="selectedDateInfo">
+                                    <p>Please select a date first</p>
+                                </div>
+                                <div class="timeslots-container" id="timeslotsContainer">
+                                    <!-- Time slots will be loaded based on selected date -->
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-actions">
+                            <button class="btn-prev" id="step3Prev">
+                                <i class="fas fa-arrow-left"></i> Back to Add-ons
+                            </button>
+                            <button class="btn-next" id="step3Next" disabled>
+                                Continue to Personal Details <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Personal Details -->
+                    <div class="wizard-step" id="step4">
+                        <div class="step-header">
+                            <h2 class="step-title">👤 Personal Details</h2>
+                            <p class="step-subtitle">Tell us about yourself and your celebration</p>
+                        </div>
+
+                        <form class="personal-details-form" id="personalDetailsForm">
+                            <div class="form-row">
+                                <div class="field">
+                                    <label for="customerName">Your Name *</label>
+                                    <input type="text" id="customerName" name="customerName" required>
+                                </div>
+                                <div class="field">
+                                    <label for="customerPhone">Phone Number *</label>
+                                    <input type="tel" id="customerPhone" name="customerPhone" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="field">
+                                    <label for="customerEmail">Email Address</label>
+                                    <input type="email" id="customerEmail" name="customerEmail">
+                                </div>
+                                <div class="field">
+                                    <label for="guestCount">Number of Guests</label>
+                                    <input type="number" id="guestCount" name="guestCount" min="1" max="50" value="2">
+                                </div>
+                            </div>
+
+                            <div class="field">
+                                <label for="specialRequests">Special Requests / Message</label>
+                                <textarea id="specialRequests" name="specialRequests" rows="3" placeholder="Any special requirements or messages..."></textarea>
+                            </div>
+
+                            <!-- Booking Policy -->
+                            <div class="booking-policy">
+                                <h4>❗ Booking Policy / बुकिंग नियम</h4>
+                                <ul>
+                                    <li>कोणत्याही कारणासाठी बुकिंग रद्द केली जाणार नाही.</li>
+                                    <li>जर काही कारणामुळे बुकिंग रद्द झाली, तर रक्कम परत मिळणार नाही.</li>
+                                    <li>मात्र ही रक्कम पुढील बुकिंगसाठी वापरता येईल.</li>
+                                    <li>Fire blast / paper blast करण्यास परवानगी नाही.</li>
+                                    <li>डेकोरेशन साहित्य किंवा बुकेचे नुकसान झाल्यास अतिरिक्त शुल्क आकारले जाईल.</li>
+                                </ul>
+                                
+                                <div class="policy-agreement">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="agreePolicy" name="agreePolicy" required>
+                                        <span class="checkmark"></span>
+                                        I agree to the booking policy and terms & conditions
+                                    </label>
+                                </div>
+                            </div>
+                        </form>
+
+                        <div class="step-actions">
+                            <button class="btn-prev" id="step4Prev">
+                                <i class="fas fa-arrow-left"></i> Back to Date & Time
+                            </button>
+                            <button class="btn-next" id="step4Next">
+                                Continue to Payment <i class="fas fa-arrow-right"></i>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Step 5: Receipt & Payment -->
+                    <div class="wizard-step" id="step5">
+                        <div class="step-header">
+                            <h2 class="step-title">💳 Review & Payment</h2>
+                            <p class="step-subtitle">Review your booking details and complete payment</p>
+                        </div>
+
+                        <div class="payment-layout">
+                            <!-- Left Side: Receipt -->
+                            <div class="receipt-section">
+                                <div class="receipt-card">
+                                    <div class="receipt-header">
+                                        <h3>🧾 Booking Receipt</h3>
+                                        <div class="receipt-logo">
+                                            <img src="assets/Logo.png" alt="Celebration Point" class="receipt-logo-img">
+                                        </div>
+                                    </div>
+
+                                    <div class="receipt-details">
+                                        <div class="receipt-section-title">Celebration Details</div>
+                                        <div class="receipt-item">
+                                            <span>Service Type:</span>
+                                            <span id="receiptServiceType">-</span>
+                                        </div>
+                                        <div class="receipt-item">
+                                            <span>Package:</span>
+                                            <span id="receiptPackage">-</span>
+                                        </div>
+                                        <div class="receipt-item">
+                                            <span>Date & Time:</span>
+                                            <span id="receiptDateTime">-</span>
+                                        </div>
+                                        <div class="receipt-item">
+                                            <span>Guests:</span>
+                                            <span id="receiptGuests">-</span>
+                                        </div>
+
+                                        <div class="receipt-section-title">Customer Details</div>
+                                        <div class="receipt-item">
+                                            <span>Name:</span>
+                                            <span id="receiptCustomerName">-</span>
+                                        </div>
+                                        <div class="receipt-item">
+                                            <span>Phone:</span>
+                                            <span id="receiptCustomerPhone">-</span>
+                                        </div>
+                                        <div class="receipt-item">
+                                            <span>Email:</span>
+                                            <span id="receiptCustomerEmail">-</span>
+                                        </div>
+
+                                        <div class="receipt-section-title">Price Breakdown</div>
+                                        <div class="receipt-item">
+                                            <span>Package Price:</span>
+                                            <span id="receiptPackagePrice">₹0</span>
+                                        </div>
+                                        <div class="receipt-item" id="receiptAddonsSection" style="display: none;">
+                                            <span>Add-ons:</span>
+                                            <span id="receiptAddonsPrice">₹0</span>
+                                        </div>
+                                        <div class="receipt-divider"></div>
+                                        <div class="receipt-item total">
+                                            <span>Total Amount:</span>
+                                            <span id="receiptTotalAmount">₹0</span>
+                                        </div>
+                                        <div class="receipt-item advance">
+                                            <span>Advance Payment (20%):</span>
+                                            <span id="receiptAdvanceAmount">₹0</span>
+                                        </div>
+                                        <div class="receipt-item remaining">
+                                            <span>Remaining Amount:</span>
+                                            <span id="receiptRemainingAmount">₹0</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="receipt-footer">
+                                        <p>📍 Celebration Point by Hangout</p>
+                                        <p>Papaya Nursery, Near Mole Hall, Savarkar Nagar, Satpur, Nashik</p>
+                                        <p>📞 8805158674 | 📸 @celebration_point_nashik</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Right Side: Payment -->
+                            <div class="payment-section">
+                                <div class="payment-card">
+                                    <div class="payment-header">
+                                        <h3>💳 Complete Payment</h3>
+                                        <div class="payment-amount">
+                                            <span>Pay Advance:</span>
+                                            <span class="amount" id="paymentAdvanceAmount">₹0</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="payment-methods">
+                                        <h4>Choose Payment Method</h4>
+                                        <div class="payment-options">
+                                            <div class="payment-option active" data-method="upi">
+                                                <i class="fas fa-mobile-alt"></i>
+                                                <span>UPI Payment</span>
+                                            </div>
+                                            <div class="payment-option" data-method="card">
+                                                <i class="fas fa-credit-card"></i>
+                                                <span>Card Payment</span>
+                                            </div>
+                                            <div class="payment-option" data-method="netbanking">
+                                                <i class="fas fa-university"></i>
+                                                <span>Net Banking</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="payment-info">
+                                        <div class="info-item">
+                                            <i class="fas fa-shield-alt"></i>
+                                            <span>Secure Payment Gateway</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <i class="fas fa-clock"></i>
+                                            <span>Instant Confirmation</span>
+                                        </div>
+                                        <div class="info-item">
+                                            <i class="fas fa-phone"></i>
+                                            <span>24/7 Support Available</span>
+                                        </div>
+                                    </div>
+
+                                    <div class="payment-note">
+                                        <p><strong>Note:</strong> For now, we'll save your booking details. Payment integration will be added soon. You'll receive a confirmation call within 30 minutes.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="step-actions">
+                            <button class="btn-prev" id="step5Prev">
+                                <i class="fas fa-arrow-left"></i> Back to Personal Details
+                            </button>
+                            <button class="btn-book-now" id="finalBookBtn">
+                                <i class="fas fa-calendar-check"></i>
+                                Confirm Booking
+                            </button>
+                        </div>
+                    </div>
+
                 </div>
             </div>
-        </div>
+        </section>
     </main>
 
-    <!-- Alert Container -->
-    <div class="alert-container" id="alertContainer"></div>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-content">
+            <div class="loading-spinner"></div>
+            <p>Processing your booking...</p>
+        </div>
+    </div>
 
- 
+    <!-- Success Modal -->
+    <div class="modal" id="successModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>🎉 Booking Confirmed!</h3>
+                <button class="modal-close" id="closeModal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p>Your booking has been successfully submitted!</p>
+                <p>We'll contact you shortly to confirm the details and payment.</p>
+                <div class="booking-reference">
+                    <strong>Booking Reference: <span id="bookingReference"></span></strong>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn-primary" id="modalOkBtn">OK</button>
+            </div>
+        </div>
+    </div>
 
     <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="config.js"></script>
-    <script src="booking-system.js"></script>
-    <script src="customer-booking.js"></script>
-
-    <!-- Initialize Booking System -->
     <script>
-    // Clean up any existing payment modals immediately
-    document.addEventListener('DOMContentLoaded', function () {
-
-        // Remove any existing payment modals or content
-        const existingModals = document.querySelectorAll(
-            '#paymentModal, #successModal, .modal-overlay, .payment-modal'
-        );
-        existingModals.forEach(modal => modal.remove());
-
-        // Remove any stray payment text content
-        const walker = document.createTreeWalker(
-            document.body,
-            NodeFilter.SHOW_TEXT,
-            null,
-            false
-        );
-
-        const textNodes = [];
-        let node;
-
-        while ((node = walker.nextNode())) {
-            if (
-                node.textContent.includes('Secure Payment') ||
-                node.textContent.includes('Amount to Pay') ||
-                node.textContent.includes('Transaction ID') ||
-                node.textContent.includes('Payment Successful')
-            ) {
-                textNodes.push(node);
+        // Fallback for Supabase if CDN is blocked
+        window.supabaseLoaded = false;
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2" onload="window.supabaseLoaded = true;" onerror="console.log('Supabase CDN blocked, using fallback');"></script>
+    <script>
+        // Check if Supabase loaded, if not provide a minimal fallback
+        setTimeout(() => {
+            if (!window.supabaseLoaded && !window.supabase) {
+                console.log('Providing Supabase fallback...');
+                window.supabase = {
+                    createClient: () => ({
+                        from: () => ({
+                            select: () => ({ data: null, error: new Error('Supabase not available') }),
+                            insert: () => ({ data: null, error: new Error('Supabase not available') })
+                        })
+                    })
+                };
             }
-        }
-
-        textNodes.forEach(textNode => {
-            const parent = textNode.parentNode;
-            if (parent && !parent.closest('.booking-step')) {
-                parent.remove();
-            }
-        });
-
-        console.log('Initializing vintage booking system...');
-        window.bookingSystem = new VintageBookingSystem();
-
-        // Next button handler
-        const nextBtn = document.getElementById('nextStepBtn');
-
-        if (nextBtn) {
-            nextBtn.addEventListener('click', function () {
-                if (window.bookingSystem) {
-                    window.bookingSystem.nextStep();
-                }
-            });
-        } else {
-            console.error('Next button not found!');
-        }
-
-    });
-</script>
-
+        }, 1000);
+    </script>
+    <script src="config.js?v=20260105162101"></script>
+    <script src="booking-script.js?v=20260105162101"></script>
+    <script src="script.js"></script>
 </body>
 
 </html>

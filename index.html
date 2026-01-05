@@ -430,77 +430,26 @@
 
                         <!-- TAB CONTENT -->
                         <div class="tab-content active" id="birthday">
-
-                            <div class="cards-grid">
-
-                                <!-- SILVER -->
-                                <div class="premium-card silver">
-                                    <span class="premium-badge">Silver</span>
-                                    <p class="package-type">Birthday Celebration</p>
-                                    <h3 class="premium-title">Silver Spark</h3>
-                                    <p class="price">₹ 999</p>
-                                    <div class="divider"></div>
-                                    <ul class="premium-features">
-                                        <li>Elegant balloon décor</li>
-                                        <li>Soft ambient lighting</li>
-                                        <li>Music setup</li>
-                                        <li>Private space</li>
-                                    </ul>
-                                    <p class="addon-note">Personalized add-ons available</p>
-                                    <button class="premium-btn">Reserve Experience</button>
+                            <div id="birthday-packages">
+                                <!-- Packages will be loaded dynamically from database -->
+                                <div class="cards-grid">
+                                    <!-- Fallback content while loading -->
+                                    <div class="premium-card silver">
+                                        <span class="premium-badge">Silver</span>
+                                        <p class="package-type">Birthday Celebration</p>
+                                        <h3 class="premium-title">Silver Spark</h3>
+                                        <p class="price">₹ 999</p>
+                                        <div class="divider"></div>
+                                        <ul class="premium-features">
+                                            <li>Elegant balloon décor</li>
+                                            <li>Soft ambient lighting</li>
+                                            <li>Music setup</li>
+                                            <li>Private space</li>
+                                        </ul>
+                                        <p class="addon-note">Personalized add-ons available</p>
+                                        <button class="premium-btn">Reserve Experience</button>
+                                    </div>
                                 </div>
-
-                                <!-- GOLD -->
-                                <div class="premium-card gold">
-                                    <span class="premium-badge">Most Loved</span>
-                                    <p class="package-type">Birthday Celebration</p>
-                                    <h3 class="premium-title">Golden Glow</h3>
-                                    <p class="price">₹ 1,399</p>
-                                    <div class="divider"></div>
-                                    <ul class="premium-features">
-                                        <li>Premium themed décor</li>
-                                        <li>Candlelight ambiance</li>
-                                        <li>LED lighting</li>
-                                        <li>Photography assistance</li>
-                                    </ul>
-                                    <p class="addon-note">Personalized add-ons available</p>
-                                    <button class="premium-btn">Reserve Experience</button>
-                                </div>
-
-                                <!-- DIAMOND -->
-                                <div class="premium-card diamond">
-                                    <span class="premium-badge">Luxury</span>
-                                    <p class="package-type">Birthday Celebration</p>
-                                    <h3 class="premium-title">Diamond </h3>
-                                    <p class="price">₹ 1,899</p>
-                                    <div class="divider"></div>
-                                    <ul class="premium-features">
-                                        <li>Luxury décor theme</li>
-                                        <li>Smoke & LED effects</li>
-                                        <li>Customized name display</li>
-                                        <li>Professional photos</li>
-                                    </ul>
-                                    <p class="addon-note">Premium add-ons included</p>
-                                    <button class="premium-btn">Reserve Experience</button>
-                                </div>
-
-                                <!-- PLATINUM -->
-                                <div class="premium-card platinum">
-                                    <span class="premium-badge">Elite</span>
-                                    <p class="package-type">Birthday Celebration</p>
-                                    <h3 class="premium-title">Platinum </h3>
-                                    <p class="price">₹ 2,499</p>
-                                    <div class="divider"></div>
-                                    <ul class="premium-features">
-                                        <li>Exclusive luxury theme</li>
-                                        <li>Flower & candle décor</li>
-                                        <li>Private celebration room</li>
-                                        <li>Photos + reels</li>
-                                    </ul>
-                                    <p class="addon-note">All add-ons included</p>
-                                    <button class="premium-btn">Reserve Experience</button>
-                                </div>
-
                             </div>
                         </div>
 
@@ -509,12 +458,16 @@
 
                     <!-- ROMANTIC -->
                     <div class="tab-content" id="romantic">
-                        <p class="coming">Romantic Date Packages Coming Soon 💖</p>
+                        <div id="romantic-packages">
+                            <p class="coming">Romantic Date Packages Coming Soon 💖</p>
+                        </div>
                     </div>
 
                     <!-- THEATRE -->
                     <div class="tab-content" id="theatre">
-                        <p class="coming">Mini Theatre Exclusive Packages 🎬</p>
+                        <div id="theatre-packages">
+                            <p class="coming">Mini Theatre Exclusive Packages 🎬</p>
+                        </div>
                     </div>
 
             </section>
@@ -711,6 +664,59 @@
 
             </div>
         </section>
+        <script>
+const calendarGrid = document.querySelector(".calendar-grid");
+const monthYear = document.querySelector(".month-year");
+
+const today = new Date();
+let currentMonth = today.getMonth();
+let currentYear = today.getFullYear();
+
+function renderCalendar(month, year) {
+  calendarGrid.innerHTML = "";
+
+  const monthNames = [
+    "January","February","March","April","May","June",
+    "July","August","September","October","November","December"
+  ];
+
+  monthYear.textContent = `${monthNames[month]} ${year}`;
+
+  const firstDay = new Date(year, month, 1).getDay();
+  const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+  // Empty slots
+  for (let i = 0; i < firstDay; i++) {
+    calendarGrid.appendChild(document.createElement("span"));
+  }
+
+  // Days
+  for (let day = 1; day <= daysInMonth; day++) {
+    const span = document.createElement("span");
+    span.textContent = day;
+
+    if (
+      day === today.getDate() &&
+      month === today.getMonth() &&
+      year === today.getFullYear()
+    ) {
+      span.classList.add("today");
+    }
+
+    span.addEventListener("click", () => {
+      document
+        .querySelectorAll(".calendar-grid span")
+        .forEach(d => d.classList.remove("selected"));
+      span.classList.add("selected");
+    });
+
+    calendarGrid.appendChild(span);
+  }
+}
+
+renderCalendar(currentMonth, currentYear);
+</script>
+
 
         <!-- Alert Container -->
         <div class="alert-container" id="customerAlertContainer"></div>
@@ -975,7 +981,41 @@
         <span>Chat</span>
     </a>
 
+    <!-- Admin Panel (Hidden link) -->
+    <a href="admin-login.html" class="floating-btn admin" style="display: none;" id="adminLink">
+        <i class="fas fa-cog" style="font-size: 20px; color: #fadc87;"></i>
+        <span>Admin</span>
+    </a>
+
 </div>
+
+<!-- Admin Access (Triple click on logo) -->
+<script>
+    let logoClickCount = 0;
+    let logoClickTimer = null;
+    
+    document.querySelector('.logo').addEventListener('click', function() {
+        logoClickCount++;
+        
+        if (logoClickCount === 1) {
+            logoClickTimer = setTimeout(() => {
+                logoClickCount = 0;
+            }, 2000); // Reset after 2 seconds
+        } else if (logoClickCount === 3) {
+            clearTimeout(logoClickTimer);
+            logoClickCount = 0;
+            
+            // Show admin link
+            const adminLink = document.getElementById('adminLink');
+            adminLink.style.display = 'flex';
+            
+            // Hide after 10 seconds
+            setTimeout(() => {
+                adminLink.style.display = 'none';
+            }, 10000);
+        }
+    });
+</script>
 
 </body>
 
