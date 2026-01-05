@@ -811,31 +811,83 @@ function closePackageModal() {
 }
 
 async function savePackage() {
-    const form = document.getElementById('packageForm');
-    const formData = new FormData(form);
+    console.log('=== SAVING PACKAGE ===');
     
-    const packageData = {
-        id: document.getElementById('packageId').value || `pkg_${Date.now()}`,
-        name: document.getElementById('packageName').value,
-        price: parseInt(document.getElementById('packagePrice').value),
-        duration: document.getElementById('packageDuration').value,
-        service_type: document.getElementById('packageServiceType').value,
-        badge: document.getElementById('packageBadge').value || null,
-        features: document.getElementById('packageFeatures').value.split('\n').filter(f => f.trim()),
-        description: document.getElementById('packageDescription').value || null,
-        is_active: document.getElementById('packageActive').checked
-    };
-
     try {
+        // Get form data
+        const packageData = {
+            id: document.getElementById('packageId').value || `pkg_${Date.now()}`,
+            name: document.getElementById('packageName').value.trim(),
+            price: parseInt(document.getElementById('packagePrice').value),
+            duration: document.getElementById('packageDuration').value.trim(),
+            service_type: document.getElementById('packageServiceType').value,
+            badge: document.getElementById('packageBadge').value.trim() || null,
+            features: document.getElementById('packageFeatures').value.split('\n').filter(f => f.trim()),
+            description: document.getElementById('packageDescription').value.trim() || null,
+            is_active: document.getElementById('packageActive').checked
+        };
+
+        console.log('Package data:', packageData);
+
+        // Validate required fields
+        if (!packageData.name) {
+            alert('Package name is required');
+            return;
+        }
+        if (!packageData.price || packageData.price <= 0) {
+            alert('Valid price is required');
+            return;
+        }
+        if (!packageData.duration) {
+            alert('Duration is required');
+            return;
+        }
+        if (!packageData.service_type) {
+            alert('Service type is required');
+            return;
+        }
+
         adminPanel.showLoading();
         
         if (adminPanel.supabase) {
-            const { error } = await adminPanel.supabase
-                .from('packages')
-                .upsert([packageData]);
+            console.log('Saving to Supabase...');
             
-            if (error) throw error;
+            // Try upsert first, if it fails due to RLS, show helpful error
+            try {
+                const { data, error } = await adminPanel.supabase
+                    .from('packages')
+                    .upsert([packageData])
+                    .select();
+                
+                if (error) {
+                    console.error('Supabase error:', error);
+                    
+                    // Check if it's an RLS error
+                    if (error.message.includes('row-level security policy') || error.message.includes('RLS')) {
+                        throw new Error(`Database security error: Please run the admin-rls-fix.sql script in your Supabase SQL Editor to enable admin operations. Error: ${error.message}`);
+                    } else {
+                        throw new Error(`Database error: ${error.message}`);
+                    }
+                }
+                
+                console.log('Package saved to database:', data);
+                
+            } catch (dbError) {
+                // If database save fails, save to local storage as fallback
+                console.warn('Database save failed, using local fallback:', dbError.message);
+                
+                const existingIndex = adminPanel.packages.findIndex(p => p.id === packageData.id);
+                if (existingIndex >= 0) {
+                    adminPanel.packages[existingIndex] = packageData;
+                } else {
+                    adminPanel.packages.push(packageData);
+                }
+                
+                // Show user-friendly error message
+                alert(`Package saved locally, but database save failed.\n\nTo fix this permanently:\n1. Go to your Supabase SQL Editor\n2. Run the admin-rls-fix.sql script\n3. This will enable admin operations\n\nError: ${dbError.message}`);
+            }
         } else {
+            console.log('Saving to local storage (fallback)...');
             // Fallback: update local array
             const existingIndex = adminPanel.packages.findIndex(p => p.id === packageData.id);
             if (existingIndex >= 0) {
@@ -847,11 +899,14 @@ async function savePackage() {
         
         await adminPanel.loadPackages();
         closePackageModal();
-        alert('Package saved successfully!');
+        
+        if (!alert.toString().includes('database save failed')) {
+            alert('Package saved successfully!');
+        }
         
     } catch (error) {
         console.error('Error saving package:', error);
-        alert('Error saving package. Please try again.');
+        alert(`Error saving package: ${error.message}`);
     } finally {
         adminPanel.hideLoading();
     }
@@ -918,24 +973,71 @@ function closeAddonModal() {
 }
 
 async function saveAddon() {
-    const addonData = {
-        id: document.getElementById('addonId').value || `addon_${Date.now()}`,
-        name: document.getElementById('addonName').value,
-        price: parseInt(document.getElementById('addonPrice').value),
-        description: document.getElementById('addonDescription').value || null,
-        is_active: document.getElementById('addonActive').checked
-    };
-
+    console.log('=== SAVING ADDON ===');
+    
     try {
+        // Get form data
+        const addonData = {
+            id: document.getElementById('addonId').value || `addon_${Date.now()}`,
+            name: document.getElementById('addonName').value.trim(),
+            price: parseInt(document.getElementById('addonPrice').value),
+            description: document.getElementById('addonDescription').value.trim() || null,
+            is_active: document.getElementById('addonActive').checked
+        };
+
+        console.log('Addon data:', addonData);
+
+        // Validate required fields
+        if (!addonData.name) {
+            alert('Add-on name is required');
+            return;
+        }
+        if (!addonData.price || addonData.price <= 0) {
+            alert('Valid price is required');
+            return;
+        }
+
         adminPanel.showLoading();
         
         if (adminPanel.supabase) {
-            const { error } = await adminPanel.supabase
-                .from('addons')
-                .upsert([addonData]);
+            console.log('Saving to Supabase...');
             
-            if (error) throw error;
+            // Try upsert first, if it fails due to RLS, show helpful error
+            try {
+                const { data, error } = await adminPanel.supabase
+                    .from('addons')
+                    .upsert([addonData])
+                    .select();
+                
+                if (error) {
+                    console.error('Supabase error:', error);
+                    
+                    // Check if it's an RLS error
+                    if (error.message.includes('row-level security policy') || error.message.includes('RLS')) {
+                        throw new Error(`Database security error: Please run the admin-rls-fix.sql script in your Supabase SQL Editor to enable admin operations. Error: ${error.message}`);
+                    } else {
+                        throw new Error(`Database error: ${error.message}`);
+                    }
+                }
+                
+                console.log('Addon saved to database:', data);
+                
+            } catch (dbError) {
+                // If database save fails, save to local storage as fallback
+                console.warn('Database save failed, using local fallback:', dbError.message);
+                
+                const existingIndex = adminPanel.addons.findIndex(a => a.id === addonData.id);
+                if (existingIndex >= 0) {
+                    adminPanel.addons[existingIndex] = addonData;
+                } else {
+                    adminPanel.addons.push(addonData);
+                }
+                
+                // Show user-friendly error message
+                alert(`Add-on saved locally, but database save failed.\n\nTo fix this permanently:\n1. Go to your Supabase SQL Editor\n2. Run the admin-rls-fix.sql script\n3. This will enable admin operations\n\nError: ${dbError.message}`);
+            }
         } else {
+            console.log('Saving to local storage (fallback)...');
             const existingIndex = adminPanel.addons.findIndex(a => a.id === addonData.id);
             if (existingIndex >= 0) {
                 adminPanel.addons[existingIndex] = addonData;
@@ -946,11 +1048,14 @@ async function saveAddon() {
         
         await adminPanel.loadAddons();
         closeAddonModal();
-        alert('Add-on saved successfully!');
+        
+        if (!alert.toString().includes('database save failed')) {
+            alert('Add-on saved successfully!');
+        }
         
     } catch (error) {
         console.error('Error saving add-on:', error);
-        alert('Error saving add-on. Please try again.');
+        alert(`Error saving add-on: ${error.message}`);
     } finally {
         adminPanel.hideLoading();
     }

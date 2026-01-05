@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <meta name="theme-color" content="#667eea">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
+    <title>Our Services - Celebration Point</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="services-styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Cinzel:wght@600&family=Cormorant+Garamond:wght@400;500&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <img src="assets/Logo.png" alt="Celebration Point Logo" class="logo">
+            </div>
+
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-button">
+                        <i class="icon fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#about" class="nav-button">
+                        <i class="icon fas fa-info-circle"></i>
+                        <span>About</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#gallery" class="nav-button">
+                        <i class="icon fas fa-images"></i>
+                        <span>Gallery</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#packages" class="nav-button">
+                        <i class="icon fas fa-box"></i>
+                        <span>Packages</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="services.html" class="nav-button active">
+                        <i class="icon fas fa-concierge-bell"></i>
+                        <span>Services</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="index.html#events" class="nav-button">
+                        <i class="icon fas fa-calendar-alt"></i>
+                        <span>Events</span>
+                    </a>
+                </li>
+                <li class="nav-item">
+                    <a href="booking.html" class="nav-button book-event-btn">
+                        <i class="icon fas fa-calendar-check"></i>
+                        <span>Book Event</span>
+                    </a>
+                </li>
+            </ul>
+
+            <!-- Mobile Menu Hamburger -->
+            <div id="hamburgerBtn" class="hamburger">
+                <i class="fas fa-bars"></i>
+            </div>
+
+            <!-- Mobile Navigation Menu -->
+            <div id="mobileMenu"
+                style="position: fixed; top: 0; left: -100%; width: 100%; height: 100vh; z-index: 9999; transition: left 0.3s ease-in-out; padding: 80px 0 20px 0;">
+                <div
+                    style="display: flex; flex-direction: column; align-items: center; gap: 10px; height: 100%; overflow-y: auto; padding: 20px;">
+
+                    <!-- Close Button -->
+                    <button onclick="closeMobileMenu()"
+                        style="position: absolute; top: 20px; right: 20px; background: transparent; border: none; font-size: 24px; cursor: pointer; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: background 0.3s ease;">
+                        <i class="fas fa-times"></i>
+                    </button>
+
+                    <!-- Navigation Items -->
+                    <a href="index.html" onclick="closeMobileMenu()" class="mobile-nav-item">
+                        <i class="fas fa-home"></i>
+                        <span>Home</span>
+                    </a>
+
+                    <a href="index.html#about" onclick="closeMobileMenu()" class="mobile-nav-item">
+                        <i class="fas fa-info-circle"></i>
+                        <span>About</span>
+                    </a>
+
+                    <a href="index.html#gallery" onclick="closeMobileMenu()" class="mobile-nav-item">
+                        <i class="fas fa-images"></i>
+                        <span>Gallery</span>
+                    </a>
+
+                    <a href="index.html#packages" onclick="closeMobileMenu()" class="mobile-nav-item">
+                        <i class="fas fa-box"></i>
+                        <span>Packages</span>
+                    </a>
+
+                    <a href="services.html" onclick="closeMobileMenu()" class="mobile-nav-item active">
+                        <i class="fas fa-concierge-bell"></i>
+                        <span>Services</span>
+                    </a>
+
+                    <a href="index.html#events" onclick="closeMobileMenu()" class="mobile-nav-item">
+                        <i class="fas fa-calendar-alt"></i>
+                        <span>Events</span>
+                    </a>
+
+                    <a href="booking.html" onclick="closeMobileMenu()" class="mobile-nav-item book-now">
+                        <i class="fas fa-calendar-check"></i>
+                        <span>Book Event</span>
+                    </a>
+                </div>
+            </div>
+
+            <script>
+                // Professional mobile menu toggle
+                let menuOpen = false;
+
+                function openMobileMenu() {
+                    const menu = document.getElementById('mobileMenu');
+                    const hamburger = document.getElementById('hamburgerBtn');
+
+                    if (menu) {
+                        menu.style.left = '0';
+                        menuOpen = true;
+                        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+
+                        // Animate hamburger to X
+                        if (hamburger) {
+                            const bars = hamburger.querySelectorAll('span');
+                            bars[0].style.transform = 'rotate(45deg) translate(6px, 6px)';
+                            bars[1].style.opacity = '0';
+                            bars[2].style.transform = 'rotate(-45deg) translate(6px, -6px)';
+                        }
+                    }
+                }
+
+                function closeMobileMenu() {
+                    const menu = document.getElementById('mobileMenu');
+                    const hamburger = document.getElementById('hamburgerBtn');
+
+                    if (menu) {
+                        menu.style.left = '-100%';
+                        menuOpen = false;
+                        document.body.style.overflow = ''; // Restore scrolling
+
+                        // Reset hamburger animation
+                        if (hamburger) {
+                            const bars = hamburger.querySelectorAll('span');
+                            bars[0].style.transform = '';
+                            bars[1].style.opacity = '1';
+                            bars[2].style.transform = '';
+                        }
+                    }
+                }
+
+                function toggleMenu() {
+                    if (menuOpen) {
+                        closeMobileMenu();
+                    } else {
+                        openMobileMenu();
+                    }
+                }
+
+                // Show/hide hamburger based on screen size
+                function checkScreenSize() {
+                    const hamburger = document.getElementById('hamburgerBtn');
+                    if (hamburger) {
+                        if (window.innerWidth <= 768) {
+                            hamburger.style.display = 'flex';
+                        } else {
+                            hamburger.style.display = 'none';
+                            closeMobileMenu(); // Close menu if screen becomes large
+                        }
+                    }
+                }
+
+                // Initialize when page loads
+                document.addEventListener('DOMContentLoaded', function () {
+                    const hamburger = document.getElementById('hamburgerBtn');
+
+                    if (hamburger) {
+                        hamburger.addEventListener('click', toggleMenu);
+
+                        // Add hover effects
+                        hamburger.addEventListener('mouseenter', function () {
+                            this.style.background = 'rgba(255, 255, 255, 1)';
+                            this.style.transform = 'scale(1.05)';
+                        });
+
+                        hamburger.addEventListener('mouseleave', function () {
+                            this.style.background = 'rgba(255, 255, 255, 0.9)';
+                            this.style.transform = 'scale(1)';
+                        });
+                    }
+
+                    // Check screen size on load and resize
+                    checkScreenSize();
+                    window.addEventListener('resize', checkScreenSize);
+
+                    // Close menu when clicking outside
+                    document.addEventListener('click', function (e) {
+                        const menu = document.getElementById('mobileMenu');
+                        const hamburger = document.getElementById('hamburgerBtn');
+
+                        if (menuOpen && menu && hamburger &&
+                            !menu.contains(e.target) &&
+                            !hamburger.contains(e.target)) {
+                            closeMobileMenu();
+                        }
+                    });
+                });
+            </script>
+        </div>
+    </nav>
+
+    <main>
+        <!-- Services Hero Section -->
+        <section class="services-hero">
+            <div class="hero-content">
+                <h1 class="hero-title">Our Complete Services</h1>
+                <p class="hero-subtitle">From intimate celebrations to grand events, we create magical moments for every occasion</p>
+            </div>
+        </section>
+
+        <!-- Services Grid -->
+        <section class="services-grid-section">
+            <div class="container">
+                
+                <!-- Core Services -->
+                <div class="services-category">
+                    <h2 class="category-title">
+                        <i class="fas fa-star"></i>
+                        Core Celebration Services
+                    </h2>
+                    
+                    <div class="services-grid">
+                        <!-- Birthday -->
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-birthday-cake"></i>
+                            </div>
+                            <h3 class="service-title">Birthday Celebrations</h3>
+                            <p class="service-description">Fun, colorful & memorable birthday celebrations with themed decorations and personalized touches.</p>
+                            <div class="service-features">
+                                <span class="feature-tag">Themed Decor</span>
+                                <span class="feature-tag">Custom Setup</span>
+                                <span class="feature-tag">Photo Session</span>
+                            </div>
+                            <button class="service-btn" onclick="window.location.href='booking.html'">Book Now</button>
+                        </div>
+
+                        <!-- Couple Celebrations -->
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <h3 class="service-title">Couple Celebrations</h3>
+                            <p class="service-description">Romantic setups for dates & private moments with elegant ambiance and intimate lighting.</p>
+                            <div class="service-features">
+                                <span class="feature-tag">Romantic Setup</span>
+                                <span class="feature-tag">Candlelight</span>
+                                <span class="feature-tag">Privacy</span>
+                            </div>
+                            <button class="service-btn" onclick="window.location.href='booking.html'">Book Now</button>
+                        </div>
+
+                        <!-- Anniversary -->
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-ring"></i>
+                            </div>
+                            <h3 class="service-title">Anniversary</h3>
+                            <p class="service-description">Elegant candlelight & premium décor to celebrate your special milestones together.</p>
+                            <div class="service-features">
+                                <span class="feature-tag">Premium Decor</span>
+                                <span class="feature-tag">Elegant Setup</span>
+                                <span class="feature-tag">Memory Lane</span>
+                            </div>
+                            <button class="service-btn" onclick="window.location.href='booking.html'">Book Now</button>
+                        </div>
+
+                        <!-- Baby Shower -->
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-baby"></i>
+                            </div>
+                            <h3 class="service-title">Baby Shower</h3>
+                            <p class="service-description">Warm, joyful & beautifully styled setups for celebrating new arrivals.</p>
+                            <div class="service-features">
+                                <span class="feature-tag">Pastel Colors</span>
+                                <span class="feature-tag">Gentle Decor</span>
+                                <span class="feature-tag">Family Joy</span>
+                            </div>
+                            <button class="service-btn" onclick="window.location.href='booking.html'">Book Now</button>
+                        </div>
+
+                        <!-- Bride To Be -->
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-crown"></i>
+                            </div>
+                            <h3 class="service-title">Bride To Be</h3>
+                            <p class="service-description">Aesthetic, fun & Instagram-worthy pre-wedding celebrations for the bride-to-be.</p>
+                            <div class="service-features">
+                                <span class="feature-tag">Instagram Ready</span>
+                                <span class="feature-tag">Aesthetic Setup</span>
+                                <span class="feature-tag">Pre-Wedding</span>
+                            </div>
+                            <button class="service-btn" onclick="window.location.href='booking.html'">Book Now</button>
+                        </div>
+
+                        <!-- Mini Theatre -->
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-film"></i>
+                            </div>
+                            <h3 class="service-title">Mini Theatre</h3>
+                            <p class="service-description">Private movie celebrations with friends, couples & family in our cozy theatre setup.</p>
+                            <div class="service-features">
+                                <span class="feature-tag">Private Screening</span>
+                                <span class="feature-tag">Comfort Seating</span>
+                                <span class="feature-tag">Snacks Included</span>
+                            </div>
+                            <button class="service-btn" onclick="window.location.href='booking.html'">Book Now</button>
+                        </div>
+
+                        <!-- Surprise Party -->
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-gift"></i>
+                            </div>
+                            <h3 class="service-title">Surprise Party</h3>
+                            <p class="service-description">Perfectly planned surprises for birthdays & special moments that create lasting memories.</p>
+                            <div class="service-features">
+                                <span class="feature-tag">Secret Planning</span>
+                                <span class="feature-tag">Perfect Timing</span>
+                                <span class="feature-tag">Memorable</span>
+                            </div>
+                            <button class="service-btn" onclick="window.location.href='booking.html'">Book Now</button>
+                        </div>
+
+                        <!-- Add-Ons -->
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-plus-circle"></i>
+                            </div>
+                            <h3 class="service-title">Add-Ons & Extras</h3>
+                            <p class="service-description">Photoshoot, name displays, slideshows & special effects to enhance your celebration.</p>
+                            <div class="service-features">
+                                <span class="feature-tag">Photography</span>
+                                <span class="feature-tag">Custom Display</span>
+                                <span class="feature-tag">Special Effects</span>
+                            </div>
+                            <button class="service-btn" onclick="window.location.href='booking.html'">Book Now</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Extended Services -->
+                <div class="services-category">
+                    <h2 class="category-title">
+                        <i class="fas fa-home"></i>
+                        Extended & Specialized Services
+                    </h2>
+                    
+                    <div class="services-grid">
+                        <!-- In-Home Decoration -->
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-home"></i>
+                            </div>
+                            <h3 class="service-title">In-Home Decoration</h3>
+                            <h4 class="service-subtitle">घरगुती सजावट</h4>
+                            <p class="service-description">घरच्या घरी खास प्रसंगांसाठी सुंदर आणि प्रोफेशनल सजावट. फुगे, लाईट्स, फुलं, बॅनर आणि थीम-आधारित डेकोरमुळे तुमचं घर बनेल सेलिब्रेशनसाठी परफेक्ट.</p>
+                            <div class="service-features">
+                                <span class="feature-tag">Home Setup</span>
+                                <span class="feature-tag">Professional Decor</span>
+                                <span class="feature-tag">Theme Based</span>
+                            </div>
+                            <button class="service-btn" onclick="window.location.href='booking.html'">Explore</button>
+                        </div>
+
+                        <!-- Personalized Events -->
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-palette"></i>
+                            </div>
+                            <h3 class="service-title">Personalized Events</h3>
+                            <h4 class="service-subtitle">वैयक्तिकृत कार्यक्रम</h4>
+                            <p class="service-description">तुमच्या कल्पनेनुसार पूर्णपणे कस्टमाइज केलेले कार्यक्रम. नाव, रंग, थीम, खास मेसेज आणि तुमच्या स्टाईलप्रमाणे डिझाइन केलेली सजावट.</p>
+                            <div class="service-features">
+                                <span class="feature-tag">Fully Customized</span>
+                                <span class="feature-tag">Personal Style</span>
+                                <span class="feature-tag">Unique Design</span>
+                            </div>
+                            <button class="service-btn" onclick="window.location.href='booking.html'">Explore</button>
+                        </div>
+
+                        <!-- Proposal Setup -->
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-gem"></i>
+                            </div>
+                            <h3 class="service-title">Proposal Setup</h3>
+                            <h4 class="service-subtitle">प्रपोजल स्पेशल सजावट</h4>
+                            <p class="service-description">लव्ह प्रपोजलसाठी रोमँटिक आणि भावनिक वातावरण. मेणबत्त्या, फुलं, लाईट्स आणि "Will You Marry Me" सारख्या खास सेटअपसह अविस्मरणीय क्षण.</p>
+                            <div class="service-features">
+                                <span class="feature-tag">Romantic Setup</span>
+                                <span class="feature-tag">Emotional Moment</span>
+                                <span class="feature-tag">Unforgettable</span>
+                            </div>
+                            <button class="service-btn" onclick="window.location.href='booking.html'">Explore</button>
+                        </div>
+
+                        <!-- Welcome Baby / Naming Ceremony -->
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-child"></i>
+                            </div>
+                            <h3 class="service-title">Welcome Baby / Naming Ceremony</h3>
+                            <h4 class="service-subtitle">नवजात बाळ स्वागत / नामकरण सोहळा</h4>
+                            <p class="service-description">नवीन बाळाच्या स्वागतासाठी सौम्य, गोड आणि पारंपरिक सजावट. पेस्टल रंग, फुलांची सजावट आणि कुटुंबासाठी आनंदी वातावरण.</p>
+                            <div class="service-features">
+                                <span class="feature-tag">Traditional Setup</span>
+                                <span class="feature-tag">Gentle Colors</span>
+                                <span class="feature-tag">Family Joy</span>
+                            </div>
+                            <button class="service-btn" onclick="window.location.href='booking.html'">Explore</button>
+                        </div>
+
+                        <!-- Candlelight Dinner Setup -->
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-candle-holder"></i>
+                            </div>
+                            <h3 class="service-title">Candlelight Dinner Setup</h3>
+                            <h4 class="service-subtitle">कॅंडललाईट डिनर सेटअप</h4>
+                            <p class="service-description">घरात किंवा खास ठिकाणी रोमँटिक कॅंडललाईट डिनरची व्यवस्था. लाईटिंग, फुलं, टेबल डेकोर आणि प्रेमळ वातावरण.</p>
+                            <div class="service-features">
+                                <span class="feature-tag">Romantic Dining</span>
+                                <span class="feature-tag">Candlelight</span>
+                                <span class="feature-tag">Table Decor</span>
+                            </div>
+                            <button class="service-btn" onclick="window.location.href='booking.html'">Explore</button>
+                        </div>
+
+                        <!-- Festival Decoration -->
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-star-and-crescent"></i>
+                            </div>
+                            <h3 class="service-title">Festival Decoration</h3>
+                            <h4 class="service-subtitle">सणांसाठी सजावट</h4>
+                            <p class="service-description">दिवाळी, गणपती, नाताळ, व्हॅलेंटाईन डे यांसारख्या सणांसाठी थीम-आधारित सजावट. परंपरा आणि आधुनिक डिझाइन यांचा सुंदर मिलाफ.</p>
+                            <div class="service-features">
+                                <span class="feature-tag">Festival Themes</span>
+                                <span class="feature-tag">Traditional</span>
+                                <span class="feature-tag">Modern Mix</span>
+                            </div>
+                            <button class="service-btn" onclick="window.location.href='booking.html'">Explore</button>
+                        </div>
+
+                        <!-- Photo Booth Setup -->
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-camera"></i>
+                            </div>
+                            <h3 class="service-title">Photo Booth Setup</h3>
+                            <h4 class="service-subtitle">फोटो बूथ सेटअप</h4>
+                            <p class="service-description">पार्टी किंवा कार्यक्रमासाठी आकर्षक फोटो बूथ. प्रॉप्स, बॅकड्रॉप आणि लाईटिंगसह Instagram-ready फोटोसाठी परफेक्ट.</p>
+                            <div class="service-features">
+                                <span class="feature-tag">Photo Props</span>
+                                <span class="feature-tag">Instagram Ready</span>
+                                <span class="feature-tag">Perfect Lighting</span>
+                            </div>
+                            <button class="service-btn" onclick="window.location.href='booking.html'">Explore</button>
+                        </div>
+
+                        <!-- Surprise Room Setup -->
+                        <div class="service-card">
+                            <div class="service-icon">
+                                <i class="fas fa-surprise"></i>
+                            </div>
+                            <h3 class="service-title">Surprise Room Setup</h3>
+                            <h4 class="service-subtitle">सरप्राइज रूम सजावट</h4>
+                            <p class="service-description">तुमच्या प्रिय व्यक्तीसाठी पूर्णपणे सरप्राइज देणारी रूम सजावट. लाईट्स, फुलं, फोटो आणि भावनिक टचसह खास अनुभव.</p>
+                            <div class="service-features">
+                                <span class="feature-tag">Complete Surprise</span>
+                                <span class="feature-tag">Emotional Touch</span>
+                                <span class="feature-tag">Special Experience</span>
+                            </div>
+                            <button class="service-btn" onclick="window.location.href='booking.html'">Explore</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Call to Action -->
+                <div class="services-cta">
+                    <h2>Ready to Create Your Perfect Celebration?</h2>
+                    <p>Contact us to discuss your requirements and let us create a magical experience for you.</p>
+                    <div class="cta-buttons">
+                        <a href="booking.html" class="cta-btn primary">
+                            <i class="fas fa-calendar-check"></i>
+                            Book Your Event
+                        </a>
+                        <a href="tel:8805158674" class="cta-btn secondary">
+                            <i class="fas fa-phone"></i>
+                            Call Us Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <!-- Logo & About -->
+                <div class="footer-col">
+                    <div class="footer-logo">
+                        <img src="assets/Logo.png" alt="Celebration Point Logo" class="footer-logo-img">
+                    </div>
+                    <p>
+                        Turning every celebration into a memory worth cherishing.
+                        Experience our wooden vintage ambiance with unforgettable moments.
+                    </p>
+                </div>
+
+                <!-- Quick Links -->
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#about">About Us</a></li>
+                        <li><a href="services.html">Services</a></li>
+                        <li><a href="booking.html">Book Event</a></li>
+                    </ul>
+                </div>
+
+                <!-- Contact -->
+                <div class="footer-col">
+                    <h4>Contact Info</h4>
+                    <p><i class="fas fa-phone"></i> 8805158674, 7219742729</p>
+                    <p><i class="fas fa-envelope"></i> Hangout@celebrationpointcafe.com</p>
+                    <p><i class="fas fa-map-marker-alt"></i> Celebration Point by Hangout, Nashik</p>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <p>&copy; 2024 Celebration Point Café. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="#">Privacy Policy</a>
+                    <a href="#">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Floating Action Buttons -->
+    <div class="floating-actions">
+        <!-- Book Event -->
+        <a href="booking.html" class="floating-btn book">
+            <img src="assets/book.png" alt="Book Event">
+            <span>Book</span>
+        </a>
+
+        <!-- Call -->
+        <a href="tel:8805158674" class="floating-btn call">
+            <img src="assets/call.png" alt="Call Now">
+            <span>Call</span>
+        </a>
+
+        <!-- WhatsApp -->
+        <a href="https://wa.me/918805158674?text=Hi%2C%20I%20want%20to%20book%20an%20event" target="_blank" class="floating-btn whatsapp">
+            <img src="assets/whatsapp.png" alt="WhatsApp">
+            <span>Chat</span>
+        </a>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    <script src="script.js"></script>
+</body>
+
+</html>

@@ -10,309 +10,13 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <title>Book Your Celebration - Celebration Point</title>
     <link rel="stylesheet" href="styles.css?v=20260105162101">
-    <link rel="stylesheet" href="booking-styles.css?v=20260105162101">>
+    <link rel="stylesheet" href="styles.css">>
     <!-- Try CDN first, fallback to local if blocked -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" onerror="this.onerror=null;this.href='assets/fontawesome-fallback.css';">
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Cinzel:wght@600&family=Cormorant+Garamond:wght@400;500&display=swap" rel="stylesheet">
     
     <!-- Inline CSS to ensure premium cards load immediately -->
-    <style>
-        /* Force premium card styles with direct colors */
-        .premium-card {
-            border-radius: 22px !important;
-            padding: 30px 26px 28px !important;
-            text-align: center !important;
-            position: relative !important;
-            max-width: 340px !important;
-            margin: auto !important;
-            transition: transform 0.35s ease, box-shadow 0.35s ease !important;
-            cursor: pointer !important;
-            min-height: 450px !important;
-            display: flex !important;
-            flex-direction: column !important;
-            justify-content: space-between !important;
-        }
-        
-        /* Silver Card */
-        .premium-card.silver {
-            background: radial-gradient(120% 120% at 50% 0%, rgba(192, 192, 192, 0.08), transparent 60%), #050505 !important;
-            border: 1px solid rgba(192, 192, 192, 0.38) !important;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.7), inset 0 0 25px rgba(192, 192, 192, 0.05) !important;
-        }
-        
-        .premium-card.silver::before {
-            content: "" !important;
-            position: absolute !important;
-            top: 0 !important;
-            left: 50% !important;
-            transform: translateX(-50%) !important;
-            width: 60% !important;
-            height: 1px !important;
-            background: linear-gradient(to right, transparent, rgba(192, 192, 192, 0.8), transparent) !important;
-        }
-        
-        .premium-card.silver:hover {
-            transform: translateY(-8px) !important;
-            box-shadow: 0 28px 60px rgba(0,0,0,0.85), inset 0 0 30px rgba(192, 192, 192, 0.08) !important;
-        }
-        
-        .premium-card.silver .premium-badge {
-            color: rgb(192, 192, 192) !important;
-            border: 1px solid rgba(192, 192, 192, 0.55) !important;
-        }
-        
-        .premium-card.silver .premium-title {
-            color: rgb(192, 192, 192) !important;
-            text-shadow: 0 0 6px rgba(192, 192, 192, 0.25) !important;
-        }
-        
-        .premium-card.silver .divider {
-            background: linear-gradient(to right, transparent, rgba(192, 192, 192, 0.55), transparent) !important;
-        }
-        
-        .premium-card.silver .premium-btn {
-            border: 1px solid rgba(192, 192, 192, 0.6) !important;
-            color: rgb(192, 192, 192) !important;
-        }
-        
-        .premium-card.silver .premium-btn:hover {
-            background: rgba(192, 192, 192, 0.12) !important;
-            box-shadow: 0 0 16px rgba(192, 192, 192, 0.25) !important;
-        }
-        
-        /* Gold Card */
-        .premium-card.gold {
-            background: radial-gradient(120% 120% at 50% 0%, rgba(201, 161, 74, 0.08), transparent 60%), #050505 !important;
-            border: 1px solid rgba(201, 161, 74, 0.38) !important;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.7), inset 0 0 25px rgba(201, 161, 74, 0.05) !important;
-        }
-        
-        .premium-card.gold::before {
-            content: "" !important;
-            position: absolute !important;
-            top: 0 !important;
-            left: 50% !important;
-            transform: translateX(-50%) !important;
-            width: 60% !important;
-            height: 1px !important;
-            background: linear-gradient(to right, transparent, rgba(201, 161, 74, 0.8), transparent) !important;
-        }
-        
-        .premium-card.gold:hover {
-            transform: translateY(-8px) !important;
-            box-shadow: 0 28px 60px rgba(0,0,0,0.85), inset 0 0 30px rgba(201, 161, 74, 0.08) !important;
-        }
-        
-        .premium-card.gold .premium-badge {
-            color: rgb(201, 161, 74) !important;
-            border: 1px solid rgba(201, 161, 74, 0.55) !important;
-        }
-        
-        .premium-card.gold .premium-title {
-            color: rgb(201, 161, 74) !important;
-            text-shadow: 0 0 6px rgba(201, 161, 74, 0.25) !important;
-        }
-        
-        .premium-card.gold .divider {
-            background: linear-gradient(to right, transparent, rgba(201, 161, 74, 0.55), transparent) !important;
-        }
-        
-        .premium-card.gold .premium-btn {
-            border: 1px solid rgba(201, 161, 74, 0.6) !important;
-            color: rgb(201, 161, 74) !important;
-        }
-        
-        .premium-card.gold .premium-btn:hover {
-            background: rgba(201, 161, 74, 0.12) !important;
-            box-shadow: 0 0 16px rgba(201, 161, 74, 0.25) !important;
-        }
-        
-        /* Diamond Card */
-        .premium-card.diamond {
-            background: radial-gradient(120% 120% at 50% 0%, rgba(0, 229, 255, 0.08), transparent 60%), #050505 !important;
-            border: 1px solid rgba(0, 229, 255, 0.38) !important;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.7), inset 0 0 25px rgba(0, 229, 255, 0.05) !important;
-        }
-        
-        .premium-card.diamond::before {
-            content: "" !important;
-            position: absolute !important;
-            top: 0 !important;
-            left: 50% !important;
-            transform: translateX(-50%) !important;
-            width: 60% !important;
-            height: 1px !important;
-            background: linear-gradient(to right, transparent, rgba(0, 229, 255, 0.8), transparent) !important;
-        }
-        
-        .premium-card.diamond:hover {
-            transform: translateY(-8px) !important;
-            box-shadow: 0 28px 60px rgba(0,0,0,0.85), inset 0 0 30px rgba(0, 229, 255, 0.08) !important;
-        }
-        
-        .premium-card.diamond .premium-badge {
-            color: rgb(0, 229, 255) !important;
-            border: 1px solid rgba(0, 229, 255, 0.55) !important;
-        }
-        
-        .premium-card.diamond .premium-title {
-            color: rgb(0, 229, 255) !important;
-            text-shadow: 0 0 6px rgba(0, 229, 255, 0.25) !important;
-        }
-        
-        .premium-card.diamond .divider {
-            background: linear-gradient(to right, transparent, rgba(0, 229, 255, 0.55), transparent) !important;
-        }
-        
-        .premium-card.diamond .premium-btn {
-            border: 1px solid rgba(0, 229, 255, 0.6) !important;
-            color: rgb(0, 229, 255) !important;
-        }
-        
-        .premium-card.diamond .premium-btn:hover {
-            background: rgba(0, 229, 255, 0.12) !important;
-            box-shadow: 0 0 16px rgba(0, 229, 255, 0.25) !important;
-        }
-        
-        /* Platinum Card */
-        .premium-card.platinum {
-            background: radial-gradient(120% 120% at 50% 0%, rgba(229, 228, 226, 0.08), transparent 60%), #050505 !important;
-            border: 1px solid rgba(229, 228, 226, 0.38) !important;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.7), inset 0 0 25px rgba(229, 228, 226, 0.05) !important;
-        }
-        
-        .premium-card.platinum::before {
-            content: "" !important;
-            position: absolute !important;
-            top: 0 !important;
-            left: 50% !important;
-            transform: translateX(-50%) !important;
-            width: 60% !important;
-            height: 1px !important;
-            background: linear-gradient(to right, transparent, rgba(229, 228, 226, 0.8), transparent) !important;
-        }
-        
-        .premium-card.platinum:hover {
-            transform: translateY(-8px) !important;
-            box-shadow: 0 28px 60px rgba(0,0,0,0.85), inset 0 0 30px rgba(229, 228, 226, 0.08) !important;
-        }
-        
-        .premium-card.platinum .premium-badge {
-            color: rgb(229, 228, 226) !important;
-            border: 1px solid rgba(229, 228, 226, 0.55) !important;
-        }
-        
-        .premium-card.platinum .premium-title {
-            color: rgb(229, 228, 226) !important;
-            text-shadow: 0 0 6px rgba(229, 228, 226, 0.25) !important;
-        }
-        
-        .premium-card.platinum .divider {
-            background: linear-gradient(to right, transparent, rgba(229, 228, 226, 0.55), transparent) !important;
-        }
-        
-        .premium-card.platinum .premium-btn {
-            border: 1px solid rgba(229, 228, 226, 0.6) !important;
-            color: rgb(229, 228, 226) !important;
-        }
-        
-        .premium-card.platinum .premium-btn:hover {
-            background: rgba(229, 228, 226, 0.12) !important;
-            box-shadow: 0 0 16px rgba(229, 228, 226, 0.25) !important;
-        }
-        
-        /* Common styles */
-        .premium-badge {
-            position: absolute !important;
-            top: 16px !important;
-            right: 16px !important;
-            font-size: 0.6rem !important;
-            letter-spacing: 1.6px !important;
-            text-transform: uppercase !important;
-            padding: 5px 12px !important;
-            border-radius: 30px !important;
-            background: rgba(0,0,0,0.6) !important;
-            backdrop-filter: blur(6px) !important;
-        }
-        
-        .package-type {
-            font-size: 0.68rem !important;
-            letter-spacing: 2.6px !important;
-            color: #b3b3b3 !important;
-            margin-bottom: 8px !important;
-            text-transform: uppercase !important;
-        }
-        
-        .premium-title {
-            font-family: 'Playfair Display', serif !important;
-            font-size: 1.85rem !important;
-            font-weight: 600 !important;
-            margin: 6px 0 !important;
-        }
-        
-        .price {
-            font-family: 'Playfair Display', serif !important;
-            font-size: 1.35rem !important;
-            color: #fff !important;
-            margin: 8px 0 6px !important;
-        }
-        
-        .divider {
-            width: 75% !important;
-            height: 1px !important;
-            margin: 18px auto !important;
-        }
-        
-        .premium-features {
-            list-style: none !important;
-            padding: 0 !important;
-            margin: 0 0 16px !important;
-        }
-        
-        .premium-features li {
-            font-size: 0.82rem !important;
-            color: #d4d4d4 !important;
-            margin: 9px 0 !important;
-            letter-spacing: 0.3px !important;
-        }
-        
-        .addon-note {
-            font-size: 0.7rem !important;
-            color: #a7a7a7 !important;
-            margin-bottom: 18px !important;
-            font-style: italic !important;
-        }
-        
-        .premium-btn {
-            padding: 11px 30px !important;
-            border-radius: 30px !important;
-            background: transparent !important;
-            font-size: 0.72rem !important;
-            letter-spacing: 1.6px !important;
-            text-transform: uppercase !important;
-            cursor: pointer !important;
-            transition: all 0.3s ease !important;
-        }
-        
-        .packages-container {
-            display: grid !important;
-            grid-template-columns: repeat(4, 1fr) !important;
-            gap: 22px !important;
-            margin-top: 40px !important;
-        }
-        
-        @media (max-width: 1100px) {
-            .packages-container {
-                grid-template-columns: repeat(2, 1fr) !important;
-            }
-        }
-        
-        @media (max-width: 600px) {
-            .packages-container {
-                grid-template-columns: 1fr !important;
-            }
-        }
-    </style>
+    
 </head>
 
 <body>
@@ -358,7 +62,7 @@
 
             <!-- Mobile Menu Hamburger -->
             <div id="hamburgerBtn" class="hamburger">
-                <img src="assets/wood-texture.png" alt="Menu">
+                
             </div>
         </div>
     </nav>
@@ -370,6 +74,13 @@
             <div class="booking-hero-content">
                 <h1 class="booking-title">🎉 Celebrate in Style at Celebration Point!</h1>
                 <p class="booking-subtitle">Birthday ho, surprise ho ya koi special moment — 🎈 Aap vibe choose karo, mood hum set karenge!</p>
+            </div>
+        </section>
+
+        <!-- Guest Limit Notice -->
+        <section class="booking-guest-notice">
+            <div class="guest-limit-notice">
+                <p><i class="fas fa-info-circle"></i> For celebrations with more than 50 guests, please <a href="tel:8805158674">call us</a> for custom arrangements.</p>
             </div>
         </section>
 

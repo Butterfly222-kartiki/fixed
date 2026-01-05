@@ -16,6 +16,9 @@ class BookingWizard {
         this.selectedTime = null;
         this.personalDetails = {};
         
+        // Extra hours tracking
+        this.extraHoursSelection = {}; // Format: { 'addon_extra_hours': 2 }
+        
         // Data arrays - Will be loaded from database
         this.packages = [];
         this.addons = [];
@@ -31,7 +34,7 @@ class BookingWizard {
     loadPremiumPackages() {
         console.log('=== LOADING PREMIUM PACKAGES ===');
         this.packages = [
-            // Birthday packages
+            // Birthday packages - ordered by price
             {
                 id: 'birthday_999',
                 name: 'Silver Spark',
@@ -92,7 +95,7 @@ class BookingWizard {
                 badge: 'Elite',
                 tier: 'platinum'
             },
-            // Romantic packages
+            // Romantic packages - ordered by price
             {
                 id: 'romantic_799',
                 name: 'Silver Romance',
@@ -105,7 +108,7 @@ class BookingWizard {
                     'Private seating',
                     'Photo opportunities'
                 ],
-                badge: 'Popular',
+                badge: 'Most Loved',
                 tier: 'silver'
             },
             {
@@ -153,7 +156,7 @@ class BookingWizard {
                 badge: 'Elite',
                 tier: 'platinum'
             },
-            // Anniversary packages
+            // Anniversary packages - ordered by price
             {
                 id: 'anniversary_1299',
                 name: 'Silver Anniversary',
@@ -166,7 +169,7 @@ class BookingWizard {
                     'Memory displays',
                     'Photo session'
                 ],
-                badge: 'Popular',
+                badge: 'Most Loved',
                 tier: 'silver'
             },
             {
@@ -214,7 +217,7 @@ class BookingWizard {
                 badge: 'Elite',
                 tier: 'platinum'
             },
-            // Theatre packages
+            // Theatre packages - ordered by price
             {
                 id: 'theatre_899',
                 name: 'Silver Theatre',
@@ -227,7 +230,7 @@ class BookingWizard {
                     'Comfortable seating',
                     'Basic amenities'
                 ],
-                badge: 'Popular',
+                badge: 'Most Loved',
                 tier: 'silver'
             },
             {
@@ -516,8 +519,10 @@ class BookingWizard {
                 }
 
                 if (data && data.length > 0) {
-                    // Transform database data to premium format
-                    this.packages = data.map(pkg => this.transformToPremiuPackage(pkg));
+                    // Store raw packages first
+                    this.packages = data;
+                    // Transform database data to premium format AFTER all packages are loaded
+                    this.packages = this.packages.map(pkg => this.transformToPremiuPackage(pkg));
                     console.log('Loaded and transformed packages from database:', this.packages);
                     this.displayPackages();
                 } else {
@@ -538,11 +543,27 @@ class BookingWizard {
         }
     }
 
-    getTierFromPrice(price) {
-        if (price <= 999) return 'silver';
-        if (price <= 1399) return 'gold';
-        if (price <= 1899) return 'diamond';
-        return 'platinum';
+    getTierFromPriceOrder(packages, currentPackage) {
+        // Get packages for the same service type and sort by price
+        const servicePackages = packages
+            .filter(pkg => pkg.service_type === currentPackage.service_type)
+            .sort((a, b) => a.price - b.price);
+        
+        if (servicePackages.length === 1) return 'gold'; // Single package gets gold
+        
+        const index = servicePackages.findIndex(pkg => pkg.id === currentPackage.id);
+        const totalPackages = servicePackages.length;
+        
+        // Assign tiers based on position in sorted array
+        if (totalPackages === 2) {
+            return index === 0 ? 'silver' : 'platinum';
+        } else if (totalPackages === 3) {
+            return ['silver', 'gold', 'platinum'][index];
+        } else if (totalPackages >= 4) {
+            return ['silver', 'gold', 'diamond', 'platinum'][index] || 'platinum';
+        }
+        
+        return 'gold'; // fallback
     }
 
     getBadgeFromTier(tier) {
@@ -556,8 +577,8 @@ class BookingWizard {
     }
 
     transformToPremiuPackage(pkg) {
-        // Determine tier from price
-        const tier = pkg.tier || this.getTierFromPrice(pkg.price);
+        // Determine tier from price order within service type
+        const tier = pkg.tier || this.getTierFromPriceOrder(this.packages, pkg);
         
         // Get premium name based on tier and service type
         const premiumName = this.getPremiumName(tier, pkg.service_type);
@@ -632,22 +653,25 @@ class BookingWizard {
         }
 
         // Display packages with premium card structure
-        container.innerHTML = filteredPackages.map(pkg => `
-            <div class="premium-card ${pkg.tier || 'default'} ${this.selectedPackage?.id === pkg.id ? 'selected' : ''}" 
-                 data-package-id="${pkg.id}" 
-                 onclick="bookingWizard.selectPackage('${pkg.id}')">
-                ${pkg.badge ? `<div class="premium-badge">${pkg.badge}</div>` : ''}
-                <div class="package-type">${this.selectedService.charAt(0).toUpperCase() + this.selectedService.slice(1)} Celebration</div>
-                <h3 class="premium-title">${pkg.name}</h3>
-                <div class="price">₹ ${pkg.price.toLocaleString()}</div>
-                <div class="divider"></div>
-                <ul class="premium-features">
-                    ${(pkg.features || []).map(feature => `<li>${feature}</li>`).join('')}
-                </ul>
-                <div class="addon-note">${pkg.description || 'Personalized add-ons available'}</div>
-                <button class="premium-btn" onclick="event.stopPropagation();">Reserve Experience</button>
-            </div>
-        `).join('');
+        container.innerHTML = filteredPackages.map(pkg => {
+            console.log(`Package: ${pkg.name}, Price: ${pkg.price}, Tier: ${pkg.tier}`);
+            return `
+                <div class="premium-card ${pkg.tier || 'default'} ${this.selectedPackage?.id === pkg.id ? 'selected' : ''}" 
+                     data-package-id="${pkg.id}" 
+                     onclick="bookingWizard.selectPackage('${pkg.id}')">
+                    ${pkg.badge ? `<div class="premium-badge">${pkg.badge}</div>` : ''}
+                    <div class="package-type">${this.selectedService.charAt(0).toUpperCase() + this.selectedService.slice(1)} Celebration</div>
+                    <h3 class="premium-title">${pkg.name}</h3>
+                    <div class="price">₹ ${pkg.price.toLocaleString()}</div>
+                    <div class="divider"></div>
+                    <ul class="premium-features">
+                        ${(pkg.features || []).map(feature => `<li>${feature}</li>`).join('')}
+                    </ul>
+                    <div class="addon-note">${pkg.description || 'Personalized add-ons available'}</div>
+                    <button class="premium-btn" onclick="event.stopPropagation();">Reserve Experience</button>
+                </div>
+            `;
+        }).join('');
 
         console.log('=== PACKAGES DISPLAYED SUCCESSFULLY ===');
     }
@@ -742,6 +766,14 @@ class BookingWizard {
                 name: 'Flower Bouquet (for photoshoot)',
                 description: 'फोटोशूटसाठी एक सुंदर फुलांचा बुके दिला जाईल',
                 price: 100
+            },
+            {
+                id: 'addon_extra_hours',
+                name: 'Extra Hours Extension',
+                description: 'Extend your celebration by additional hours (1-4 hours). Perfect for longer celebrations and more memories! Price is per hour.',
+                price: 300,
+                type: 'time_extension',
+                extension_hours: 1
             }
         ];
         console.log('Fallback add-ons loaded:', this.addons);
@@ -760,18 +792,55 @@ class BookingWizard {
             return;
         }
 
-        container.innerHTML = this.addons.map(addon => `
-            <div class="addon-card ${this.selectedAddons.includes(addon.id) ? 'selected' : ''}" 
-                 data-addon-id="${addon.id}" 
-                 onclick="bookingWizard.toggleAddon('${addon.id}')">
-                <div class="addon-checkbox"></div>
-                <div class="addon-info">
-                    <h4 class="addon-title">${addon.name}</h4>
-                    <p class="addon-description">${addon.description}</p>
-                    <div class="addon-price">₹${addon.price}</div>
-                </div>
-            </div>
-        `).join('');
+        container.innerHTML = this.addons.map(addon => {
+            // Special handling for time extension add-ons
+            if (addon.type === 'time_extension') {
+                const selectedHours = this.getSelectedExtraHours(addon.id);
+                return `
+                    <div class="addon-card time-extension ${this.selectedAddons.includes(addon.id) ? 'selected' : ''}" 
+                         data-addon-id="${addon.id}">
+                        <div class="addon-checkbox"></div>
+                        <div class="addon-info">
+                            <h4 class="addon-title">${addon.name}</h4>
+                            <p class="addon-description">${addon.description}</p>
+                            <div class="addon-price">₹${addon.price}/hour</div>
+                            <div class="hours-selector ${this.selectedAddons.includes(addon.id) ? 'active' : ''}">
+                                <label>Extra Hours:</label>
+                                <div class="hours-buttons">
+                                    ${[1, 2, 3, 4].map(hours => `
+                                        <button type="button" 
+                                                class="hour-btn ${selectedHours === hours ? 'selected' : ''}"
+                                                onclick="event.stopPropagation(); bookingWizard.selectExtraHours('${addon.id}', ${hours})">
+                                            ${hours}h
+                                        </button>
+                                    `).join('')}
+                                </div>
+                                <div class="total-price">
+                                    Total: ₹${(addon.price * selectedHours).toLocaleString()}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="addon-toggle" onclick="bookingWizard.toggleAddon('${addon.id}')">
+                            ${this.selectedAddons.includes(addon.id) ? 'Remove' : 'Add'}
+                        </div>
+                    </div>
+                `;
+            } else {
+                // Regular add-ons
+                return `
+                    <div class="addon-card ${this.selectedAddons.includes(addon.id) ? 'selected' : ''}" 
+                         data-addon-id="${addon.id}" 
+                         onclick="bookingWizard.toggleAddon('${addon.id}')">
+                        <div class="addon-checkbox"></div>
+                        <div class="addon-info">
+                            <h4 class="addon-title">${addon.name}</h4>
+                            <p class="addon-description">${addon.description}</p>
+                            <div class="addon-price">₹${addon.price}</div>
+                        </div>
+                    </div>
+                `;
+            }
+        }).join('');
     }
 
     toggleAddon(addonId) {
@@ -779,14 +848,120 @@ class BookingWizard {
         if (!addonCard) return;
 
         const isSelected = addonCard.classList.contains('selected');
+        const addon = this.addons.find(a => a.id === addonId);
         
         if (isSelected) {
             addonCard.classList.remove('selected');
             this.selectedAddons = this.selectedAddons.filter(id => id !== addonId);
+            
+            // Clear extra hours selection if removing time extension addon
+            if (addon && addon.type === 'time_extension') {
+                delete this.extraHoursSelection[addonId];
+            }
         } else {
             addonCard.classList.add('selected');
             this.selectedAddons.push(addonId);
+            
+            // Set default hours for time extension addon
+            if (addon && addon.type === 'time_extension') {
+                this.extraHoursSelection[addonId] = 1; // Default to 1 hour
+            }
         }
+
+        // Refresh the display for time extension addons
+        if (addon && addon.type === 'time_extension') {
+            this.displayAddons();
+            
+            // Clear current time selection since slots will change
+            this.selectedTime = null;
+            
+            // Update time slots if we're on the date/time step and have a selected date
+            if (this.currentStep === 3 && this.selectedDate) {
+                this.updateTimeSlots();
+            }
+            
+            // Show notification about time slot changes
+            this.showTimeSlotNotification(isSelected);
+        }
+    }
+
+    selectExtraHours(addonId, hours) {
+        // Update the selected hours
+        this.extraHoursSelection[addonId] = hours;
+        
+        // Refresh the display to show updated selection and pricing
+        this.displayAddons();
+        
+        // Clear current time selection since slots will change
+        this.selectedTime = null;
+        
+        // Update time slots if we're on the date/time step and have a selected date
+        if (this.currentStep === 3 && this.selectedDate) {
+            this.updateTimeSlots();
+        }
+        
+        // Show notification about time slot changes
+        this.showTimeSlotNotification(true, hours);
+    }
+
+    getSelectedExtraHours(addonId) {
+        return this.extraHoursSelection[addonId] || 1;
+    }
+
+    getTotalExtraHours() {
+        let totalHours = 0;
+        this.selectedAddons.forEach(addonId => {
+            const addon = this.addons.find(a => a.id === addonId);
+            if (addon && addon.type === 'time_extension') {
+                totalHours += this.getSelectedExtraHours(addonId);
+            }
+        });
+        return totalHours;
+    }
+
+    showTimeSlotNotification(isSelected, hours = null) {
+        const notification = document.createElement('div');
+        notification.className = 'addon-notification';
+        
+        let message;
+        if (isSelected) {
+            const totalHours = this.getTotalExtraHours();
+            message = hours ? 
+                `Time slots updated for ${hours} extra hour${hours > 1 ? 's' : ''}!` :
+                `Time slots updated for ${totalHours} extra hour${totalHours > 1 ? 's' : ''}!`;
+        } else {
+            message = 'Time slots reset to standard duration.';
+        }
+        
+        notification.innerHTML = `
+            <i class="fas fa-info-circle"></i>
+            ${message}
+        `;
+        notification.style.cssText = `
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: linear-gradient(135deg, #ffffff, #f5e6b8);
+            color: #000;
+            padding: 12px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            z-index: 10000;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            animation: slideInRight 0.3s ease;
+        `;
+        
+        document.body.appendChild(notification);
+        
+        // Remove notification after 3 seconds
+        setTimeout(() => {
+            notification.style.animation = 'slideOutRight 0.3s ease';
+            setTimeout(() => notification.remove(), 300);
+        }, 3000);
     }
 
     // ================================
@@ -938,12 +1113,29 @@ class BookingWizard {
             return;
         }
 
-        // Get time slots based on package type and duration
+        // Get time slots based on package type and duration (including extra hours)
         const timeSlots = this.getTimeSlotsForPackage(this.selectedPackage);
         const bookedForDate = this.bookedSlots[this.selectedDate] || [];
+        
+        // Check total extra hours for display purposes
+        const totalExtraHours = this.getTotalExtraHours();
 
-        container.innerHTML = timeSlots.map(slot => {
-            const isBooked = bookedForDate.includes(slot);
+        // Show duration info if extra hours is selected
+        let durationInfo = '';
+        if (totalExtraHours > 0) {
+            const baseDuration = this.getBaseDurationFromPackage(this.selectedPackage);
+            const totalDuration = baseDuration + totalExtraHours;
+            durationInfo = `
+                <div class="duration-info">
+                    <i class="fas fa-clock"></i>
+                    Extended Duration: ${totalDuration} hour${totalDuration > 1 ? 's' : ''} 
+                    (${baseDuration}h base + ${totalExtraHours}h extra)
+                </div>
+            `;
+        }
+
+        container.innerHTML = durationInfo + timeSlots.map(slot => {
+            const isBooked = this.isSlotConflicting(slot, bookedForDate);
             const isSelected = this.selectedTime === slot;
             
             let classes = ['timeslot'];
@@ -955,39 +1147,80 @@ class BookingWizard {
                      data-time="${slot}" 
                      onclick="bookingWizard.selectTime('${slot}')">
                     ${this.formatTimeSlot(slot)}
-                    ${isBooked ? '<br><small>Booked</small>' : ''}
+                    ${isBooked ? '<br><small>Unavailable</small>' : ''}
                 </div>
             `;
         }).join('');
     }
 
+    getBaseDurationFromPackage(pkg) {
+        if (!pkg) return 1;
+        
+        const duration = pkg.duration.toLowerCase();
+        if (duration.includes('3 hour') || duration.includes('3-hour')) {
+            return 3;
+        } else if (duration.includes('2 hour') || duration.includes('90 minutes')) {
+            return 2;
+        } else {
+            return 1;
+        }
+    }
+
+    isSlotConflicting(newSlot, bookedSlots) {
+        if (!bookedSlots || bookedSlots.length === 0) return false;
+        
+        const [newStart, newEnd] = newSlot.split('-').map(time => {
+            const [hours, minutes] = time.split(':').map(Number);
+            return hours * 60 + minutes;
+        });
+        
+        return bookedSlots.some(bookedSlot => {
+            const [bookedStart, bookedEnd] = bookedSlot.split('-').map(time => {
+                const [hours, minutes] = time.split(':').map(Number);
+                return hours * 60 + minutes;
+            });
+            
+            // Check if slots overlap
+            return (newStart < bookedEnd && newEnd > bookedStart);
+        });
+    }
+
     getTimeSlotsForPackage(pkg) {
         if (!pkg) return [];
+
+        // Calculate total extra hours from all selected time extension add-ons
+        const totalExtraHours = this.getTotalExtraHours();
 
         // Extract duration from package
         const duration = pkg.duration.toLowerCase();
         
-        // Different time slots based on package duration and type
+        // Calculate total duration including extra hours
+        let baseDuration = 1; // default 1 hour
         if (duration.includes('3 hour') || duration.includes('3-hour')) {
-            // For 3-hour packages (like Premium Theatre)
-            return [
-                '10:00-13:00', '11:00-14:00', '12:00-15:00', 
-                '14:00-17:00', '15:00-18:00', '16:00-19:00', '17:00-20:00'
-            ];
+            baseDuration = 3;
         } else if (duration.includes('2 hour') || duration.includes('90 minutes')) {
-            // For 2-hour or 90-minute packages
-            return [
-                '10:00-12:00', '11:00-13:00', '12:00-14:00', '13:00-15:00',
-                '14:00-16:00', '15:00-17:00', '16:00-18:00', '17:00-19:00', '18:00-20:00'
-            ];
-        } else {
-            // For 1-hour packages (default)
-            return [
-                '10:00-11:00', '11:00-12:00', '12:00-13:00', '13:00-14:00',
-                '14:00-15:00', '15:00-16:00', '16:00-17:00', '17:00-18:00',
-                '18:00-19:00', '19:00-20:00'
-            ];
+            baseDuration = 2;
         }
+        
+        const totalDuration = baseDuration + totalExtraHours;
+        
+        // Generate time slots based on total duration
+        return this.generateTimeSlotsForDuration(totalDuration);
+    }
+
+    generateTimeSlotsForDuration(duration) {
+        const slots = [];
+        const startHour = 10; // Business starts at 10 AM
+        const endHour = 20;   // Business ends at 8 PM
+        
+        // Generate slots that fit within business hours
+        for (let hour = startHour; hour <= endHour - duration; hour++) {
+            const startTime = `${hour.toString().padStart(2, '0')}:00`;
+            const endTime = `${(hour + duration).toString().padStart(2, '0')}:00`;
+            slots.push(`${startTime}-${endTime}`);
+        }
+        
+        return slots;
     }
 
     formatTimeSlot(slot) {
@@ -1055,6 +1288,19 @@ class BookingWizard {
             }
         });
 
+        // Check guest count limit
+        const guestCountField = document.getElementById('guestCount');
+        if (guestCountField) {
+            const guestCount = parseInt(guestCountField.value) || 0;
+            if (guestCount > 50) {
+                this.showGuestLimitModal(guestCount);
+                guestCountField.style.borderColor = '#ff6b6b';
+                isValid = false;
+            } else {
+                guestCountField.style.borderColor = '';
+            }
+        }
+
         // Update personal details object
         if (isValid) {
             this.personalDetails = {
@@ -1067,6 +1313,82 @@ class BookingWizard {
         }
 
         return isValid;
+    }
+
+    showGuestLimitModal(guestCount) {
+        // Create modal overlay
+        const modalOverlay = document.createElement('div');
+        modalOverlay.className = 'guest-limit-modal-overlay';
+        modalOverlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+            backdrop-filter: blur(10px);
+        `;
+
+        // Create modal content
+        const modalContent = document.createElement('div');
+        modalContent.className = 'guest-limit-modal';
+        modalContent.style.cssText = `
+            background: linear-gradient(145deg, rgba(20, 20, 20, 0.98), rgba(10, 10, 10, 0.99));
+            border: 2px solid #ffc107;
+            border-radius: 20px;
+            padding: 40px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 30px 80px rgba(0, 0, 0, 0.9);
+            position: relative;
+        `;
+
+        modalContent.innerHTML = `
+            <div style="color: #ffc107; font-size: 4rem; margin-bottom: 20px;">
+                <i class="fas fa-users"></i>
+            </div>
+            <h3 style="color: #ffc107; font-size: 1.8rem; margin-bottom: 15px; text-shadow: 0 0 15px rgba(255, 193, 7, 0.3);">
+                Large Group Celebration
+            </h3>
+            <p style="color: #f5e6b8; font-size: 1.1rem; line-height: 1.6; margin-bottom: 25px;">
+                We'd love to host your celebration for <strong style="color: #fff;">${guestCount} guests</strong>! 
+                For groups larger than 50, we offer customized arrangements and special pricing.
+            </p>
+            <p style="color: #f5e6b8; font-size: 1rem; margin-bottom: 30px;">
+                Please contact us directly to discuss your requirements:
+            </p>
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap; margin-bottom: 25px;">
+                <a href="tel:8805158674" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; background: linear-gradient(135deg, #ffc107, #ff9800); color: #000; text-decoration: none; border-radius: 25px; font-weight: 700; font-size: 0.95rem; transition: all 0.3s ease;">
+                    <i class="fas fa-phone"></i>
+                    Call: 8805158674
+                </a>
+                <a href="https://wa.me/918805158674?text=Hi%2C%20I%20want%20to%20book%20an%20event%20for%20${guestCount}%20guests" 
+                   target="_blank" style="display: inline-flex; align-items: center; gap: 8px; padding: 12px 20px; background: linear-gradient(135deg, #25d366, #128c7e); color: #fff; text-decoration: none; border-radius: 25px; font-weight: 700; font-size: 0.95rem; transition: all 0.3s ease;">
+                    <i class="fab fa-whatsapp"></i>
+                    WhatsApp
+                </a>
+            </div>
+            <button onclick="this.closest('.guest-limit-modal-overlay').remove(); document.getElementById('guestCount').value = 50;" 
+                    style="background: linear-gradient(135deg, #ffffff, #f5e6b8); color: #000; border: none; padding: 12px 30px; border-radius: 25px; font-weight: 700; cursor: pointer; transition: all 0.3s ease;">
+                Continue with 50 guests
+            </button>
+        `;
+
+        modalOverlay.appendChild(modalContent);
+        document.body.appendChild(modalOverlay);
+
+        // Close modal when clicking outside
+        modalOverlay.addEventListener('click', (e) => {
+            if (e.target === modalOverlay) {
+                modalOverlay.remove();
+                document.getElementById('guestCount').value = 50;
+            }
+        });
     }
 
     // ================================
@@ -1117,18 +1439,80 @@ class BookingWizard {
         const selectedAddonObjects = this.addons.filter(addon => 
             this.selectedAddons.includes(addon.id)
         );
-        const addonsPrice = selectedAddonObjects.reduce((sum, addon) => sum + addon.price, 0);
-        const totalAmount = packagePrice + addonsPrice;
+        
+        // Calculate pricing for different addon types
+        let regularAddonsPrice = 0;
+        let timeExtensionPrice = 0;
+        
+        selectedAddonObjects.forEach(addon => {
+            if (addon.type === 'time_extension') {
+                const selectedHours = this.getSelectedExtraHours(addon.id);
+                timeExtensionPrice += addon.price * selectedHours;
+            } else {
+                regularAddonsPrice += addon.price;
+            }
+        });
+        
+        const totalAddonsPrice = regularAddonsPrice + timeExtensionPrice;
+        const totalAmount = packagePrice + totalAddonsPrice;
         const advanceAmount = Math.round(totalAmount * 0.2);
         const remainingAmount = totalAmount - advanceAmount;
 
         document.getElementById('receiptPackagePrice').textContent = `₹${packagePrice.toLocaleString()}`;
         
-        if (addonsPrice > 0) {
+        // Show regular add-ons
+        if (regularAddonsPrice > 0) {
             document.getElementById('receiptAddonsSection').style.display = 'flex';
-            document.getElementById('receiptAddonsPrice').textContent = `₹${addonsPrice.toLocaleString()}`;
+            document.getElementById('receiptAddonsPrice').textContent = `₹${regularAddonsPrice.toLocaleString()}`;
         } else {
             document.getElementById('receiptAddonsSection').style.display = 'none';
+        }
+        
+        // Show time extension add-ons separately with details
+        const timeExtensionSection = document.getElementById('receiptTimeExtensionSection');
+        if (timeExtensionPrice > 0) {
+            const totalExtraHours = this.getTotalExtraHours();
+            const timeExtensionDetails = selectedAddonObjects
+                .filter(addon => addon.type === 'time_extension')
+                .map(addon => {
+                    const hours = this.getSelectedExtraHours(addon.id);
+                    return `${hours}h × ₹${addon.price}`;
+                })
+                .join(', ');
+                
+            if (!timeExtensionSection) {
+                // Create time extension section if it doesn't exist
+                const addonsSection = document.getElementById('receiptAddonsSection');
+                const newSection = document.createElement('div');
+                newSection.id = 'receiptTimeExtensionSection';
+                newSection.className = 'receipt-item';
+                newSection.innerHTML = `
+                    <span>Extra Hours (${totalExtraHours}h):</span>
+                    <span id="receiptTimeExtensionPrice">₹${timeExtensionPrice.toLocaleString()}</span>
+                `;
+                addonsSection.parentNode.insertBefore(newSection, addonsSection.nextSibling);
+                
+                // Add details
+                const detailsDiv = document.createElement('div');
+                detailsDiv.className = 'receipt-item-details';
+                detailsDiv.innerHTML = `<small>${timeExtensionDetails}</small>`;
+                newSection.appendChild(detailsDiv);
+            } else {
+                timeExtensionSection.style.display = 'flex';
+                timeExtensionSection.querySelector('span:first-child').textContent = `Extra Hours (${totalExtraHours}h):`;
+                document.getElementById('receiptTimeExtensionPrice').textContent = `₹${timeExtensionPrice.toLocaleString()}`;
+                
+                // Update details
+                let detailsDiv = timeExtensionSection.querySelector('.receipt-item-details');
+                if (!detailsDiv) {
+                    detailsDiv = document.createElement('div');
+                    detailsDiv.className = 'receipt-item-details';
+                    timeExtensionSection.appendChild(detailsDiv);
+                }
+                detailsDiv.innerHTML = `<small>${timeExtensionDetails}</small>`;
+            }
+        } else if (timeExtensionSection) {
+            timeExtensionSection.style.display = 'none';
         }
 
         document.getElementById('receiptTotalAmount').textContent = `₹${totalAmount.toLocaleString()}`;

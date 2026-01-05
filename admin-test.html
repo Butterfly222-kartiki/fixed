@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; padding: 20px; background: #f0f0f0; }
+        .test-section { margin: 20px 0; padding: 20px; background: white; border-radius: 8px; }
+        .success { color: green; }
+        .error { color: red; }
+        .info { color: blue; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+        .test-form { margin: 20px 0; padding: 20px; border: 1px solid #ddd; }
+        .test-form input, .test-form select, .test-form textarea { 
+            width: 100%; padding: 8px; margin: 5px 0; 
+        }
+    </style>
+</head>
+<body>
+    <h1>Admin Panel Diagnostic Test</h1>
+    
+    <div class="test-section">
+        <h2>1. Library Check</h2>
+        <div id="libraryCheck"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>2. Database Connection Test</h2>
+        <button onclick="testDatabaseConnection()">Test Connection</button>
+        <div id="connectionResult"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>3. Package Creation Test</h2>
+        <div class="test-form">
+            <input type="text" id="testPackageName" placeholder="Package Name" value="Test Package">
+            <input type="number" id="testPackagePrice" placeholder="Price" value="999">
+            <input type="text" id="testPackageDuration" placeholder="Duration" value="1 Hour">
+            <select id="testPackageService">
+                <option value="birthday">Birthday</option>
+                <option value="romantic">Romantic</option>
+                <option value="anniversary">Anniversary</option>
+                <option value="theatre">Theatre</option>
+            </select>
+            <textarea id="testPackageFeatures" placeholder="Features (one per line)">Feature 1
+Feature 2
+Feature 3</textarea>
+            <button onclick="testPackageCreation()">Test Package Creation</button>
+        </div>
+        <div id="packageResult"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>4. Add-on Creation Test</h2>
+        <div class="test-form">
+            <input type="text" id="testAddonName" placeholder="Add-on Name" value="Test Add-on">
+            <input type="number" id="testAddonPrice" placeholder="Price" value="150">
+            <textarea id="testAddonDescription" placeholder="Description">Test add-on description</textarea>
+            <button onclick="testAddonCreation()">Test Add-on Creation</button>
+        </div>
+        <div id="addonResult"></div>
+    </div>
+    
+    <div class="test-section">
+        <h2>5. Data Retrieval Test</h2>
+        <button onclick="testDataRetrieval()">Test Data Retrieval</button>
+        <div id="dataResult"></div>
+    </div>
+
+    <!-- Include required scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="config.js"></script>
+    
+    <script>
+        let supabaseClient = null;
+        
+        // Check if libraries are loaded
+        function checkLibraries() {
+            const result = document.getElementById('libraryCheck');
+            let html = '';
+            
+            if (typeof supabase === 'undefined') {
+                html += '<div class="error">❌ Supabase library not loaded</div>';
+            } else {
+                html += '<div class="success">✅ Supabase library loaded</div>';
+            }
+            
+            if (typeof window.SUPABASE_CONFIG === 'undefined') {
+                html += '<div class="error">❌ Supabase config not found</div>';
+            } else {
+                html += '<div class="success">✅ Supabase config found</div>';
+                html += '<div class="info">URL: ' + window.SUPABASE_CONFIG.url + '</div>';
+            }
+            
+            result.innerHTML = html;
+        }
+        
+        // Test database connection
+        async function testDatabaseConnection() {
+            const result = document.getElementById('connectionResult');
+            result.innerHTML = '<div class="info">Testing connection...</div>';
+            
+            try {
+                if (!window.SUPABASE_CONFIG) {
+                    throw new Error('Supabase config not found');
+                }
+                
+                supabaseClient = supabase.createClient(
+                    window.SUPABASE_CONFIG.url,
+                    window.SUPABASE_CONFIG.anonKey
+                );
+                
+                // Test packages table
+                const { data: packages, error: packagesError } = await supabaseClient
+                    .from('packages')
+                    .select('*')
+                    .limit(1);
+                    
+                if (packagesError) {
+                    result.innerHTML = '<div class="error">❌ Packages table error: ' + packagesError.message + '</div>';
+                    return;
+                }
+                
+                // Test addons table
+                const { data: addons, error: addonsError } = await supabaseClient
+                    .from('addons')
+                    .select('*')
+                    .limit(1);
+                    
+                if (addonsError) {
+                    result.innerHTML = '<div class="error">❌ Addons table error: ' + addonsError.message + '</div>';
+                    return;
+                }
+                
+                result.innerHTML = '<div class="success">✅ Database connection successful!</div>' +
+                                 '<div class="info">Packages found: ' + (packages?.length || 0) + '</div>' +
+                                 '<div class="info">Addons found: ' + (addons?.length || 0) + '</div>';
+                
+            } catch (error) {
+                result.innerHTML = '<div class="error">❌ Connection failed: ' + error.message + '</div>';
+            }
+        }
+        
+        // Test package creation
+        async function testPackageCreation() {
+            const result = document.getElementById('packageResult');
+            result.innerHTML = '<div class="info">Testing package creation...</div>';
+            
+            try {
+                if (!supabaseClient) {
+                    throw new Error('Database not connected. Run connection test first.');
+                }
+                
+                const packageData = {
+                    id: 'test_pkg_' + Date.now(),
+                    name: document.getElementById('testPackageName').value,
+                    price: parseInt(document.getElementById('testPackagePrice').value),
+                    duration: document.getElementById('testPackageDuration').value,
+                    service_type: document.getElementById('testPackageService').value,
+                    features: document.getElementById('testPackageFeatures').value.split('\n').filter(f => f.trim()),
+                    is_active: true
+                };
+                
+                console.log('Creating package:', packageData);
+                
+                const { data, error } = await supabaseClient
+                    .from('packages')
+                    .insert([packageData])
+                    .select();
+                
+                if (error) {
+                    throw error;
+                }
+                
+                result.innerHTML = '<div class="success">✅ Package created successfully!</div>' +
+                                 '<div class="info">Package ID: ' + data[0].id + '</div>' +
+                                 '<div class="info">Package Name: ' + data[0].name + '</div>';
+                
+            } catch (error) {
+                result.innerHTML = '<div class="error">❌ Package creation failed: ' + error.message + '</div>';
+                console.error('Package creation error:', error);
+            }
+        }
+        
+        // Test add-on creation
+        async function testAddonCreation() {
+            const result = document.getElementById('addonResult');
+            result.innerHTML = '<div class="info">Testing add-on creation...</div>';
+            
+            try {
+                if (!supabaseClient) {
+                    throw new Error('Database not connected. Run connection test first.');
+                }
+                
+                const addonData = {
+                    id: 'test_addon_' + Date.now(),
+                    name: document.getElementById('testAddonName').value,
+                    price: parseInt(document.getElementById('testAddonPrice').value),
+                    description: document.getElementById('testAddonDescription').value,
+                    is_active: true
+                };
+                
+                console.log('Creating add-on:', addonData);
+                
+                const { data, error } = await supabaseClient
+                    .from('addons')
+                    .insert([addonData])
+                    .select();
+                
+                if (error) {
+                    throw error;
+                }
+                
+                result.innerHTML = '<div class="success">✅ Add-on created successfully!</div>' +
+                                 '<div class="info">Add-on ID: ' + data[0].id + '</div>' +
+                                 '<div class="info">Add-on Name: ' + data[0].name + '</div>';
+                
+            } catch (error) {
+                result.innerHTML = '<div class="error">❌ Add-on creation failed: ' + error.message + '</div>';
+                console.error('Add-on creation error:', error);
+            }
+        }
+        
+        // Test data retrieval
+        async function testDataRetrieval() {
+            const result = document.getElementById('dataResult');
+            result.innerHTML = '<div class="info">Testing data retrieval...</div>';
+            
+            try {
+                if (!supabaseClient) {
+                    throw new Error('Database not connected. Run connection test first.');
+                }
+                
+                // Get packages
+                const { data: packages, error: packagesError } = await supabaseClient
+                    .from('packages')
+                    .select('*')
+                    .order('created_at', { ascending: false })
+                    .limit(5);
+                    
+                if (packagesError) throw packagesError;
+                
+                // Get addons
+                const { data: addons, error: addonsError } = await supabaseClient
+                    .from('addons')
+                    .select('*')
+                    .order('created_at', { ascending: false })
+                    .limit(5);
+                    
+                if (addonsError) throw addonsError;
+                
+                let html = '<div class="success">✅ Data retrieval successful!</div>';
+                html += '<h4>Recent Packages:</h4>';
+                if (packages && packages.length > 0) {
+                    packages.forEach(pkg => {
+                        html += '<div class="info">• ' + pkg.name + ' - ₹' + pkg.price + ' (' + pkg.service_type + ')</div>';
+                    });
+                } else {
+                    html += '<div class="info">No packages found</div>';
+                }
+                
+                html += '<h4>Recent Add-ons:</h4>';
+                if (addons && addons.length > 0) {
+                    addons.forEach(addon => {
+                        html += '<div class="info">• ' + addon.name + ' - ₹' + addon.price + '</div>';
+                    });
+                } else {
+                    html += '<div class="info">No add-ons found</div>';
+                }
+                
+                result.innerHTML = html;
+                
+            } catch (error) {
+                result.innerHTML = '<div class="error">❌ Data retrieval failed: ' + error.message + '</div>';
+                console.error('Data retrieval error:', error);
+            }
+        }
+        
+        // Run initial checks
+        document.addEventListener('DOMContentLoaded', function() {
+            checkLibraries();
+        });
+    </script>
+</body>
+</html>

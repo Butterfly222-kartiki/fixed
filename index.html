@@ -11,8 +11,10 @@
     <title>Celebration Point</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Cinzel:wght@600&family=Cormorant+Garamond:wght@400;500&display=swap" rel="stylesheet">
+     <script src="booking-script.js"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600;700&family=Cinzel:wght@600&family=Cormorant+Garamond:wght@400;500&display=swap"
+        rel="stylesheet">
 
 </head>
 
@@ -71,7 +73,7 @@
 
             <!-- Mobile Menu Hamburger -->
             <div id="hamburgerBtn" class="hamburger">
-                <img src="assets/wood-texture.png" alt="Menu">
+                <i class="fas fa-bars"></i>
             </div>
 
 
@@ -83,7 +85,9 @@
 
                     <!-- Close Button -->
                     <button onclick="closeMobileMenu()"
-                        style="position: absolute; top: 20px; right: 20px; background: transparent; border: none; font-size: 30px; color: #333; cursor: pointer; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: background 0.3s ease;">×</button>
+                        style="position: absolute; top: 20px; right: 20px; background: transparent; border: none; font-size: 24px; color: #333; cursor: pointer; width: 40px; height: 40px; display: flex; align-items: center; justify-content: center; border-radius: 50%; transition: background 0.3s ease;">
+                        <i class="fas fa-times"></i>
+                    </button>
 
                     <!-- Navigation Items -->
                     <a href="#home" onclick="closeMobileMenu()"
@@ -118,13 +122,7 @@
                             style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #333;">Packages</span>
                     </a>
 
-                    <a href="#addons" onclick="closeMobileMenu()"
-                        style="background-image: url('assets/navcomponent.png'); background-size: 100% 100%; background-repeat: no-repeat; background-position: center; color: #333; text-decoration: none; font-weight: 700; font-size: 13px; padding: 15px 25px; border-radius: 8px; transition: all 0.3s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 140px; min-height: 80px; text-shadow: 0px 1px 2px rgba(255, 255, 255, 0.8); margin: 0;">
-                        <i class="fas fa-plus-circle"
-                            style="font-size: 24px; margin-bottom: 6px; color: #333; filter: drop-shadow(0px 1px 1px rgba(255, 255, 255, 0.8));"></i>
-                        <span
-                            style="font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: #333;">Add-ons</span>
-                    </a>
+                  
 
                     <a href="#events" onclick="closeMobileMenu()"
                         style="background-image: url('assets/navcomponent.png'); background-size: 100% 100%; background-repeat: no-repeat; background-position: center; color: #333; text-decoration: none; font-weight: 700; font-size: 13px; padding: 15px 25px; border-radius: 8px; transition: all 0.3s ease; display: flex; flex-direction: column; align-items: center; justify-content: center; min-width: 140px; min-height: 80px; text-shadow: 0px 1px 2px rgba(255, 255, 255, 0.8); margin: 0;">
@@ -259,10 +257,10 @@
 
         <div class="events-bg-wrapper">
             <div class="services-header">
-                    <h1 class="services-title">Explore Our Services</h1>
-                </div>
-           <section class="services">
-            
+                <h1 class="services-title">Explore Our Services</h1>
+            </div>
+            <section class="services">
+
 
                 <div class="glass-card">
                     <img src="services/birthday.png" alt="Birthday" class="card-image">
@@ -327,6 +325,14 @@
                     <button class="explore-btn">Explore</button>
                 </div>
 
+                <!-- See More Services Button -->
+                <div class="see-more-services">
+                    <button class="see-more-btn" onclick="window.location.href='services.html'">
+                        <i class="fas fa-plus-circle"></i>
+                        <span>See More Available Services</span>
+                        <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
 
             </section>
 
@@ -396,6 +402,8 @@
                             <div class="nav-dot active" onclick="currentSlide(0)"></div>
                             <div class="nav-dot" onclick="currentSlide(1)"></div>
                             <div class="nav-dot" onclick="currentSlide(2)"></div>
+                            <div class="nav-dot" onclick="currentSlide(3)"></div>
+                            <div class="nav-dot" onclick="currentSlide(4)"></div>
                         </div>
 
                         <!-- Right Arrow -->
@@ -409,79 +417,55 @@
                 </div>
             </section>
 
-              <section class="package-section">
+            <section class="package-section">
 
                 <h2 class="section-title">Our Celebration Packages</h2>
 
-                <!-- TABS -->
-                <div class="tabs">
-                    <button class="tab active" onclick="openTab('birthday')">🎂 Birthday Packages</button>
-                    <button class="tab" onclick="openTab('romantic')">💑 Romantic Dates</button>
-                    <button class="tab" onclick="openTab('theatre')">🎬 Mini Theatre</button>
+                <!-- Guest Limit Notice -->
+                <div class="guest-limit-notice">
+                    <p><i class="fas fa-info-circle"></i> For celebrations with more than 50 guests, please <a
+                            href="tel:8805158674">call us</a> for custom arrangements.</p>
                 </div>
 
-                <!-- TAB CONTENT -->
+                <!-- TABS -->
+                
 
-                <!-- BIRTHDAY -->
-                <div class="tab-content active" id="birthday">
-                    <section class="package-section">
+                <!-- Service Tabs -->
+                <div class="service-tabs">
+                    <button class="service-tab active" data-service="birthday">
+                        <i class="fas fa-birthday-cake"></i>
+                        <span>Birthday Packages</span>
+                    </button>
+                    <button class="service-tab" data-service="romantic">
+                        <i class="fas fa-heart"></i>
+                        <span>Romantic Dates</span>
+                    </button>
+                    <button class="service-tab" data-service="anniversary">
+                        <i class="fas fa-ring"></i>
+                        <span>Anniversary</span>
+                    </button>
+                    <button class="service-tab" data-service="theatre">
+                        <i class="fas fa-film"></i>
+                        <span>Mini Theatre</span>
+                    </button>
+                </div>
 
-                        
+                <!-- Loading State -->
+                <div class="loading-state" id="packagesLoading">
+                    <div class="loading-spinner"></div>
+                    <p>Loading packages...</p>
+                </div>
 
-                        <!-- TAB CONTENT -->
-                        <div class="tab-content active" id="birthday">
-                            <div id="birthday-packages">
-                                <!-- Packages will be loaded dynamically from database -->
-                                <div class="cards-grid">
-                                    <!-- Fallback content while loading -->
-                                    <div class="premium-card silver">
-                                        <span class="premium-badge">Silver</span>
-                                        <p class="package-type">Birthday Celebration</p>
-                                        <h3 class="premium-title">Silver Spark</h3>
-                                        <p class="price">₹ 999</p>
-                                        <div class="divider"></div>
-                                        <ul class="premium-features">
-                                            <li>Elegant balloon décor</li>
-                                            <li>Soft ambient lighting</li>
-                                            <li>Music setup</li>
-                                            <li>Private space</li>
-                                        </ul>
-                                        <p class="addon-note">Personalized add-ons available</p>
-                                        <button class="premium-btn">Reserve Experience</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                <!-- Packages Container -->
+                <div class="packages-container" id="packagesContainer">
+                    <!-- Packages will be loaded dynamically -->
+                </div>
+                
 
-                    </section>
-
-
-                    <!-- ROMANTIC -->
-                    <div class="tab-content" id="romantic">
-                        <div id="romantic-packages">
-                            <p class="coming">Romantic Date Packages Coming Soon 💖</p>
-                        </div>
-                    </div>
-
-                    <!-- THEATRE -->
-                    <div class="tab-content" id="theatre">
-                        <div id="theatre-packages">
-                            <p class="coming">Mini Theatre Exclusive Packages 🎬</p>
-                        </div>
-                    </div>
+            
+                   
 
             </section>
-
-            <script>
-                function openTab(tabId) {
-                    document.querySelectorAll('.tab').forEach(tab => tab.classList.remove('active'));
-                    document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-
-                    document.querySelector(`[onclick="openTab('${tabId}')"]`).classList.add('active');
-                    document.getElementById(tabId).classList.add('active');
-                }
-
-            </script>
 
             <section id="reviews" class="reviews-section">
 
@@ -665,122 +649,120 @@
             </div>
         </section>
         <script>
-const calendarGrid = document.querySelector(".calendar-grid");
-const monthYear = document.querySelector(".month-year");
+            const calendarGrid = document.querySelector(".calendar-grid");
+            const monthYear = document.querySelector(".month-year");
 
-const today = new Date();
-let currentMonth = today.getMonth();
-let currentYear = today.getFullYear();
+            const today = new Date();
+            let currentMonth = today.getMonth();
+            let currentYear = today.getFullYear();
 
-function renderCalendar(month, year) {
-  calendarGrid.innerHTML = "";
+            function renderCalendar(month, year) {
+                calendarGrid.innerHTML = "";
 
-  const monthNames = [
-    "January","February","March","April","May","June",
-    "July","August","September","October","November","December"
-  ];
+                const monthNames = [
+                    "January", "February", "March", "April", "May", "June",
+                    "July", "August", "September", "October", "November", "December"
+                ];
 
-  monthYear.textContent = `${monthNames[month]} ${year}`;
+                monthYear.textContent = `${monthNames[month]} ${year}`;
 
-  const firstDay = new Date(year, month, 1).getDay();
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
+                const firstDay = new Date(year, month, 1).getDay();
+                const daysInMonth = new Date(year, month + 1, 0).getDate();
 
-  // Empty slots
-  for (let i = 0; i < firstDay; i++) {
-    calendarGrid.appendChild(document.createElement("span"));
-  }
+                // Empty slots
+                for (let i = 0; i < firstDay; i++) {
+                    calendarGrid.appendChild(document.createElement("span"));
+                }
 
-  // Days
-  for (let day = 1; day <= daysInMonth; day++) {
-    const span = document.createElement("span");
-    span.textContent = day;
+                // Days
+                for (let day = 1; day <= daysInMonth; day++) {
+                    const span = document.createElement("span");
+                    span.textContent = day;
 
-    if (
-      day === today.getDate() &&
-      month === today.getMonth() &&
-      year === today.getFullYear()
-    ) {
-      span.classList.add("today");
-    }
+                    if (
+                        day === today.getDate() &&
+                        month === today.getMonth() &&
+                        year === today.getFullYear()
+                    ) {
+                        span.classList.add("today");
+                    }
 
-    span.addEventListener("click", () => {
-      document
-        .querySelectorAll(".calendar-grid span")
-        .forEach(d => d.classList.remove("selected"));
-      span.classList.add("selected");
-    });
+                    span.addEventListener("click", () => {
+                        document
+                            .querySelectorAll(".calendar-grid span")
+                            .forEach(d => d.classList.remove("selected"));
+                        span.classList.add("selected");
+                    });
 
-    calendarGrid.appendChild(span);
-  }
-}
+                    calendarGrid.appendChild(span);
+                }
+            }
 
-renderCalendar(currentMonth, currentYear);
-</script>
+            renderCalendar(currentMonth, currentYear);
+        </script>
 
 
         <!-- Alert Container -->
         <div class="alert-container" id="customerAlertContainer"></div>
 
 
-       <!-- Footer -->
-<footer class="footer">
-    <div class="container">
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="container">
 
-        <div class="footer-content">
+                <div class="footer-content">
 
-            <!-- Logo & About -->
-            <div class="footer-col">
-                <div class="footer-logo">
-                    <img src="assets/Logo.png"
-                         alt="Celebration Point Logo"
-                         class="footer-logo-img">
-                    
+                    <!-- Logo & About -->
+                    <div class="footer-col">
+                        <div class="footer-logo">
+                            <img src="assets/Logo.png" alt="Celebration Point Logo" class="footer-logo-img">
+
+                        </div>
+
+                        <p>
+                            Turning every celebration into a memory worth cherishing.
+                            Experience our wooden vintage ambiance with unforgettable moments.
+                        </p>
+                    </div>
+
+                    <!-- Quick Links -->
+                    <div class="footer-col">
+                        <h4>Quick Links</h4>
+                        <ul>
+                            <li><a href="#about">About Us</a></li>
+                            <li><a href="#events">Events</a></li>
+                            <li><a href="#gallery">Gallery</a></li>
+                            <li><a href="#contact">Contact</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Newsletter -->
+                    <div class="footer-col">
+                        <h4>Newsletter</h4>
+                        <p>Subscribe for exclusive offers and updates</p>
+
+                        <form class="newsletter-form">
+                            <input type="email" placeholder="Your email" required>
+                            <button type="submit">
+                                <i class="fas fa-paper-plane"></i>
+                            </button>
+                        </form>
+                    </div>
+
                 </div>
 
-                <p>
-                    Turning every celebration into a memory worth cherishing.
-                    Experience our wooden vintage ambiance with unforgettable moments.
-                </p>
+                <!-- Footer Bottom -->
+                <div class="footer-bottom">
+                    <p>&copy; 2024 Celebration Point Café. All rights reserved.</p>
+
+                    <div class="footer-links">
+                        <a href="#">Privacy Policy</a>
+                        <a href="#">Terms of Service</a>
+                    </div>
+                </div>
+
             </div>
-
-            <!-- Quick Links -->
-            <div class="footer-col">
-                <h4>Quick Links</h4>
-                <ul>
-                    <li><a href="#about">About Us</a></li>
-                    <li><a href="#events">Events</a></li>
-                    <li><a href="#gallery">Gallery</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </div>
-
-            <!-- Newsletter -->
-            <div class="footer-col">
-                <h4>Newsletter</h4>
-                <p>Subscribe for exclusive offers and updates</p>
-
-                <form class="newsletter-form">
-                    <input type="email" placeholder="Your email" required>
-                    <button type="submit">
-                        <i class="fas fa-paper-plane"></i>
-                    </button>
-                </form>
-            </div>
-
-        </div>
-
-        <!-- Footer Bottom -->
-        <div class="footer-bottom">
-            <p>&copy; 2024 Celebration Point Café. All rights reserved.</p>
-
-            <div class="footer-links">
-                <a href="#">Privacy Policy</a>
-                <a href="#">Terms of Service</a>
-            </div>
-        </div>
-
-    </div>
-</footer>
+        </footer>
 
     </main>
     </div>
@@ -844,12 +826,8 @@ renderCalendar(currentMonth, currentYear);
         <!-- Supabase -->
         <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
         <script src="config.js"></script>
-        <script src="realtime-content.js"></script>
-        <script src="customer-booking.js"></script>
+        <script src="booking-script.js"></script>
         <script src="script.js"></script>
-
-        <!-- Cleanup any stray payment content -->
-        <script src="cleanup-payment.js"></script>
 
         <!-- Event Gallery JavaScript -->
         <script>
@@ -860,25 +838,61 @@ renderCalendar(currentMonth, currentYear);
             function showSlide(index) {
                 const photos = document.querySelectorAll('.polaroid-photo');
                 const dots = document.querySelectorAll('.nav-dot');
+                const isMobile = window.innerWidth <= 768;
+
+                // Ensure index is within bounds
+                if (index < 0) index = totalSlides - 1;
+                if (index >= totalSlides) index = 0;
+                currentSlideIndex = index;
 
                 // Remove active class from all photos and dots
                 photos.forEach(photo => photo.classList.remove('active'));
                 dots.forEach(dot => dot.classList.remove('active'));
 
-                // Show 3 photos centered around the current index
-                const startIndex = Math.max(0, index - 1);
-                const endIndex = Math.min(photos.length, index + 2);
+                if (isMobile) {
+                    // Mobile: Show only one image at a time
+                    photos.forEach((photo, i) => {
+                        if (i === index) {
+                            photo.classList.add('active');
+                            photo.style.display = 'block';
+                            photo.style.opacity = '1';
+                            photo.style.position = 'relative';
+                            photo.style.transform = 'none';
+                        } else {
+                            photo.classList.remove('active');
+                            photo.style.display = 'none';
+                            photo.style.opacity = '0';
+                        }
+                    });
 
-                for (let i = startIndex; i < endIndex; i++) {
-                    if (photos[i]) {
-                        photos[i].classList.add('active');
+                    // Update dot for mobile - direct mapping
+                    if (dots[index]) {
+                        dots[index].classList.add('active');
                     }
-                }
+                } else {
+                    // Desktop: Reset all inline styles first
+                    photos.forEach(photo => {
+                        photo.style.display = '';
+                        photo.style.opacity = '';
+                        photo.style.position = '';
+                        photo.style.transform = '';
+                    });
 
-                // Update active dot (we have 3 dots for 5 photos)
-                const dotIndex = Math.floor(index / 2);
-                if (dots[dotIndex]) {
-                    dots[dotIndex].classList.add('active');
+                    // Desktop: Show 3 photos centered around the current index
+                    const startIndex = Math.max(0, index - 1);
+                    const endIndex = Math.min(photos.length, index + 2);
+
+                    for (let i = startIndex; i < endIndex; i++) {
+                        if (photos[i]) {
+                            photos[i].classList.add('active');
+                        }
+                    }
+
+                    // Update dot for desktop - map to visible dots only
+                    const desktopDotIndex = Math.min(Math.floor(index / 2), 2);
+                    if (dots[desktopDotIndex]) {
+                        dots[desktopDotIndex].classList.add('active');
+                    }
                 }
             }
 
@@ -895,8 +909,16 @@ renderCalendar(currentMonth, currentYear);
             }
 
             function currentSlide(index) {
-                currentSlideIndex = index * 2; // Each dot represents 2 slides
-                showSlide(currentSlideIndex);
+                const isMobile = window.innerWidth <= 768;
+
+                if (isMobile) {
+                    // Mobile: Direct index mapping
+                    showSlide(index);
+                } else {
+                    // Desktop: Map dot clicks to appropriate slide indices
+                    const slideIndex = index * 2;
+                    showSlide(slideIndex);
+                }
             }
 
             // Auto-play functionality
@@ -923,6 +945,11 @@ renderCalendar(currentMonth, currentYear);
                     galleryContainer.addEventListener('mouseenter', stopAutoPlay);
                     galleryContainer.addEventListener('mouseleave', startAutoPlay);
                 }
+
+                // Handle screen resize to switch between mobile and desktop views
+                window.addEventListener('resize', function () {
+                    showSlide(currentSlideIndex);
+                });
             });
 
             // Touch/swipe support for mobile
@@ -959,63 +986,62 @@ renderCalendar(currentMonth, currentYear);
         </script>
 
         <!-- Floating Action Buttons -->
-<div class="floating-actions">
+        <div class="floating-actions">
 
-    <!-- Book Event -->
-    <a href="booking.html" class="floating-btn book">
-        <img src="assets/book.png" alt="Book Event">
-        <span>Book</span>
-    </a>
+            <!-- Book Event -->
+            <a href="booking.html" class="floating-btn book">
+                <img src="assets/book.png" alt="Book Event">
+                <span>Book</span>
+            </a>
 
-    <!-- Call -->
-    <a href="tel:8805158674" class="floating-btn call">
-        <img src="assets/call.png" alt="Call Now">
-        <span>Call</span>
-    </a>
+            <!-- Call -->
+            <a href="tel:8805158674" class="floating-btn call">
+                <img src="assets/call.png" alt="Call Now">
+                <span>Call</span>
+            </a>
 
-    <!-- WhatsApp -->
-    <a href="https://wa.me/918805158674?text=Hi%2C%20I%20want%20to%20book%20an%20event"
-       target="_blank"
-       class="floating-btn whatsapp">
-        <img src="assets/whatsapp.png" alt="WhatsApp">
-        <span>Chat</span>
-    </a>
+            <!-- WhatsApp -->
+            <a href="https://wa.me/918805158674?text=Hi%2C%20I%20want%20to%20book%20an%20event" target="_blank"
+                class="floating-btn whatsapp">
+                <img src="assets/whatsapp.png" alt="WhatsApp">
+                <span>Chat</span>
+            </a>
 
-    <!-- Admin Panel (Hidden link) -->
-    <a href="admin-login.html" class="floating-btn admin" style="display: none;" id="adminLink">
-        <i class="fas fa-cog" style="font-size: 20px; color: #fadc87;"></i>
-        <span>Admin</span>
-    </a>
+            <!-- Admin Panel (Hidden link) -->
+            <a href="admin-login.html" class="floating-btn admin" style="display: none;" id="adminLink">
+                <i class="fas fa-cog" style="font-size: 20px; color: #fadc87;"></i>
+                <span>Admin</span>
+            </a>
 
-</div>
+        </div>
 
-<!-- Admin Access (Triple click on logo) -->
-<script>
-    let logoClickCount = 0;
-    let logoClickTimer = null;
-    
-    document.querySelector('.logo').addEventListener('click', function() {
-        logoClickCount++;
-        
-        if (logoClickCount === 1) {
-            logoClickTimer = setTimeout(() => {
-                logoClickCount = 0;
-            }, 2000); // Reset after 2 seconds
-        } else if (logoClickCount === 3) {
-            clearTimeout(logoClickTimer);
-            logoClickCount = 0;
-            
-            // Show admin link
-            const adminLink = document.getElementById('adminLink');
-            adminLink.style.display = 'flex';
-            
-            // Hide after 10 seconds
-            setTimeout(() => {
-                adminLink.style.display = 'none';
-            }, 10000);
-        }
-    });
-</script>
+        <!-- Admin Access (Triple click on logo) -->
+        <script>
+            let logoClickCount = 0;
+            let logoClickTimer = null;
+
+            document.querySelector('.logo').addEventListener('click', function () {
+                logoClickCount++;
+
+                if (logoClickCount === 1) {
+                    logoClickTimer = setTimeout(() => {
+                        logoClickCount = 0;
+                    }, 2000); // Reset after 2 seconds
+                } else if (logoClickCount === 3) {
+                    clearTimeout(logoClickTimer);
+                    logoClickCount = 0;
+
+                    // Show admin link
+                    const adminLink = document.getElementById('adminLink');
+                    adminLink.style.display = 'flex';
+
+                    // Hide after 10 seconds
+                    setTimeout(() => {
+                        adminLink.style.display = 'none';
+                    }, 10000);
+                }
+            });
+        </script>
 
 </body>
 

@@ -22,6 +22,8 @@ CREATE TABLE IF NOT EXISTS addons (
     name TEXT NOT NULL,
     description TEXT,
     price INTEGER NOT NULL,
+    type TEXT DEFAULT 'regular' CHECK (type IN ('regular', 'time_extension')),
+    extension_hours INTEGER DEFAULT 0,
     is_active BOOLEAN DEFAULT true,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT NOW(),
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT NOW()
@@ -112,10 +114,11 @@ INSERT INTO packages (id, name, price, duration, service_type, features, badge) 
  'Cinematic');
 
 -- Insert sample addons data
-INSERT INTO addons (id, name, description, price) VALUES
-('addon_photos', 'Personal Photos & Videos on Screen', 'तुमचे वैयक्तिक फोटो आणि व्हिडिओ स्क्रीनवर मेमरीज स्लाइडशोच्या स्वरूपात दाखवले जातील', 150),
-('addon_photoshoot', 'Full Photoshoot + 1 Free Instagram Reel', 'पूर्ण फोटोशूट केले जाईल आणि त्यासोबत 1 मोफत इंस्टाग्राम रील तयार केली जाईल', 400),
-('addon_bouquet', 'Flower Bouquet (for photoshoot)', 'फोटोशूटसाठी एक सुंदर फुलांचा बुके दिला जाईल', 100);
+INSERT INTO addons (id, name, description, price, type, extension_hours) VALUES
+('addon_photos', 'Personal Photos & Videos on Screen', 'तुमचे वैयक्तिक फोटो आणि व्हिडिओ स्क्रीनवर मेमरीज स्लाइडशोच्या स्वरूपात दाखवले जातील', 150, 'regular', 0),
+('addon_photoshoot', 'Full Photoshoot + 1 Free Instagram Reel', 'पूर्ण फोटोशूट केले जाईल आणि त्यासोबत 1 मोफत इंस्टाग्राम रील तयार केली जाईल', 400, 'regular', 0),
+('addon_bouquet', 'Flower Bouquet (for photoshoot)', 'फोटोशूटसाठी एक सुंदर फुलांचा बुके दिला जाईल', 100, 'regular', 0),
+('addon_extra_hours', 'Extra Hours Extension', 'Extend your celebration by additional hours (1-4 hours). Perfect for longer celebrations and more memories! Price is per hour.', 300, 'time_extension', 1);
 
 -- Create indexes for better performance
 CREATE INDEX IF NOT EXISTS idx_packages_service_type ON packages(service_type);
